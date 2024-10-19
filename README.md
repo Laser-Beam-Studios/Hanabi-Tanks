@@ -1,27 +1,27 @@
-# GDD Hanabi Tanks
+# **GDD Hanabi Tanks** *Versión 1.0*
+## Por Laser Beam Studios
 
-Versión 1.0
+### Descripción
 
-**Laser Beam Studios**
+Grupo de desarrolladores universitarios con la intención de crear juegos simples y divertidos para jugar con tus amigos, estén donde estén.
 
-- **Descripción**: Grupo de desarrolladores universitarios con la intención de crear juegos simples y divertidos para jugar con tus amigos, estén donde estén.
-
-- **Equipo**:   
+ **Equipo**:   
 * Álvaro Jiménez Lozano: Desarrollador de software.   
 * Iván García García: Artista de Sonido, Desarrollador de Software.  
 * Álvaro Martín Hita: Desarrollador de Software.  
 * José Alejandro Sánchez Orozco: Artista Gráfico, Desarrollador de software.  
-- **Correos y nicknames de GitHub**  
+
+**Correos y nicknames de GitHub**  
 * Álvaro Jiménez Lozano: [a.jimenezlo.2022@alumnos.urjc.es](mailto:a.jimenezlo.2022@alumnos.urjc.es) / alvarjim21  
 * Iván García García: [i.garciaga.2021@alumnos.urjc.es](mailto:i.garciaga.2021@alumnos.urjc.es) / hotdogwithdog  
 * Álvaro Martín Hita: [a.martinhi.2020@alumnos.urjc.es](mailto:a.martinhi.2020@alumnos.urjc.es) / MakarovHitita  
 * José Alejandro Sánchez Orozco: [ja.sanchezo.2021@alumnos.urjc.es](mailto:ja.sanchezo.2021@alumnos.urjc.es) / Pepiur
 
-**Hanabi Tanks**
+## **Hanabi Tanks**
 
-**Índice:**
+### **Índice:**
 
-- [Información General](#bookmark=id.ggbcyqxrc9rk)  
+- [Información General](#Información-Genearl)
 - [Guion](#bookmark=id.xwg8grii3ajd)  
 - [Gameplay](#bookmark=id.p496z6sfvzt7)  
 - [Interfaces](#bookmark=id.6u7v6sh1g8dn)  
@@ -33,7 +33,7 @@ Versión 1.0
 - [Herramientas utilizadas](#bookmark=id.ojrjh2qy14tb)  
 - [Anexos](#bookmark=id.gaxatm7uezav)
 
-[**Información General**](#bookmark=id.8v3fei17i6ew)
+### Información General
 
 - **Resumen**: Un juego arcade de tanques en donde 2 jugadores deben batirse en duelo. El primer jugador que gane 3 rondas gana la partida. Entre rondas, los jugadores podrán elegir distintas mejoras aleatorias para su tanque. El escenario cambiará entre rondas para que la acción no sea tan monótona.
 
