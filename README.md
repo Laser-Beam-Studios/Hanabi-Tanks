@@ -21,7 +21,7 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 
 ### **Índice:**
 
-- [Información General](#información-genearl)
+- [Información General](#información-general)
 - [Guion](#bookmark=id.xwg8grii3ajd)  
 - [Gameplay](#bookmark=id.p496z6sfvzt7)  
 - [Interfaces](#bookmark=id.6u7v6sh1g8dn)  
