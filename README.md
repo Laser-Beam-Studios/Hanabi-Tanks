@@ -22,16 +22,15 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 ### **Índice:**
 
 - [Información General](#información-general)
-- [Guion](#bookmark=id.xwg8grii3ajd)  
-- [Gameplay](#bookmark=id.p496z6sfvzt7)  
-- [Interfaces](#bookmark=id.6u7v6sh1g8dn)  
-- [Estados](#bookmark=id.r0oui3y0vati)  
-- [Niveles](#bookmark=id.eoo2kk4zqmxa)  
-- [Logros](#bookmark=id.sjq5oga2wram)  
-- [Audio](#bookmark=id.6vacf67glnk1)  
-- [Arte](#bookmark=id.hge3supip2aj)  
-- [Herramientas utilizadas](#bookmark=id.ojrjh2qy14tb)  
-- [Anexos](#bookmark=id.gaxatm7uezav)
+- [Guion](#guion)  
+- [Gameplay](#gameplay)  
+- [Interfaces](#interfaces)  
+- [Estados](#estados)  
+- [Niveles](#niveles)  
+- [Logros](#logros)  
+- [Audio](#audio)  
+- [Arte](#arte)  
+- [Herramientas utilizadas](#herramientas-utilizadas)  
 
 ### [Información General](#índice)
 
@@ -47,10 +46,10 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 
 - **Inspiración**: diep.io, Wii play (tanks)
 
-[**Guion**](#bookmark=id.8v3fei17i6ew)  
+### [**Guion**](#índice)  
 Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado él mismo una maquetas de tanques y escenarios a base de cortar y pintar cartones. El niño juega en su cuarto ilusionado, y lo que se ve en el juego es la visión e imaginación del niño cuando juega.
 
-[**Gameplay**](#bookmark=id.8v3fei17i6ew)
+### [**Gameplay**](#índice)
 
 - **Cámara cenital**: La cámara se mantiene en una vista superior para que los jugadores puedan ver en todo momento el terreno y la locación tanto de su tanque como el del jugador rival.
 
@@ -78,7 +77,7 @@ Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado 
 
 - **¿Cómo funciona el juego?**: Los jugadores comienzan una partida al mejor de 5 rondas con un tanque predefinido. Cuando una ronda acaba, los jugadores reciben mejoras para su tanque antes de empezar la siguiente ronda. El jugador que gana la ronda recibe una desventaja en su terreno para hacer el juego más divertido y equilibrado. En caso de que los jugadores se encuentren 2-2 en el marcador, no existirán desventajas para ninguno de los jugadores. El juego acaba cuando uno de los jugadores consigue acabar con el tanque enemigo 3 veces, es decir, cuando gana 3 rondas.
 
-[**Interfaces**](#bookmark=id.8v3fei17i6ew)  
+### [**Interfaces**](#índice)  
 Prototipos de las posibles interfaces:  
 **Main Menu:**  
 **![][image1]**  
@@ -92,12 +91,12 @@ Prototipos de las posibles interfaces:
 **![][image5]**  
 **Credits:**  
 **![][image6]**  
-[**Estados**](#bookmark=id.8v3fei17i6ew)  
+### [**Estados**](#índice)  
 **![][image7]**
 
 Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menu de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menu de pausa y si accediste desde el menú principal devuelve al menu principal.
 
-[**Niveles**](#bookmark=id.8v3fei17i6ew)
+### [**Niveles**](#índice)
 
 Los niveles dispondrán de paredes de madera (no rompibles) y paredes de papel (rompibles). Están diseñados para que cruzar del lado en el que aparece el otro jugador sea complicado al ser una zona abierta, y esto es importante ya que no serán simétricos ni por tanto sus lados tendrán las mismas coberturas.
 
@@ -109,11 +108,11 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
 - Nivel 4: Es un nivel que ofrece una desventaja a un jugador.  
 - Nivel 5: Es un nivel que ofrece una desventaja masiva a ambos jugadores, se tiene pensado hacer que sea con cierto grado de aleatoriedad en las coberturas centrales para que sea caótico.
 
-[**Logros**](#bookmark=id.8v3fei17i6ew)  
+### [**Logros**](#índice)  
 	  
 	No se tiene pensado añadir sistema de logros.
 
-[**Audio**](#bookmark=id.8v3fei17i6ew)
+### [**Audio**](#índice)
 
 - **Efectos de sonido**:   
   	Debido a la temática visual del juego, estos estarán relacionados con sonidos de cartones, maderas, papeles y corchos.  
@@ -140,7 +139,7 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
     
   De esta manera se logrará tener una música inmersiva al mundo ficticio del juego, mientras es una música suave, sin mucha relevancia. Un ejemplo de todo lo auditivo, ya que está inspirado en ello, sería el modo de tanques del Wii party.
 
-[**Arte**](#bookmark=id.8v3fei17i6ew)  
+### [**Arte**](#índice)  
 Al tratarse de juguetes creados por el niño, las referencias visuales que usamos son aquellos materiales que pueden tener a su alcance, siendo el cartón y el papel los principales:  
 Paredes madera  
 Paredes rompibles papel.  
@@ -160,7 +159,7 @@ Iteración teniendo en cuenta elementos de papelería.
 Sprites preliminares, de los tanques.  
 ![][image11]  
 Modelos de paredes de papel y cartón.  
-[**Herramientas utilizadas**](#bookmark=id.8v3fei17i6ew)
+### [**Herramientas utilizadas**](#índice)
 
 Software de dibujo: Clip Studio Paint  
 Software de Diagramas: Draw.io  
