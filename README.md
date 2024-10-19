@@ -99,7 +99,7 @@ Es importante destacar que el menú de opciones solo tiene un botón de back, y 
 
 [**Niveles**](#bookmark=id.8v3fei17i6ew)
 
-	Los niveles dispondrán de paredes de madera (no rompibles) y paredes de papel (rompibles). Están diseñados para que cruzar del lado en el que aparece el otro jugador sea complicado al ser una zona abierta, y esto es importante ya que no serán simétricos ni por tanto sus lados tendrán las mismas coberturas.
+Los niveles dispondrán de paredes de madera (no rompibles) y paredes de papel (rompibles). Están diseñados para que cruzar del lado en el que aparece el otro jugador sea complicado al ser una zona abierta, y esto es importante ya que no serán simétricos ni por tanto sus lados tendrán las mismas coberturas.
 
 En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la siguiente forma y ser jugados en orden:
 
