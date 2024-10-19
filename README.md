@@ -33,7 +33,7 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 - [Herramientas utilizadas](#bookmark=id.ojrjh2qy14tb)  
 - [Anexos](#bookmark=id.gaxatm7uezav)
 
-### Información General
+### [Información General](#índice)
 
 - **Resumen**: Un juego arcade de tanques en donde 2 jugadores deben batirse en duelo. El primer jugador que gane 3 rondas gana la partida. Entre rondas, los jugadores podrán elegir distintas mejoras aleatorias para su tanque. El escenario cambiará entre rondas para que la acción no sea tan monótona.
 
