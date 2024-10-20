@@ -80,7 +80,7 @@ Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado 
 ### [**Interfaces**](#índice)  
 Prototipos de las posibles interfaces:  
 **Main Menu:**  
-![][image1]  
+![](image1)  
 **Options:**  
 **![][image2]**  
 **Gameplay:**  
