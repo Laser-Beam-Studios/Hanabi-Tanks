@@ -181,34 +181,34 @@ Software organizativo: Trello
 Frameworks: Phaser 3  
 Software de presentaciones: Canva
 
-[image1]: Imagenes JER/mainmenu.png "Main Menu Image"
+[image1]: ImagenesJER/mainmenu.png "Main Menu Image"
 
-[image2]: Imagenes JER/options.png "Options Menu Image"
+[image2]: ImagenesJER/options.png "Options Menu Image"
 
-[image3]: Imagenes JER/gameplay.png "Gameplay Image"
+[image3]: ImagenesJER/gameplay.png "Gameplay Image"
 
-[image4]: Imagenes JER/pause.png "Pause Menu Image"
+[image4]: ImagenesJER/pause.png "Pause Menu Image"
 
-[image5]: Imagenes JER/win.png "Win Screen Image"
+[image5]: ImagenesJER/win.png "Win Screen Image"
 
-[image6]: Imagenes JER/credits.png "Credits Screen Image"
+[image6]: ImagenesJER/credits.png "Credits Screen Image"
 
-[image7]: Imagenes JER/Navegacion_Hanabi_Tanks.png "States Navigation Image"
+[image7]: ImagenesJER/Navegacion_Hanabi_Tanks.png "States Navigation Image"
 
-[image8]: Imagenes JER/lv1.png "Level 1 Image"
+[image8]: ImagenesJER/lv1.png "Level 1 Image"
 
-[image9]: Imagenes JER/lv2.png "Level 2 Image"
+[image9]: ImagenesJER/lv2.png "Level 2 Image"
 
-[image10]: Imagenes JER/lv3.png "Level 3 Image"
+[image10]: ImagenesJER/lv3.png "Level 3 Image"
 
-[image11]: Imagenes JER/lv4.png "Level 4 Image"
+[image11]: ImagenesJER/lv4.png "Level 4 Image"
 
-[image12]: Imagenes JER/lv5.png "Level 5 Image"
+[image12]: ImagenesJER/lv5.png "Level 5 Image"
 
-[image13]: Imagenes JER/BocetoTanques.png "Skecth of the tanks 1 Image"
+[image13]: ImagenesJER/BocetoTanques.png "Skecth of the tanks 1 Image"
 
-[image14]: Imagenes JER/BocetoTanques2.png "Skecth of the tanks 2 Image"
+[image14]: ImagenesJER/BocetoTanques2.png "Skecth of the tanks 2 Image"
 
-[image15]: Imagenes JER/TanquesDeCarton.png "Skecth of the carton tanks Image"
+[image15]: ImagenesJER/TanquesDeCarton.png "Skecth of the carton tanks Image"
 
-[image16]: Imagenes JER/Paredes.png "Skecth of the walls Image"
+[image16]: ImagenesJER/Paredes.png "Skecth of the walls Image"
