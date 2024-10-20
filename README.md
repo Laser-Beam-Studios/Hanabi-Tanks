@@ -80,19 +80,19 @@ Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado 
 ### [**Interfaces**](#índice)  
 Prototipos de las posibles interfaces:  
 **Main Menu:**  
-![MainMenu](image1)  
+![MainMenu][image1]  
 **Options:**  
-![OptionsMenu](image2)  
+![OptionsMenu][image2]  
 **Gameplay:**  
-![Gameplay](image3)  
+![Gameplay][image3]  
 **Pause:**  
-![PauseMenu](image4)  
+![PauseMenu][image4]  
 **WinScreen:**  
-![WinScreen](image5)  
+![WinScreen][image5]  
 **Credits:**  
-![Credits](image6)  
+![Credits][image6]  
 ### [**Estados**](#índice)  
-![States](image7)
+![States][image7]
 
 Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menu de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menu de pausa y si accediste desde el menú principal devuelve al menu principal.
 
@@ -110,15 +110,15 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
 
 #### **Ejemplos de niveles**  
 **Nivel 1:**  
-![Nivel_1](image8)  
+![Nivel_1][image8]  
 **Nivel 2:**  
-![Nivel_2](image9)  
+![Nivel_2][image9]  
 **Nivel 3:**  
-![Nivel_3](image10)  
+![Nivel_3][image10]  
 **Nivel 4:**  
-![Nivel_4](image11)  
+![Nivel_4][image11]  
 **Nivel 5:**  
-![Nivel_5](image12)  
+![Nivel_5][image12]  
 
 ### [**Logros**](#índice)  
 	  
@@ -163,13 +163,13 @@ Tanques: Cartón.
 * NIntendo Switch Labo.
 
 Concepts arts:  
-![Concepts_1](image13)  
+![Concepts_1][image13]  
 Primeras iteraciones de los tanques de juguete.  
-![Concepts_2](image14)  
+![Concepts_2][image14]  
 Iteración teniendo en cuenta elementos de papelería.  
-![Concepts_3](image15)  
+![Concepts_3][image15]  
 Sprites preliminares, de los tanques.  
-![Paredes](image16)  
+![Paredes][image16]  
 Modelos de paredes de papel y cartón.  
 ### [**Herramientas utilizadas**](#índice)
 
