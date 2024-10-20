@@ -80,19 +80,19 @@ Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado 
 ### [**Interfaces**](#índice)  
 Prototipos de las posibles interfaces:  
 **Main Menu:**  
-![](image1)  
+![MainMenu](image1)  
 **Options:**  
-![](image2)  
+![OptionsMenu](image2)  
 **Gameplay:**  
-![](image3)  
+![Gameplay](image3)  
 **Pause:**  
-![](image4)  
+![PauseMenu](image4)  
 **WinScreen:**  
-![](image5)  
+![WinScreen](image5)  
 **Credits:**  
-![](image6)  
+![Credits](image6)  
 ### [**Estados**](#índice)  
-![](image7)
+![States](image7)
 
 Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menu de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menu de pausa y si accediste desde el menú principal devuelve al menu principal.
 
@@ -109,20 +109,20 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
 - Nivel 5: Es un nivel que ofrece una desventaja masiva a ambos jugadores, se tiene pensado hacer que sea con cierto grado de aleatoriedad en las coberturas centrales para que sea caótico.
 
 #### **Ejemplos de niveles**  
-**Main Menu:**  
-![](image8)  
-**Options:**  
-![](image9)  
-**Gameplay:**  
-![](image10)  
-**Pause:**  
-![](image11)  
-**WinScreen:**  
-![](image12)  
+**Nivel 1:**  
+![Nivel_1](image8)  
+**Nivel 2:**  
+![Nivel_2](image9)  
+**Nivel 3:**  
+![Nivel_3](image10)  
+**Nivel 4:**  
+![Nivel_4](image11)  
+**Nivel 5:**  
+![Nivel_5](image12)  
 
 ### [**Logros**](#índice)  
 	  
-	No se tiene pensado añadir sistema de logros.
+No se tiene pensado añadir sistema de logros.
 
 ### [**Audio**](#índice)
 
@@ -163,13 +163,13 @@ Tanques: Cartón.
 * NIntendo Switch Labo.
 
 Concepts arts:  
-![](image13)  
+![Concepts_1](image13)  
 Primeras iteraciones de los tanques de juguete.  
-![](image14)  
+![Concepts_2](image14)  
 Iteración teniendo en cuenta elementos de papelería.  
-![](image15)  
+![Concepts_3](image15)  
 Sprites preliminares, de los tanques.  
-![](image16)  
+![Paredes](image16)  
 Modelos de paredes de papel y cartón.  
 ### [**Herramientas utilizadas**](#índice)
 
@@ -181,34 +181,34 @@ Software organizativo: Trello
 Frameworks: Phaser 3  
 Software de presentaciones: Canva
 
-[image1]: ImagenesJER/mainmenu.png "Main Menu Image"
+[image1]: ImagenesJER/mainmenu.png  
 
-[image2]: ImagenesJER/options.png "Options Menu Image"
+[image2]: ImagenesJER/options.png  
 
-[image3]: ImagenesJER/gameplay.png "Gameplay Image"
+[image3]: ImagenesJER/gameplay.png  
 
-[image4]: ImagenesJER/pause.png "Pause Menu Image"
+[image4]: ImagenesJER/pause.png  
 
-[image5]: ImagenesJER/win.png "Win Screen Image"
+[image5]: ImagenesJER/win.png  
 
-[image6]: ImagenesJER/credits.png "Credits Screen Image"
+[image6]: ImagenesJER/credits.png  
 
-[image7]: ImagenesJER/Navegacion_Hanabi_Tanks.png "States Navigation Image"
+[image7]: ImagenesJER/Navegacion_Hanabi_Tanks.png  
 
-[image8]: ImagenesJER/lv1.png "Level 1 Image"
+[image8]: ImagenesJER/lv1.png  
 
-[image9]: ImagenesJER/lv2.png "Level 2 Image"
+[image9]: ImagenesJER/lv2.png  
 
-[image10]: ImagenesJER/lv3.png "Level 3 Image"
+[image10]: ImagenesJER/lv3.png  
 
-[image11]: ImagenesJER/lv4.png "Level 4 Image"
+[image11]: ImagenesJER/lv4.png  
 
-[image12]: ImagenesJER/lv5.png "Level 5 Image"
+[image12]: ImagenesJER/lv5.png  
 
-[image13]: ImagenesJER/BocetoTanques.png "Skecth of the tanks 1 Image"
+[image13]: ImagenesJER/BocetoTanques.png  
 
-[image14]: ImagenesJER/BocetoTanques2.png "Skecth of the tanks 2 Image"
+[image14]: ImagenesJER/BocetoTanques2.png  
 
-[image15]: ImagenesJER/TanquesDeCarton.png "Skecth of the carton tanks Image"
+[image15]: ImagenesJER/TanquesDeCarton.png  
 
-[image16]: ImagenesJER/Paredes.png "Skecth of the walls Image"
+[image16]: ImagenesJER/Paredes.png  
