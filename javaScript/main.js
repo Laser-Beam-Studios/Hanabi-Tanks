@@ -11,9 +11,9 @@ const config = {
             gravity: { y: 0 }
         }
     },
-    scene: [IntroGame, GameScene, EndGame]
+    scene: [MainMenu]
 };
 
 // Create the game instance
 const game = new Phaser.Game(config);
-game.scene.start("IntroScene");
+game.scene.start("MainMenu");
