@@ -24,7 +24,7 @@ const config = {
             gravity: { y: 0 }
         }
     },
-    scene: [MainMenu]
+    scene: [MainMenu, Credits]
 };
 
 // Create the game instance
@@ -33,7 +33,6 @@ game.scene.start("MainMenu");
 
 function ScreenResize()
 {
-    console.log("Resize de " + WINDOW.WIDHT + " a " + game.scale.width + "; de " + WINDOW.HEIGHT + " a " + game.scale.height);
     WINDOW.WIDHT = game.scale.width;
     WINDOW.HEIGHT = game.scale.height;
 }

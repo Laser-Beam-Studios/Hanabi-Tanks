@@ -32,7 +32,8 @@ class MainMenu extends Phaser.Scene
                 console.log("FUNCIONA Y NO ME ESTOY VOLVIENDO ESQUIZO");
             break;
             case "botonPrueba2":
-                console.log("QUE VIVA ESPAÑA");
+                this.scene.stop("MainMenu");
+                this.scene.start("Credits");
             break;
             default:
                 console.log("ERROR_IN_CLICK_BUTTON: UNKNOWN_BUTTON_KEY: " + button.texture.key);
