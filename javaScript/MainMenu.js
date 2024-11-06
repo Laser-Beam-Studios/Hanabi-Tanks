@@ -13,11 +13,11 @@ class MainMenu extends Phaser.Scene
 
     create() 
     {
-        const botonPrueba = this.add.image(400, 150, "botonPrueba");
+        const botonPrueba = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/4, "botonPrueba");
         botonPrueba.scale = 0.5;
         botonPrueba.setInteractive().on("pointerdown", this.OnClickOnButton.bind(null, botonPrueba));
 
-        const botonPrueba2 = this.add.image(400, 400, "botonPrueba2");
+        const botonPrueba2 = this.add.image(WINDOW.WIDHT/2, (WINDOW.HEIGHT * 3)/4, "botonPrueba2");
         botonPrueba2.scale = 0.5;
         botonPrueba2.setInteractive().on("pointerdown", this.OnClickOnButton.bind(null, botonPrueba2));
     }
