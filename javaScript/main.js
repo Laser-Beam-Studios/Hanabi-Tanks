@@ -4,8 +4,6 @@ var WINDOW =
     HEIGHT: 720
 };
 
-
-
 const config = {
     type: Phaser.AUTO,
     width: WINDOW.WIDHT,
@@ -27,7 +25,7 @@ const config = {
     scene: [MainMenu]
 };
 
-// Create the game instance
+//Create the game instance
 const game = new Phaser.Game(config);
 game.scene.start("MainMenu");
 
