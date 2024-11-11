@@ -15,17 +15,17 @@ class MainMenu extends Phaser.Scene
     {
         const botonPrueba = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/4, "botonPrueba");
         botonPrueba.scale = 0.5;
-        botonPrueba.setInteractive().on("pointerdown", this.OnClickOnButton.bind(null, botonPrueba));
+        botonPrueba.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, botonPrueba));
 
         const botonPrueba2 = this.add.image(WINDOW.WIDHT/2, (WINDOW.HEIGHT * 3)/4, "botonPrueba2");
         botonPrueba2.scale = 0.5;
-        botonPrueba2.setInteractive().on("pointerdown", this.OnClickOnButton.bind(null, botonPrueba2));
+        botonPrueba2.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, botonPrueba2));
     }
 
     OnClickOnButton(button)
     {
         console.log("BotonPruebaPulsado " + button.texture.key);
-
+        
         switch(button.texture.key)
         {
             case "botonPrueba":
