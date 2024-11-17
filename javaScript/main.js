@@ -23,7 +23,7 @@ const config = {
             gravity: { y: 0 }
         }
     },
-    scene: [MainMenu, Credits, Options]
+    scene: [MainMenu, Credits, Options, Level1]
 };
 
 //Create the game instance

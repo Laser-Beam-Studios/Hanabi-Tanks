@@ -39,7 +39,8 @@ class MainMenu extends Phaser.Scene
         switch(button.texture.key)
         {
             case "PlayButton":
-                console.log("FUNCIONA Y NO ME ESTOY VOLVIENDO ESQUIZO");
+                this.scene.stop("MainMenu");
+                this.scene.start("Level1");
                 break;
             case "CreditsButton":
                 this.scene.stop("MainMenu");
