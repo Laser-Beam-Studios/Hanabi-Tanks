@@ -1,11 +1,11 @@
 var WINDOW = 
 {
-    WIDHT: 1280,
-    HEIGHT: 720
+    WIDHT: 1181,
+    HEIGHT: 886
 };
 
 const config = {
-    type: Phaser.AUTO,
+    type: Phaser.Canvas,
     width: WINDOW.WIDHT,
     height: WINDOW.HEIGHT,
     scale:
@@ -13,7 +13,8 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    parent: "game-canvas",
+    parent: "parent",
+    canvas: document.getElementById("game-canvas"),
     backgroundColor: "#000000",
     physics: {
         default: "arcade",
@@ -22,7 +23,7 @@ const config = {
             gravity: { y: 0 }
         }
     },
-    scene: [MainMenu, Credits]
+    scene: [MainMenu, Credits, Options]
 };
 
 //Create the game instance

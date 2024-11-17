@@ -1,24 +1,24 @@
-class Credits extends Phaser.Scene
+class Options extends Phaser.Scene
 {
     constructor() 
     {
-        super({ key: 'Credits' });
+        super({ key: 'Options' });
     }
 
     preload() 
     {
-        this.load.image("CreditsBackground", "../assets/UI/Screens/credits.png");
+        this.load.image("OptionsBackground", "../assets/UI/Screens/opc.png");
     }
 
     create() 
     {
-        const credits = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "CreditsBackground");
-        Scaler.ScaleToGameH(credits);
+        const background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "OptionsBackground");
+        Scaler.ScaleToGameW(background);
 
-        const back = this.add.image(WINDOW.WIDHT/6, (WINDOW.HEIGHT * 14)/15, "BackButton");
+        const back = this.add.image(WINDOW.WIDHT/6, (WINDOW.HEIGHT * 14)/15, "BackButton")
         Scaler.ScaleToGameW(back, 0.32);
-        back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back))
-        
+        back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back));
+
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
     }
 
