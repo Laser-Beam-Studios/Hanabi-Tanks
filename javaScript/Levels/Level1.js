@@ -10,6 +10,8 @@ class Level1 extends Level
     {
         super.preload();
 
+        var a = TileType.Floor.upLeft;
+
         var world =
         [
              0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 

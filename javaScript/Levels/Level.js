@@ -3,80 +3,61 @@ const FloorType =
     upLeft: 0,
     up: 1,
     upRight: 2,
-    left: 3,
-    center: 4,
-    right: 5,
-    downLeft: 6,
-    down: 7,
-    downRight: 8
+    left: 7,
+    center: 8,
+    right: 9,
+    downLeft: 14,
+    down: 15,
+    downRight: 16
 }
 
-const State1 =
+const PaperType =
 {
-    horizontal: 9,
-    vertical: 10,
-    up: 11,
-    down: 12,
-    left: 13,
-    right: 14
-}
-
-const State2 =
-{
-    horizontal: 15,
-    vertical: 16,
-    up: 17,
-    down: 18,
-    left: 19,
-    right: 20
-}
-
-const State3 =
-{
-    horizontal: 21,
-    vertical: 22,
-    up: 23,
-    down: 24,
-    left: 25,
-    right: 26
-}
-
-const State4 =
-{
-    horizontal: 27,
-    vertical: 28,
-    up: 29,
-    down: 30,
-    left: 31,
-    right: 32
-}
-
-const PaperType = 
-{
-    State1: State1,
-    State2: State2,
-    State3: State3,
-    State4: State4
+    perfect: 5,
+    destroy: 6,
+    oneHit: 12,
+    twoHit: 19
 }
 
 const WallType =
 {
-    upLeft: 33,
-    upRight: 34,
-    downLeft: 35,
-    downRight: 36,
-    horizontal: 37,
-    vertical: 38
+    upLeft: 3,
+    upRight: 4,
+    vertical: 10,
+    horizontal: 11,
+    downLeft: 17,
+    downRight: 18
 }
 
-const TilesType = 
+const TileType = 
 {
     Floor: FloorType,
     Paper: PaperType,
     Wall: WallType
 }
 
+const TilesDictionary =
+{
+    // Floor
+    "┌": TileType.Floor.upLeft,
+    "¯": TileType.Floor.up,
+    "┐": TileType.Floor.upRight,
+    "[": TileType.Floor.left,
+    " ": TileType.Floor.center,
+    "]": TileType.Floor.right,
+    "└": TileType.Floor.downLeft,
+    "_": TileType.Floor.downRight,
+    // Wall
+    "╔": TileType.Wall.upLeft,
+    "╗": TileType.Wall.upRight,
+    "║": TileType.Wall.vertical,
+    "═": TileType.Wall.horizontal,
+    "╚": TileType.Wall.downLeft,
+    "╝": TileType.Wall.downRight,
+    // Paper
+    
 
+}
 
 
 
@@ -108,7 +89,7 @@ class Level extends Phaser.Scene
     preload() 
     {
         // load the spriteSheet and 
-        this.load.spritesheet("World", "../assets/tiles/spritesheet.png", { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet("World", "../assets/TilesSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
     }
 
     create() 
