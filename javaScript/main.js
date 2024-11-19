@@ -29,6 +29,8 @@ const config = {
     scene: [MainMenu, Credits, Options, Level1]
 };
 
+const audioManager = new AudioManager();
+
 //Create the game instance
 const game = new Phaser.Game(config);
 game.scene.start("MainMenu");

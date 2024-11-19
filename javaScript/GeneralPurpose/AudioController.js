@@ -25,4 +25,9 @@ class AudioController
         this.audioInstance.resume();
     }
 
+    IsPlaying()
+    {
+        return this.audioInstance.isPlaying;
+    }
+
 }

@@ -5,16 +5,39 @@ class AudioManager
         this.MasterVolume = masterVolume;
         this.SFXVolume = sfxVolume;
         this.MusicVolume = musicVolume;
+        this.activeScene;
 
         //#region SingleTon Pattern
-        if (typeof AudioManager.instance === "object")
+        if (typeof AudioManager.Instance === "object")
         {
-            return AudioManager.instance;
+            return AudioManager.Instance;
         }
 
-        AudioManager.instance = this;
+        AudioManager.Instance = this;
         return this;
         //#endregion
+    }
+
+    SetActiveScene(scene, deleteInstances = true)
+    {
+        if (this.activeScene != null && deleteInstances)
+        {
+            this.activeScene.sound.removeAll();
+        }
+
+        this.activeScene = scene;
+    }
+
+    // Destroy all the instances of a scene, default value active scene
+    DestroySceneInstances(scene = this.activeScene)
+    {
+        scene.sound.removeAll();
+    }
+
+    // Get all the audioInstances of a scene, defualt value active scene
+    GetSceneInstances(scene = this.activeScene)
+    {
+        return scene.sound.getAll();
     }
 
     GetChannelVolume(channel)
@@ -47,7 +70,7 @@ class AudioManager
             delay: 0,
         }
 
-        scene.sound.play(soundKey, config);
+        this.activeScene.sound.play(soundKey, config);
     }
 
     // Play a loop and return a controller of the instance of sound
@@ -64,10 +87,10 @@ class AudioManager
             delay: 0,
         }
 
-        var AudioController = new AudioController(scene.sound.add(soundKey, config));
-        AudioController.Play();
+        var audioController = new AudioController(this.activeScene.sound.add(soundKey, config));
+        audioController.Play();
 
-        return AudioController;
+        return audioController;
     }
 
     SetVolume(value, channel)

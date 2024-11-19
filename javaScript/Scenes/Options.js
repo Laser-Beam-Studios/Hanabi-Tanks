@@ -12,6 +12,8 @@ class Options extends Phaser.Scene
 
     create() 
     {
+        AudioManager.Instance.SetActiveScene(this, false);
+
         const background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "OptionsBackground");
         Scaler.ScaleToGameW(background);
 

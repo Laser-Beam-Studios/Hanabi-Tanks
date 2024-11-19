@@ -3,6 +3,8 @@ class MainMenu extends Phaser.Scene
     constructor() 
     {
         super({ key: 'MainMenu' });
+
+        this.music;
     }
 
     preload() 
@@ -12,10 +14,14 @@ class MainMenu extends Phaser.Scene
         this.load.image("OptionsButton", "../assets/UI/Buttons/options.png");
         this.load.image("CreditsButton", "../assets/UI/Buttons/credits.png");
         this.load.image("BackButton", "../assets/UI/Buttons/mainMenu.png"); // This is load here for used in the other menu scenes
+
+        this.load.audio("Song1", "../assets/Audio/Music/Prueba_ArpegiosLargosMoonlitNight_EnGmenor.mp3");
     }
 
     create() 
     {
+        AudioManager.Instance.SetActiveScene(this, false);
+
         const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "MainMenuBackground");
         Scaler.ScaleToGameH(Background);
 
@@ -30,6 +36,9 @@ class MainMenu extends Phaser.Scene
         const options = this.add.image((WINDOW.WIDHT * 3) / 4, (WINDOW.HEIGHT * 2.5) / 4, "OptionsButton");
         Scaler.ScaleToGameW(options, 0.32);
         options.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, options));
+
+        
+        if (this.music == null) this.music = AudioManager.Instance.PlayLoop("Song1", "Music");
     }
 
     OnClickOnButton(button)
