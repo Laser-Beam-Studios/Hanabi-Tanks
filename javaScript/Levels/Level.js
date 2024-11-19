@@ -96,7 +96,15 @@ const TilesDictionary =
     "»": TileType.Border.downRight
 }
 
-
+const TankSprites = 
+{
+    goodCardBoard: 0,
+    hardCardBoard: 1,
+    defaultCardBoard: 2,
+    elasticCardBoard: 3,
+    siderCardBoard: 4,
+    corkscrewCradBoard: 5
+}
 
 class Level extends Phaser.Scene
 {
