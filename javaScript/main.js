@@ -8,6 +8,9 @@ const config = {
     type: Phaser.Canvas,
     width: WINDOW.WIDHT,
     height: WINDOW.HEIGHT,
+    aduio: {
+        disableWebAudio: true
+    },
     scale:
     {
         mode: Phaser.Scale.FIT,
