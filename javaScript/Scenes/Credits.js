@@ -12,6 +12,8 @@ class Credits extends Phaser.Scene
 
     create() 
     {
+        AudioManager.Instance.SetActiveScene(this, false);
+
         const credits = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "CreditsBackground");
         Scaler.ScaleToGameH(credits);
 

@@ -134,6 +134,8 @@ class Level extends Phaser.Scene
 
     create() 
     {
+        AudioManager.Instance.SetActiveScene(this);
+
         this.InitWorldSprites();
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
