@@ -3,87 +3,105 @@ const FloorType =
     upLeft: 0,
     up: 1,
     upRight: 2,
-    left: 3,
-    center: 4,
-    right: 5,
-    downLeft: 6,
-    down: 7,
-    downRight: 8
+    left: 8,
+    center: 9,
+    right: 10,
+    downLeft: 16,
+    down: 17,
+    downRight: 18
 }
 
-const State1 =
+const PaperType =
 {
-    horizontal: 9,
-    vertical: 10,
-    up: 11,
-    down: 12,
-    left: 13,
-    right: 14
-}
-
-const State2 =
-{
-    horizontal: 15,
-    vertical: 16,
-    up: 17,
-    down: 18,
-    left: 19,
-    right: 20
-}
-
-const State3 =
-{
-    horizontal: 21,
-    vertical: 22,
-    up: 23,
-    down: 24,
-    left: 25,
-    right: 26
-}
-
-const State4 =
-{
-    horizontal: 27,
-    vertical: 28,
-    up: 29,
-    down: 30,
-    left: 31,
-    right: 32
-}
-
-const PaperType = 
-{
-    State1: State1,
-    State2: State2,
-    State3: State3,
-    State4: State4
+    v_perfect: 5,
+    v_twoHit: 6,
+    h_twoHit: 7,
+    v_oneHit: 13,
+    v_destroy: 14,
+    h_destroy: 15,
+    h_perfect: 21, 
+    h_oneHit: 22
 }
 
 const WallType =
 {
-    upLeft: 33,
-    upRight: 34,
-    downLeft: 35,
-    downRight: 36,
-    horizontal: 37,
-    vertical: 38
+    upLeft: 3,
+    upRight: 4,
+    vertical: 11,
+    horizontal: 12,
+    downLeft: 19,
+    downRight: 20
 }
 
-const TilesType = 
+const BorderType =
+{
+    upLeft: 23,
+    up: 24,
+    upRight: 25,
+    left: 26,
+    center: 27,
+    right: 28,
+    downLeft: 29,
+    down: 30,
+    downRight: 31
+}
+
+const TileType = 
 {
     Floor: FloorType,
     Paper: PaperType,
-    Wall: WallType
+    Wall: WallType,
+    Border: BorderType
 }
 
-
+const TilesDictionary =
+{
+    // Floor
+    "┌": TileType.Floor.upLeft,
+    "¯": TileType.Floor.up,
+    "┐": TileType.Floor.upRight,
+    "[": TileType.Floor.left,
+    " ": TileType.Floor.center,
+    "]": TileType.Floor.right,
+    "└": TileType.Floor.downLeft,
+    "_": TileType.Floor.down,
+    "┘": TileType.Floor.downRight,
+    // Wall
+    "╔": TileType.Wall.upLeft,
+    "╗": TileType.Wall.upRight,
+    "║": TileType.Wall.vertical,
+    "═": TileType.Wall.horizontal,
+    "╚": TileType.Wall.downLeft,
+    "╝": TileType.Wall.downRight,
+    // Paper
+        // Horizontal
+    "▬": TileType.Paper.h_perfect,
+    "─": TileType.Paper.h_oneHit,
+    "-": TileType.Paper.h_twoHit,
+    "h": TileType.Paper.h_destroy,
+        // Vertical
+    "│": TileType.Paper.v_perfect,
+    "¦": TileType.Paper.v_oneHit,
+    "┼": TileType.Paper.v_twoHit,
+    "v": TileType.Paper.v_destroy,
+    // Border
+    "◄": TileType.Border.upLeft,
+    "▲": TileType.Border.up,
+    "►": TileType.Border.upRight,
+    "{": TileType.Border.left,
+    "b": TileType.Border.center,
+    "}": TileType.Border.right,
+    "«": TileType.Border.downLeft,
+    "▼": TileType.Border.down,
+    "»": TileType.Border.downRight
+}
 
 
 
 class Level extends Phaser.Scene
 {
     // n -> number of cells in the horizontal  // m -> number of cells in the vertical
-    constructor(n, m, name)
+    constructor(n, m, sizeOfTile, name)
     {
         super({ key: name });
 
@@ -96,19 +114,22 @@ class Level extends Phaser.Scene
 	 	}
 
         this.tiles;
+        this.sizeOfTile = sizeOfTile;
 
         // Tiles of fixed 64 * 64 pixels
         this.MapSize = 
         {
-            x: this.n * 64,
-            y: this.m * 64
+            x: this.n * this.sizeOfTile,
+            y: this.m * this.sizeOfTile
         }
+        // The tiles are images of 64 x 64 pixels
+        this.scaleOfTile = this.sizeOfTile / 64;
     }
 
     preload() 
     {
         // load the spriteSheet and 
-        this.load.spritesheet("World", "../assets/tiles/spritesheet.png", { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet("World", "../assets/TilesSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
     }
 
     create() 
@@ -139,6 +160,7 @@ class Level extends Phaser.Scene
 
     InitWorld(matrix)
     {
+        matrix = matrix.map((x) => TilesDictionary[x]);
         for (var i = 0; i < this.n; i++)
         {
             for (var j = 0; j < this.m; j++)
@@ -152,8 +174,8 @@ class Level extends Phaser.Scene
     {
         var offset = 
         {
-            x: (WINDOW.WIDHT - this.MapSize.x) / 2 + 32,
-            y: (WINDOW.HEIGHT - this.MapSize.y) / 2 + 32  
+            x: (WINDOW.WIDHT - this.MapSize.x) / 2 + this.sizeOfTile/2,
+            y: (WINDOW.HEIGHT - this.MapSize.y) / 2 + this.sizeOfTile/2  
         }
 
         this.tiles = new Array(this.n);
@@ -163,6 +185,7 @@ class Level extends Phaser.Scene
             for (var j = 0; j < this.m; j++)
             {
                 this.tiles[i][j] = this.add.image((this.MapSize.x * i)/this.n + offset.x, (this.MapSize.y * j)/this.m + offset.y, "World", this.structureMatrix[i][j]);
+                this.tiles[i][j].scale = this.scaleOfTile;
             }
         }
     }
