@@ -1,29 +1,30 @@
 class Tank{
-    constructor(spawnRight, bulletDamage = 1, bulletBounces = 1, shootingRate = 1, maxHealth = 3, speed = 15, rotSpeed = 15, powerUp = null){
+    constructor(bulletDamage = 1, bulletBounces = 1, shootingRate = 1, maxHealth = 3, speed = 15, rotSpeed = 15){
         this.bulletDamage = bulletDamage;
         this.bulletBounces = bulletBounces;
         this.shootingRate = shootingRate;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
-        this.speed = speed;
-        this.rotSpeed = rotSpeed;
-        this.sprite = "default";
+        this.speed = speed * 10;
+        this.rotSpeed = rotSpeed / 10;
+        this.sprite = TankSprites.defaultCardBoard;
+        this.powerUps = [];
 
-        let x = 0;
-        if (spawnRight){
-            x = 1;
-        }
-        else{
-            x = -1;
-        }
-
-        this.forward = {
-            x: x,
+        this.forward =
+        {
+            x: 1,
             y: 0
         }
+    }
 
-        if (powerUp != null){
-            powerUp(this);
-        }
+    RestartHealth()
+    {
+        this.health = this.maxHealth;
+    }
+
+    Rotate(rotation)
+    {
+        this.forward.x = Math.cos(rotation);
+        this.forward.y = Math.sin(rotation);
     }
 }
