@@ -241,11 +241,11 @@ class Level extends Phaser.Scene
                 this.player2.setVelocity(0);
                 break;
 
-            case Phaser.Input.Keyboard.KeyCodes.R:
+            case Phaser.Input.Keyboard.KeyCodes.SPACE:
                 this.Shoot(this.player1);
                 break;
 
-            case Phaser.Input.Keyboard.KeyCodes.SPACE:
+            case Phaser.Input.Keyboard.KeyCodes.ENTER:
                 this.Shoot(this.player2);
                 break;
         }
@@ -253,19 +253,10 @@ class Level extends Phaser.Scene
 
     update(time, delta) 
     {
-        for (let player in this.playersGroup)
+        this.bulletsGroup.getChildren().forEach(bullet =>
         {
-            if (player.tank != null)
-                player.tank.shootCooldown -= delta;
-        }
-        for (let bullet in this.bulletsGroup)
-        {
-            if (bullet.inmuneTime != null)
-            {                
-                console.log(bullet.body.velocity.x);
-                bullet.inmuneTime -= delta;
-            }
-        }
+            console.log(bullet.body.velocity.x);
+        });
     }
 
     InitWorld(matrix, rightWinningMatrix = null)
@@ -320,6 +311,8 @@ class Level extends Phaser.Scene
                         this.levelObstacles.add(this.tiles[i][j]);
                         break;
                 }
+                this.tiles[i][j].x = i;
+                this.tiles[i][j].y = j;
                 this.tiles[i][j].scale = this.scaleOfTile;
             }
         }
@@ -372,8 +365,14 @@ class Level extends Phaser.Scene
     {
         this.bulletsGroup = this.physics.add.group();
         this.physics.add.collider(this.playersGroup, this.levelObstacles);
-        this.physics.add.collider(this.playersGroup, this.bulletsGroup, (bullet, personaje) => {
+        this.physics.add.collider(this.playersGroup, this.bulletsGroup, (personaje, bullet) => 
+        {
             this.TakeDamage(personaje, bullet);
+            this.DestroyBullet(bullet);
+        })
+        this.physics.add.collider(this.bulletsGroup, this.levelObstacles, (bullet, obstacle) =>
+        {
+            this.DamageLevel(bullet, obstacle);
             this.DestroyBullet(bullet);
         })
     }
@@ -423,19 +422,36 @@ class Level extends Phaser.Scene
     {
         if (this.name == "PowerUp")
             return;
-
-        if (player.tank.shootCooldown <= 0)
+        if (player.tank.canShoot)
         {
+            console.log("shot");
+            player.tank.canShoot = false;
             let bullet = this.physics.add.sprite(player.x + player.tank.forward.x * this.sizeOfTile, player.y + player.tank.forward.y * this.sizeOfTile, "Bullets", player.tank.bulletType);
+            bullet.setBounce(1);
             bullet.scale = 1 / 10;
             bullet.shooter = player;
-            player.inmuneTime = 1;
-            player.tank.shotCooldown = player.tank.shootingRate;
+            this.time.addEvent({
+                delay: 1000,
+                callback: player => {
+                    player.inmune = false;
+                },
+                callbackScope: this,
+                args: [player]
+            });
+            player.inmune = true;
+            this.time.addEvent({
+                delay: player.tank.shootingRate * 1000,
+                callback: player => {
+                    player.tank.canShoot = true;
+                },
+                callbackScope: this,
+                args: [player]
+            });
+            this.bulletsGroup.add(bullet);
             bullet.setVelocityX(player.tank.bulletSpeed * player.tank.forward.x);
             bullet.setVelocityY(player.tank.bulletSpeed * player.tank.forward.y);
             bullet.bouncesLeft = player.tank.bulletBounces;
             bullet.damage = player.tank.bulletDamage;
-            this.bulletsGroup.add(bullet);
         }
     }
 
@@ -455,9 +471,17 @@ class Level extends Phaser.Scene
         player.tank.health--;
     }
 
-    DestroyBullet(bullet, player)
+    DamageLevel(bullet, obstacle)
     {
-        if (player || bullet.bouncesLeft == 0)
+        switch(this.structureMatrix[obstacle.x][obstacle.y])
+        {
+
+        }
+    }
+
+    DestroyBullet(bullet)
+    {
+        if (bullet.bouncesLeft == 0)
         {
             bullet.destroy();
             return;
