@@ -4,7 +4,7 @@ class Tank{
         this.bulletBounces = bulletBounces;
         this.bulletSpeed = bulletSpeed;
         this.shootingRate = 60 / shootingRate;
-        this.shootCooldown = 0;
+        this.canShoot = true;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.speed = speed * 10;
