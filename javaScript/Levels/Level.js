@@ -106,9 +106,13 @@ const TankSprites =
     corkscrewCradBoard: 5
 }
 
-const TankPowerUpsSprites = 
+const BulletSprites = 
 {
-
+    default: 0,
+    hard: 1,
+    sider: 2,
+    elastic: 3,
+    corkscrew: 4
 }
 
 class Level extends Phaser.Scene
@@ -143,21 +147,16 @@ class Level extends Phaser.Scene
     }
 
     init (data) {
-        if (this.name == "Level1")
+        if (this.name == "PowerUp")
         {
-            this.player1Tank = null;
-            this.player2Tank = null;
-            this.player1Score = 0;
-            this.player2Score = 0;
+            this.nextScene = "Level" + data.next;
         }
-        else
+        else if (this.name != "Level1")
         {
-            this.player1Tank = data.player1Tank;
-            this.player2Tank = data.player2Tank;
-            this.player1Score = data.player1Score;
-            this.player2Score = data.player2Score;
-            this.player1Tank.RestartHealth();
-            this.player2Tank.RestartHealth();
+            this.player1 = data.player1;
+            this.player2 = data.player2;
+            this.player1.tank.RestartHealth();
+            this.player2.tank.RestartHealth();
         }
     }
 
@@ -166,6 +165,7 @@ class Level extends Phaser.Scene
         // load the spriteSheet and 
         this.load.spritesheet("World", "../assets/TilesSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet("Tanks", "../assets/TanksSpriteSheet.png", { frameWidth: 256, frameHeight: 256 });
+        this.load.spritesheet("Bullets", "../assets/BulletSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
     }
 
     create() 
@@ -237,12 +237,33 @@ class Level extends Phaser.Scene
             case Phaser.Input.Keyboard.KeyCodes.UP:
             case Phaser.Input.Keyboard.KeyCodes.DOWN:
                 this.player2.setVelocity(0);
+                break;
+
+            case Phaser.Input.Keyboard.KeyCodes.R:
+                this.Shoot(this.player1);
+                break;
+
+            case Phaser.Input.Keyboard.KeyCodes.SPACE:
+                this.Shoot(this.player2);
+                break;
         }
     }
 
-    update() 
+    update(time, delta) 
     {
-
+        for (let player in this.playersGroup)
+        {
+            if (player.tank != null)
+                player.tank.shootCooldown -= delta;
+        }
+        for (let bullet in this.bulletsGroup)
+        {
+            if (bullet.inmuneTime != null)
+            {                
+                console.log(bullet.body.velocity.x);
+                bullet.inmuneTime -= delta;
+            }
+        }
     }
 
     InitWorld(matrix, rightWinningMatrix = null)
@@ -321,25 +342,38 @@ class Level extends Phaser.Scene
                 posY = (this.m - 1) * this.sizeOfTile;
                 break;
         }
-        if (this.player1Tank == null)
-        {
-            this.player1Tank = new Tank();
-            this.player2Tank = new Tank();
-        }
+        
         this.playersGroup = this.physics.add.group();
-        this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", this.player1Tank.sprite);
-        this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", this.player2Tank.sprite);
+        if (this.player1 == null)
+        {
+            this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
+            this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
+            this.player1.score = 3;
+            this.player2.score = 3;
+            this.player1.tank = new Tank();
+            this.player2.tank = new Tank();
+        }
+        else
+        {
+            this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", this.player1Tank.sprite);
+            this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", this.player2Tank.sprite);
+        }
         this.player1.scale = this.tankScale;
         this.player2.scale = this.tankScale;
         this.playersGroup.add(this.player1);
         this.playersGroup.add(this.player2);
         this.player2.rotation = Math.PI;
-        this.player2Tank.forward.x = -1;
+        this.player2.tank.forward.x = -1;
     }
 
     InitColliders()
     {
+        this.bulletsGroup = this.physics.add.group();
         this.physics.add.collider(this.playersGroup, this.levelObstacles);
+        this.physics.add.collider(this.playersGroup, this.bulletsGroup, (bullet, personaje) => {
+            this.TakeDamage(personaje, bullet);
+            this.DestroyBullet(bullet);
+        })
     }
 
     MoveTank(player1, forward)
@@ -352,14 +386,14 @@ class Level extends Phaser.Scene
 
         if (player1)
         {
-            this.player1.setVelocityX(this.player1Tank.forward.x * this.player1Tank.speed * modifier);                
-            this.player1.setVelocityY(this.player1Tank.forward.y * this.player1Tank.speed * modifier);
+            this.player1.setVelocityX(this.player1.tank.forward.x * this.player1.tank.speed * modifier);                
+            this.player1.setVelocityY(this.player1.tank.forward.y * this.player1.tank.speed * modifier);
         }
         else
         {
             
-            this.player2.setVelocityX(this.player2Tank.forward.x * this.player2Tank.speed * modifier);                
-            this.player2.setVelocityY(this.player2Tank.forward.y * this.player2Tank.speed * modifier);
+            this.player2.setVelocityX(this.player2.tank.forward.x * this.player2.tank.speed * modifier);                
+            this.player2.setVelocityY(this.player2.tank.forward.y * this.player2.tank.speed * modifier);
         }
     }
 
@@ -373,14 +407,60 @@ class Level extends Phaser.Scene
 
         if (player1)
         {
-            this.player1.angle += this.player1Tank.rotSpeed * modifier;
-            this.player1Tank.Rotate(this.player1.rotation);
+            this.player1.angle += this.player1.tank.rotSpeed * modifier;
+            this.player1.tank.Rotate(this.player1.rotation);
         }
         else
         {
-            this.player2.angle += this.player2Tank.rotSpeed * modifier;
-            this.player2Tank.Rotate(this.player2.rotation);
+            this.player2.angle += this.player2.tank.rotSpeed * modifier;
+            this.player2.tank.Rotate(this.player2.rotation);
         }
+    }
+
+    Shoot(player)
+    {
+        if (this.name == "PowerUp")
+            return;
+
+        if (player.tank.shootCooldown <= 0)
+        {
+            let bullet = this.physics.add.sprite(player.x + player.tank.forward.x * this.sizeOfTile, player.y + player.tank.forward.y * this.sizeOfTile, "Bullets", player.tank.bulletType);
+            bullet.scale = 1 / 10;
+            bullet.shooter = player;
+            player.inmuneTime = 1;
+            player.tank.shotCooldown = player.tank.shootingRate;
+            bullet.setVelocityX(player.tank.bulletSpeed * player.tank.forward.x);
+            bullet.setVelocityY(player.tank.bulletSpeed * player.tank.forward.y);
+            bullet.bouncesLeft = player.tank.bulletBounces;
+            bullet.damage = player.tank.bulletDamage;
+            this.bulletsGroup.add(bullet);
+        }
+    }
+
+    TakeDamage(player, bullet)
+    {
+        if (bullet.shooter == player && bullet.inmuneTime > 0)
+            return;
+
+        if (player.tank.health == 1)
+        {
+            player.score--;
+            this.scene.stop(this.name);
+            this.scene.start("PowerUp", { player1: this.player1, player2: this.player2, next: this.name[this.name.lenght - 1] + 1});
+            return;
+        }
+
+        player.tank.health--;
+    }
+
+    DestroyBullet(bullet, player)
+    {
+        if (player || bullet.bouncesLeft == 0)
+        {
+            bullet.destroy();
+            return;
+        }
+        bullet.bouncesLeft--;
     }
 }
 
