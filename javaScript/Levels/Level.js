@@ -144,6 +144,8 @@ class Level extends Phaser.Scene
         }
         // The tiles are images of 64 x 64 pixels
         this.scaleOfTile = this.sizeOfTile / 64;
+
+        this.songsParts = ["Tanks_Party_A", "Tanks_Party_B", "Tanks_Party_C", "Tanks_Party_D", "Tanks_Party_E"];
     }
 
     init (data) {
@@ -172,12 +174,40 @@ class Level extends Phaser.Scene
     {
         AudioManager.Instance.SetActiveScene(this);
 
+        var controller = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music", "complete", this.OnMusicPartEnds.bind(this, "Tanks_Party_A"));
+        controller.Play();
+
         this.InitWorldSprites();
         this.InitTankSprites();
         this.InitColliders();
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
         this.input.keyboard.on("keyup", this.OnKeyReleased.bind(this));
+    }
+
+    OnMusicPartEnds(last)
+    {
+        console.log("Music ends " + last);
+
+        var lastIdx;
+        for (var i = 0; i < this.songsParts.length; i++)
+        {
+            if(this.songsParts[i] == last) 
+            {
+                lastIdx = i;
+                break;
+            }
+        }
+        
+        var randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
+        while(randomPartIdx == lastIdx)
+        {
+            console.log("SAME ID THAT LAST PART: " + this.songsParts[randomPartIdx]);
+            randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
+        }
+        
+        var controller = AudioManager.Instance.CreateInstance(this.songsParts[randomPartIdx], "Music", "complete", this.OnMusicPartEnds.bind(this, this.songsParts[randomPartIdx]));
+        controller.Play();
     }
 
     OnKeyPressed(key)

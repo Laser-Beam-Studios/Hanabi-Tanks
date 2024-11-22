@@ -93,6 +93,24 @@ class AudioManager
         return audioController;
     }
 
+    CreateInstance(soundKey, channel, callbackType, callback)
+    {
+        var config = 
+        {
+            mute: false,
+            volume: (channel == "Master")? this.MasterVolume : this.GetChannelVolume(channel) * this.MasterVolume,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0,
+        }
+
+        var audioController = new AudioController(this.activeScene.sound.add(soundKey, config));
+        audioController.audioInstance.on(callbackType, callback);
+        return audioController;
+    }
+
     SetVolume(value, channel)
     {
         switch(channel)
