@@ -198,7 +198,7 @@ class Level extends Phaser.Scene
                 break;
             }
         }
-        
+
         var randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
         while(randomPartIdx == lastIdx)
         {

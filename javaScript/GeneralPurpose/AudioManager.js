@@ -7,6 +7,8 @@ class AudioManager
         this.MusicVolume = musicVolume;
         this.activeScene;
 
+        this.audioControllerInstances = [];
+
         //#region SingleTon Pattern
         if (typeof AudioManager.Instance === "object")
         {
@@ -23,6 +25,7 @@ class AudioManager
         if (this.activeScene != null && deleteInstances)
         {
             this.activeScene.sound.removeAll();
+            this.audioControllerInstances = [];
         }
 
         this.activeScene = scene;
@@ -32,6 +35,7 @@ class AudioManager
     DestroySceneInstances(scene = this.activeScene)
     {
         scene.sound.removeAll();
+        this.audioControllerInstances = [];
     }
 
     // Get all the audioInstances of a scene, defualt value active scene
@@ -87,8 +91,10 @@ class AudioManager
             delay: 0,
         }
 
-        var audioController = new AudioController(this.activeScene.sound.add(soundKey, config));
+        var audioController = new AudioController(this.activeScene.sound.add(soundKey, config), channel);
         audioController.Play();
+
+        this.audioControllerInstances.push(audioController);
 
         return audioController;
     }
@@ -106,8 +112,10 @@ class AudioManager
             delay: 0,
         }
 
-        var audioController = new AudioController(this.activeScene.sound.add(soundKey, config));
+        var audioController = new AudioController(this.activeScene.sound.add(soundKey, config), channel);
         audioController.audioInstance.on(callbackType, callback);
+        this.audioControllerInstances.push(audioController);
+
         return audioController;
     }
 
@@ -117,16 +125,25 @@ class AudioManager
         {
             case "Master":
                 this.MasterVolume = value;
+                break;
             case "SFX":
                 this.SFXVolume = value;
+                break;
             case "Music":
                 this.MusicVolume = value;
+                break;
             default:
                 console.log("ERROR_IN_SET_VOLUME_UNKONW_CHANNEL: ", channel);
                 return;
         }
-        // Change the volume for the instances of audio to the new value
-        
+        // Change the volume for the instances of audio that exist to the new value if is of his channel
+        for (var i = 0; i < this.audioControllerInstances.length; i++)
+        {
+            if (this.audioControllerInstances[i].channel == channel)
+            {
+                this.audioControllerInstances[i].SetVolume((channel == "Master")? this.MasterVolume : this.GetChannelVolume(channel) * this.MasterVolume);
+            }
+        }
     }
 
 }
