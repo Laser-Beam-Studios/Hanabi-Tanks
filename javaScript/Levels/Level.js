@@ -161,8 +161,8 @@ class Level extends Phaser.Scene
         if (this.name == "PowerUp")
         {
             this.nextScene = "Level" + data.next;
-            randoms = [];
-            candidate
+            let randoms = [];
+            let candidate;
             for (var i = 0; i < 3; i++)
             {
                 found = true;
@@ -220,13 +220,13 @@ class Level extends Phaser.Scene
         posM = { x: Math.ceil(this.n / 2), y: 2 };
         posR = { x: Math.ceil(this.n / 2) + 1, y: 2 };
         this.powerUpsGroup = this.physics.add.group();
-        powerUpL = this.add.image(posL.x * this.sizeOfTile + this.offset.x, posL.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.l);
+        let powerUpL = this.add.image(posL.x * this.sizeOfTile + this.offset.x, posL.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.l);
         powerUpL.type = this.powerUps.l;
         this.powerUpsGroup.add(powerUpL);
-        powerUpM = this.add.image(posM.x * this.sizeOfTile + this.offset.x, posM.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.m);
+        let powerUpM = this.add.image(posM.x * this.sizeOfTile + this.offset.x, posM.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.m);
         powerUpM.type = this.powerUps.m;
         this.powerUpsGroup.add(powerUpM);
-        powerUpR = this.add.image(posR.x * this.sizeOfTile + this.offset.x, posR.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.r);
+        let powerUpR = this.add.image(posR.x * this.sizeOfTile + this.offset.x, posR.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.r);
         powerUpR.type = this.powerUps.r;
         this.powerUpsGroup.add(powerUpR);
     }
@@ -510,6 +510,7 @@ class Level extends Phaser.Scene
             {
                 if (player.tank.canRecivePowerUp)
                 {
+                    let found;
                     switch (powerUp.type)
                     {
                         case PowerUps.corkscrewCradBoard:
@@ -628,8 +629,8 @@ class Level extends Phaser.Scene
                 callbackScope: this,
                 args: [player]
             });
-            sider = false;
-            player.powerUps.forEach(element =>
+            let sider = false;
+            player.tank.powerUps.forEach(element =>
             {
                 if (element == PowerUps.siderCardBoard)
                     sider = true;
