@@ -1,8 +1,9 @@
 class AudioController
 {
-    constructor(audioInstance)
+    constructor(audioInstance, channel)
     {
         this.audioInstance = audioInstance;
+        this.channel = channel;
     }
 
     Play()
@@ -23,6 +24,11 @@ class AudioController
     Resume()
     {
         this.audioInstance.resume();
+    }
+
+    SetVolume(value)
+    {
+        this.audioInstance.setVolume(value);
     }
 
     IsPlaying()

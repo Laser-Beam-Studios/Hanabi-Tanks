@@ -1,8 +1,8 @@
-class Options extends Phaser.Scene
+class Pause extends Phaser.Scene
 {
     constructor() 
     {
-        super({ key: 'Options' });
+        super({ key: 'Pause' });
         this.lastScene;
     }
 
@@ -35,7 +35,7 @@ class Options extends Phaser.Scene
         switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
-                this.scene.stop("Options");
+                this.scene.stop("Pause");
                 this.scene.resume(this.lastScene);
                 break;
             default:
@@ -51,7 +51,7 @@ class Options extends Phaser.Scene
         switch(button.texture.key)
         {
             case "BackButton":
-                this.scene.stop("Options");
+                this.scene.stop("Pause");
                 this.scene.resume(this.lastScene);
                 break;
             default:
