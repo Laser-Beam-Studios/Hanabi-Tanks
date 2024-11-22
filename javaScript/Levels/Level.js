@@ -115,6 +115,15 @@ const BulletSprites =
     corkscrew: 4
 }
 
+const PowerUps =
+{
+    goodCardBoard: 3,
+    hardCardBoard: 1,
+    elasticCardBoard: 0,
+    siderCardBoard: 2,
+    corkscrewCradBoard: 4
+}
+
 class Level extends Phaser.Scene
 {
     // n -> number of cells in the horizontal  // m -> number of cells in the vertical
@@ -133,7 +142,7 @@ class Level extends Phaser.Scene
 
         this.tiles;
         this.sizeOfTile = sizeOfTile;
-        this.tankSize = 256;
+        this.tankSize = this.sizeOfTile * 4;
         this.tankScale = this.tankSize / 1024;
 
         // Tiles of fixed 64 * 64 pixels
@@ -150,6 +159,23 @@ class Level extends Phaser.Scene
         if (this.name == "PowerUp")
         {
             this.nextScene = "Level" + data.next;
+            randoms = [];
+            candidate
+            for (var i = 0; i < 3; i++)
+            {
+                found = true;
+                while (found)
+                {
+                    found = false;
+                    candidate = Math.floor(Math.random() * 4);
+                    randoms.forEach(element => {
+                        if (element == candidate)
+                            found = true
+                    });
+                }
+                randoms.push(candidate);
+            }
+            this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
         }
         else if (this.name != "Level1")
         {
@@ -166,16 +192,37 @@ class Level extends Phaser.Scene
         this.load.spritesheet("World", "../assets/TilesSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet("Tanks", "../assets/TanksSpriteSheet.png", { frameWidth: 256, frameHeight: 256 });
         this.load.spritesheet("Bullets", "../assets/BulletSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
     }
 
     create() 
     {
         this.InitWorldSprites();
         this.InitTankSprites();
+        if (this.name == "PowerUp")
+            this.InitPowerUps();
         this.InitColliders();
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
         this.input.keyboard.on("keyup", this.OnKeyReleased.bind(this));
+    }
+
+    InitPowerUps()
+    {
+        posL = { x: Math.ceil(this.n / 2) - 1, y: 2 };
+        posM = { x: Math.ceil(this.n / 2), y: 2 };
+        posR = { x: Math.ceil(this.n / 2) + 1, y: 2 };
+        this.powerUpsGroup = this.physics.add.group();
+        powerUpL = this.add.image(posL.x * this.sizeOfTile + this.offset.x, posL.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.l);
+        powerUpL.type = this.powerUps.l;
+        this.powerUpsGroup.add(powerUpL);
+        powerUpM = this.add.image(posM.x * this.sizeOfTile + this.offset.x, posM.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.m);
+        powerUpM.type = this.powerUps.m;
+        this.powerUpsGroup.add(powerUpM);
+        powerUpR = this.add.image(posR.x * this.sizeOfTile + this.offset.x, posR.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.r);
+        powerUpR.type = this.powerUps.r;
+        this.powerUpsGroup.add(powerUpR);
+
     }
 
     OnKeyPressed(key)
@@ -268,6 +315,15 @@ class Level extends Phaser.Scene
     update(time, delta) 
     {
         this.CheckTankRotations();
+
+        if (this.name == "PowerUp")
+            if (this.powerUpsGroup.childer.size == 1)
+            {                
+                this.scene.stop(this.name);
+                this.scene.start(this.nextScene, { player1: this.player1, player2: this.player2, next: "" });   
+            }
+
+
     }
 
     CheckTankRotations()
@@ -299,12 +355,12 @@ class Level extends Phaser.Scene
             matrix = matrix.map((x) => TilesDictionary[x]);            
         }
         for (var i = 0; i < this.n; i++)
+        {
+            for (var j = 0; j < this.m; j++)
             {
-                for (var j = 0; j < this.m; j++)
-                {
-                    this.structureMatrix[i][j] = matrix[i + j * this.n];
-                }
+                this.structureMatrix[i][j] = matrix[i + j * this.n];
             }
+        }
     }
 
     InitWorldSprites()
@@ -325,17 +381,17 @@ class Level extends Phaser.Scene
                 this.tiles[i][j] = this.add.image((this.MapSize.x * i)/this.n + this.offset.x, (this.MapSize.y * j)/this.m + this.offset.y, "World", this.structureMatrix[i][j]);
                 switch (this.structureMatrix[i][j])
                 {
-                    case 0:
-                    case 1:
-                    case 2:
-                    case 8:
-                    case 9:
-                    case 10:
-                    case 16:
-                    case 17:
-                    case 18:
-                    case 14:
-                    case 15:
+                    case TileType.Floor.center:
+                    case TileType.Floor.down:
+                    case TileType.Floor.downLeft:
+                    case TileType.Floor.downRight:
+                    case TileType.Floor.left:
+                    case TileType.Floor.right:
+                    case TileType.Floor.up:
+                    case TileType.Floor.upLeft:
+                    case TileType.Floor.upRight:
+                    case TileType.Paper.h_destroy:
+                    case TileType.Paper.v_destroy:
                         break;
 
                     default:                            
@@ -380,8 +436,12 @@ class Level extends Phaser.Scene
         }
         else
         {
-            this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", this.player1Tank.sprite);
-            this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", this.player2Tank.sprite);
+            this.player1.x = posX1 + this.offset.x;
+            this.player1.y = posY + this.offset.y;
+            this.player2.x = posX2 + this.offset.x
+            this.player2.y = posY + this.offset.y;
+            //this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", this.player1Tank.sprite);
+            //this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", this.player2Tank.sprite);
         }
         this.player1.scale = this.tankScale;
         this.player2.scale = this.tankScale;
@@ -394,8 +454,15 @@ class Level extends Phaser.Scene
     InitColliders()
     {
         this.bulletsGroup = this.physics.add.group();
+        this.siderBulletsGroup = this.physics.add.group();
+        this.physics.add.collider(this.player1, this.player2);
         this.physics.add.collider(this.playersGroup, this.levelObstacles);
         this.physics.add.collider(this.playersGroup, this.bulletsGroup, (player, bullet) => 
+        {
+            this.TakeDamage(player, bullet);
+            this.DestroyBullet(bullet, this.BounceBullet(bullet, player));
+        });
+        this.physics.add.collider(this.siderBulletsGroup, this.playersGroup, (bullet, player) =>
         {
             this.TakeDamage(player, bullet);
             this.DestroyBullet(bullet, this.BounceBullet(bullet, player));
@@ -406,6 +473,71 @@ class Level extends Phaser.Scene
             this.DamageLevel(bullet, obstacle);
             this.DestroyBullet(bullet, this.BounceBullet(bullet, obstacle));
         })
+        if (this.name == "PowerUp")
+        {
+            this.physics.add.collider(this.playersGroup, this.powerUpsGroup, (player, powerUp) =>
+            {
+                if (player.tank.canRecivePowerUp)
+                {
+                    switch (powerUp.type)
+                    {
+                        case PowerUps.corkscrewCradBoard:
+                            found = false;
+                            player.tank.powerUps.forEach(element =>
+                            {
+                                if (element == PowerUps.siderCardBoard)
+                                    found = true;
+                            });
+
+                            if (found)
+                                return;
+
+                            player.tank.shootingRate += 60;
+                            break;
+
+                        case PowerUps.elasticCardBoard:
+                            player.tank.bulletBounces++;
+                            if (player.tank.shootingRate - 30 < 30)
+                                player.tank.shootingRate -= 30;
+                            break;
+
+                        case PowerUps.goodCardBoard:
+                            player.tank.maxHealth++;
+                            break;
+
+                        case PowerUps.hardCardBoard:found = false;
+                            player.tank.powerUps.forEach(element =>
+                            {
+                                if (element == PowerUps.elasticCardBoard)
+                                    found = true;
+                            });
+
+                            if (found)
+                                return;
+
+                            player.tank.bulletDamage++;
+                            break;
+
+                        case PowerUps.siderCardBoard:
+                            found = false;
+                            player.tank.powerUps.forEach(element =>
+                            {
+                                if (element == PowerUps.siderCardBoard)
+                                    found = true;
+                            });
+
+                            if (found)
+                                return;
+
+                            player.tank.bulletSpeed += 500;
+                            break;
+                    }
+                    player.tank.powerUps.push(powerUp.type);
+                    player.tank.canRecivePowerUp = false;
+                    powerUp.destroy();
+                }
+            })
+        }
     }
 
     MoveTank(player1, forward)
@@ -449,7 +581,6 @@ class Level extends Phaser.Scene
         {
             player.tank.canShoot = false;
             let bullet = this.physics.add.sprite(player.x + player.tank.forward.x * this.sizeOfTile, player.y + player.tank.forward.y * this.sizeOfTile, "Bullets", player.tank.bulletType);
-            bullet.setBounce(1);
             bullet.scale = 1 / 10;
             bullet.shooter = player;
             this.time.addEvent({
@@ -469,7 +600,18 @@ class Level extends Phaser.Scene
                 callbackScope: this,
                 args: [player]
             });
-            this.bulletsGroup.add(bullet);
+            sider = false;
+            player.powerUps.forEach(element =>
+            {
+                if (element == PowerUps.siderCardBoard)
+                    sider = true;
+            });
+
+            if (sider)
+                this.siderBulletsGroup.add(bullet);
+            else
+                this.bulletsGroup.add(bullet);
+
             bullet.velocity = { x: player.tank.bulletSpeed * player.tank.forward.x, y: player.tank.bulletSpeed * player.tank.forward.y };
             bullet.setVelocityX(bullet.velocity.x);
             bullet.setVelocityY(bullet.velocity.y);
@@ -492,9 +634,6 @@ class Level extends Phaser.Scene
         }
 
         player.tank.health--;
-
-        console.log("Health 1:" + this.player1.tank.health);
-        console.log("Health 2:" + this.player2.tank.health);
     }
 
     DamageLevel(bullet, obstacle)

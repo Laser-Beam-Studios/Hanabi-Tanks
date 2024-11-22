@@ -12,6 +12,7 @@ class Tank{
         this.sprite = TankSprites.defaultCardBoard;
         this.bulletType = BulletSprites.default;
         this.powerUps = [];
+        this.canRecivePowerUp = true;
 
         this.forward =
         {
@@ -23,6 +24,7 @@ class Tank{
     RestartHealth()
     {
         this.health = this.maxHealth;
+        this.canRecivePowerUp = true;
     }
 
     Rotate(rotation)
