@@ -8,6 +8,7 @@ class Tank{
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.speed = speed;
+        this.actualSpeed = 0.0;
         this.rotSpeed = rotSpeed;
         this.sprite = TankSprites.defaultCardBoard;
         this.bulletType = BulletSprites.default;

@@ -220,11 +220,11 @@ class Level extends Phaser.Scene
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.W:
-                this.MoveTank(true, true);
+                this.MoveTank(this.player1, true);
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.S:
-                this.MoveTank(true, false);
+                this.MoveTank(this.player1, false);
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.A:
@@ -238,11 +238,11 @@ class Level extends Phaser.Scene
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.UP:
-                this.MoveTank(false, true);
+                this.MoveTank(this.player2, true);
                 break;
     
             case Phaser.Input.Keyboard.KeyCodes.DOWN:
-                this.MoveTank(false, false);
+                this.MoveTank(this.player2, false);
                 break;
     
             case Phaser.Input.Keyboard.KeyCodes.LEFT:
@@ -267,12 +267,12 @@ class Level extends Phaser.Scene
         {
             case Phaser.Input.Keyboard.KeyCodes.W:
             case Phaser.Input.Keyboard.KeyCodes.S:
-                this.player1.setVelocity(0);
+                this.player1.tank.actualSpeed = 0.0;
                 break;
                 
             case Phaser.Input.Keyboard.KeyCodes.UP:
             case Phaser.Input.Keyboard.KeyCodes.DOWN:
-                this.player2.setVelocity(0);
+                this.player2.tank.actualSpeed = 0.0;
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.D:
@@ -300,6 +300,7 @@ class Level extends Phaser.Scene
     update(time, delta) 
     {
         this.CheckTankRotations();
+        this.UpdateTanks();
     }
 
     CheckTankRotations()
@@ -440,25 +441,22 @@ class Level extends Phaser.Scene
         })
     }
 
-    MoveTank(player1, forward)
+    UpdateTanks()
+    {
+        this.player1.setVelocityX(this.player1.tank.forward.x * this.player1.tank.speed * this.player1.tank.actualSpeed);                
+        this.player1.setVelocityY(this.player1.tank.forward.y * this.player1.tank.speed * this.player1.tank.actualSpeed);
+
+        this.player2.setVelocityX(this.player2.tank.forward.x * this.player2.tank.speed * this.player2.tank.actualSpeed);                
+        this.player2.setVelocityY(this.player2.tank.forward.y * this.player2.tank.speed * this.player2.tank.actualSpeed);
+    }
+
+    MoveTank(player, forward)
     {
         let modifier;
-        if (forward)
-            modifier = 1;
-        else
-            modifier = -1;
+        if (forward) modifier = 1;
+        else modifier = -1;
 
-        if (player1)
-        {
-            this.player1.setVelocityX(this.player1.tank.forward.x * this.player1.tank.speed * modifier);                
-            this.player1.setVelocityY(this.player1.tank.forward.y * this.player1.tank.speed * modifier);
-        }
-        else
-        {
-            
-            this.player2.setVelocityX(this.player2.tank.forward.x * this.player2.tank.speed * modifier);                
-            this.player2.setVelocityY(this.player2.tank.forward.y * this.player2.tank.speed * modifier);
-        }
+        player.tank.actualSpeed = modifier;
     }
 
     RotateTank(player, left)
