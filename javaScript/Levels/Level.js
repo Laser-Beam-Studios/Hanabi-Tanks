@@ -215,8 +215,8 @@ class Level extends Phaser.Scene
         switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
-                // Open the pause menu
-                console.log("pauseMenu");
+                this.scene.pause(this.name);
+                this.scene.launch("Pause", {scene: this.name});
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.W:

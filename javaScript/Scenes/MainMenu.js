@@ -60,8 +60,8 @@ class MainMenu extends Phaser.Scene
                 this.scene.start("Credits");
                 break;
             case "OptionsButton":
-                this.scene.stop("MainMenu");
-                this.scene.start("Options");
+                this.scene.pause("MainMenu");
+                this.scene.launch("Options", { scene: "MainMenu"});
                 break;
             default:
                 console.log("ERROR_IN_CLICK_BUTTON: UNKNOWN_BUTTON_KEY: " + button.texture.key);

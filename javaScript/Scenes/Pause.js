@@ -3,6 +3,12 @@ class Pause extends Phaser.Scene
     constructor() 
     {
         super({ key: 'Pause' });
+        this.lastScene;
+    }
+
+    init(data)
+    {
+        this.lastScene = data.scene;
     }
 
     preload() 
@@ -29,8 +35,8 @@ class Pause extends Phaser.Scene
         switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
-                this.scene.stop("Credits");
-                this.scene.start("MainMenu");
+                this.scene.stop("Pause");
+                this.scene.resume(this.lastScene);
                 break;
             default:
                 console.log("ERROR_UNKNOWN_KEY_PRESSED: " + key.keyCode);
@@ -40,13 +46,13 @@ class Pause extends Phaser.Scene
 
     OnClickOnButton(button)
     {
-        console.log("boton pulsado = " + button.texture.key);
+        console.log("boton pulsado = " + button.texture.key + " " + this.lastScene);
         
         switch(button.texture.key)
         {
             case "BackButton":
-                this.scene.stop("Credits");
-                this.scene.start("MainMenu");
+                this.scene.stop("Pause");
+                this.scene.resume(this.lastScene);
                 break;
             default:
                 console.log("ERROR_IN_CLICK_BUTTON: UNKNOWN_BUTTON_KEY: " + button.texture.key);
