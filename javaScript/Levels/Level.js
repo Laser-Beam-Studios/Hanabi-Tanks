@@ -568,9 +568,6 @@ class Level extends Phaser.Scene
         let velocityX = bullet.velocity.x;
         let velocityY = bullet.velocity.y;
 
-        console.log("VelocityX Before:" + velocityX);
-        console.log("VelocityY Before:" + velocityY);
-
         const normalX = bullet.x - obstacle.x;
         const normalY = bullet.y - obstacle.y;
         let horizontal
@@ -585,10 +582,6 @@ class Level extends Phaser.Scene
             velocityY *= -1;
         else
             velocityX *= -1;
-
-            
-        console.log("VelocityX After:" + velocityX);
-        console.log("VelocityY aFTER:" + velocityY);
 
         bullet.velocity.x = velocityX;
         bullet.velocity.y = velocityY;
