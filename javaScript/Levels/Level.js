@@ -196,11 +196,13 @@ class Level extends Phaser.Scene
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.A:
-                this.RotateTank(true, true);
+                this.player1Rotating = true;
+                this.player1Rotate = -1;
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.D:
-                this.RotateTank(true, false);
+                this.player1Rotating = true;
+                this.player1Rotate = 1;
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.UP:
@@ -212,11 +214,13 @@ class Level extends Phaser.Scene
                 break;
     
             case Phaser.Input.Keyboard.KeyCodes.LEFT:
-                this.RotateTank(false, true);
+                this.player2Rotating = true;
+                this.player2Rotate = -1;
                 break;
     
             case Phaser.Input.Keyboard.KeyCodes.RIGHT:
-                this.RotateTank(false, false);    
+                this.player2Rotating = true;
+                this.player2Rotate = 1;
                 break;
 
             default:
@@ -239,6 +243,18 @@ class Level extends Phaser.Scene
                 this.player2.setVelocity(0);
                 break;
 
+            case Phaser.Input.Keyboard.KeyCodes.D:
+            case Phaser.Input.Keyboard.KeyCodes.A:
+                this.player1Rotating = false;
+                this.player1Rotate = 0;
+                break;
+
+            case Phaser.Input.Keyboard.KeyCodes.LEFT:
+            case Phaser.Input.Keyboard.KeyCodes.RIGHT:
+                this.player2Rotating = false;
+                this.player2Rotate = 0;
+                break;
+
             case Phaser.Input.Keyboard.KeyCodes.SPACE:
                 this.Shoot(this.player1);
                 break;
@@ -251,10 +267,25 @@ class Level extends Phaser.Scene
 
     update(time, delta) 
     {
-        this.bulletsGroup.getChildren().forEach(bullet =>
+        this.CheckTankRotations();
+    }
+
+    CheckTankRotations()
+    {
+        if (this.player1Rotating)
         {
-            console.log(bullet.body.velocity.x);
-        });
+            if (this.player1Rotate == -1)
+                this.RotateTank(this.player1, true);
+            else if (this.player1Rotate == 1)
+                this.RotateTank(this.player1, false);
+        }
+        if (this.player2Rotate)
+        {
+            if (this.player2Rotate == -1)
+                this.RotateTank(this.player2, true);
+            else if (this.player2Rotate == 1)
+                this.RotateTank(this.player2, false);
+        }
     }
 
     InitWorld(matrix, rightWinningMatrix = null)
@@ -303,14 +334,15 @@ class Level extends Phaser.Scene
                     case 16:
                     case 17:
                     case 18:
+                    case 14:
+                    case 15:
                         break;
 
                     default:                            
                         this.levelObstacles.add(this.tiles[i][j]);
                         break;
                 }
-                this.tiles[i][j].x = i;
-                this.tiles[i][j].y = j;
+                this.tiles[i][j].posMatrix = { x: i, y: j };
                 this.tiles[i][j].scale = this.scaleOfTile;
             }
         }
@@ -363,15 +395,16 @@ class Level extends Phaser.Scene
     {
         this.bulletsGroup = this.physics.add.group();
         this.physics.add.collider(this.playersGroup, this.levelObstacles);
-        this.physics.add.collider(this.playersGroup, this.bulletsGroup, (personaje, bullet) => 
+        this.physics.add.collider(this.playersGroup, this.bulletsGroup, (player, bullet) => 
         {
-            this.TakeDamage(personaje, bullet);
-            this.DestroyBullet(bullet);
+            this.TakeDamage(player, bullet);
+            this.DestroyBullet(bullet, this.BounceBullet(bullet, player));
         })
         this.physics.add.collider(this.bulletsGroup, this.levelObstacles, (bullet, obstacle) =>
-        {
+        {   
+            console.log(bullet.body.velocity);         
             this.DamageLevel(bullet, obstacle);
-            this.DestroyBullet(bullet);
+            this.DestroyBullet(bullet, this.BounceBullet(bullet, obstacle));
         })
     }
 
@@ -396,7 +429,7 @@ class Level extends Phaser.Scene
         }
     }
 
-    RotateTank(player1, left)
+    RotateTank(player, left)
     {
         let modifier;
         if (left)
@@ -404,16 +437,8 @@ class Level extends Phaser.Scene
         else
             modifier = 1;
 
-        if (player1)
-        {
-            this.player1.angle += this.player1.tank.rotSpeed * modifier;
-            this.player1.tank.Rotate(this.player1.rotation);
-        }
-        else
-        {
-            this.player2.angle += this.player2.tank.rotSpeed * modifier;
-            this.player2.tank.Rotate(this.player2.rotation);
-        }
+        player.angle += this.player2.tank.rotSpeed * modifier;
+        player.tank.Rotate(player.rotation);
     }
 
     Shoot(player)
@@ -422,7 +447,6 @@ class Level extends Phaser.Scene
             return;
         if (player.tank.canShoot)
         {
-            console.log("shot");
             player.tank.canShoot = false;
             let bullet = this.physics.add.sprite(player.x + player.tank.forward.x * this.sizeOfTile, player.y + player.tank.forward.y * this.sizeOfTile, "Bullets", player.tank.bulletType);
             bullet.setBounce(1);
@@ -446,8 +470,9 @@ class Level extends Phaser.Scene
                 args: [player]
             });
             this.bulletsGroup.add(bullet);
-            bullet.setVelocityX(player.tank.bulletSpeed * player.tank.forward.x);
-            bullet.setVelocityY(player.tank.bulletSpeed * player.tank.forward.y);
+            bullet.velocity = { x: player.tank.bulletSpeed * player.tank.forward.x, y: player.tank.bulletSpeed * player.tank.forward.y };
+            bullet.setVelocityX(bullet.velocity.x);
+            bullet.setVelocityY(bullet.velocity.y);
             bullet.bouncesLeft = player.tank.bulletBounces;
             bullet.damage = player.tank.bulletDamage;
         }
@@ -467,18 +492,115 @@ class Level extends Phaser.Scene
         }
 
         player.tank.health--;
+
+        console.log("Health 1:" + this.player1.tank.health);
+        console.log("Health 2:" + this.player2.tank.health);
     }
 
     DamageLevel(bullet, obstacle)
     {
-        switch(this.structureMatrix[obstacle.x][obstacle.y])
+        let posX = obstacle.posMatrix.x, posY = obstacle.posMatrix.y, newTile, collider = true;
+        //console.log(this.structureMatrix[obstacle.posMatrix.x][obstacle.posMatrix.y]);
+        switch(this.structureMatrix[posX][posY])
         {
+            case PaperType.h_oneHit:
+                if (bullet.damage > 1)
+                {
+                    newTile = PaperType.h_destroy;
+                    collider = false;
+                }
+                else
+                    newTile = PaperType.h_twoHit;
+                break;
 
+            case PaperType.h_perfect:
+                if (bullet.damage > 1)
+                {
+                    newTile = PaperType.h_destroy;
+                    collider = false;
+                }
+                else
+                    newTile = PaperType.h_oneHit;
+                break;
+
+            case PaperType.h_twoHit:
+                newTile = PaperType.h_destroy;
+                collider = false;
+                break;
+
+            case PaperType.v_oneHit:
+                if (bullet.damage > 1)
+                {
+                    newTile = PaperType.v_destroy;
+                    collider = false;
+                }
+                else
+                    newTile = PaperType.v_twoHit;
+                break;
+
+            case PaperType.v_perfect:
+                if (bullet.damage > 1)
+                {
+                    newTile = PaperType.v_destroy;
+                    collider = false;
+                }
+                else
+                    newTile = PaperType.h_oneHit;
+                break;
+
+            case PaperType.v_twoHit:
+                newTile = PaperType.v_destroy;
+                collider = false;
+                break;
+
+            default:
+                return;                
         }
+
+        this.tiles[posX][posY].destroy();
+        this.tiles[posX][posY] = this.add.image((this.MapSize.x * posX)/this.n + this.offset.x, (this.MapSize.y * posY)/this.m + this.offset.y, "World", newTile);
+        if (collider)
+            this.levelObstacles.add(this.tiles[posX][posY]);
     }
 
-    DestroyBullet(bullet)
+    BounceBullet(bullet, obstacle)
     {
+        let velocityX = bullet.velocity.x;
+        let velocityY = bullet.velocity.y;
+
+        console.log("VelocityX Before:" + velocityX);
+        console.log("VelocityY Before:" + velocityY);
+
+        const normalX = bullet.x - obstacle.x;
+        const normalY = bullet.y - obstacle.y;
+        let horizontal
+        if (Math.abs(normalX) > Math.abs(normalY))
+            horizontal = false;
+        else if (Math.abs(normalY) > Math.abs(normalX))
+            horizontal = true;
+        else
+            return false;
+        
+        if (horizontal)
+            velocityY *= -1;
+        else
+            velocityX *= -1;
+
+            
+        console.log("VelocityX After:" + velocityX);
+        console.log("VelocityY aFTER:" + velocityY);
+
+        bullet.velocity.x = velocityX;
+        bullet.velocity.y = velocityY;
+        bullet.body.setVelocity(velocityX, velocityY);
+        return true;
+    }
+
+    DestroyBullet(bullet, bounced)
+    {
+        if (!bounced)
+            return;
+
         if (bullet.bouncesLeft == 0)
         {
             bullet.destroy();

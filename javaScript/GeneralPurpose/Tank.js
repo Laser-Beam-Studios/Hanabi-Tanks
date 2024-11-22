@@ -1,5 +1,5 @@
 class Tank{
-    constructor(bulletDamage = 1, bulletBounces = 1, bulletSpeed = 100, shootingRate = 120, maxHealth = 3, speed = 15, rotSpeed = 15){
+    constructor(bulletDamage = 1, bulletBounces = 1, bulletSpeed = 1000, shootingRate = 120, maxHealth = 3, speed = 150, rotSpeed = 1.5){
         this.bulletDamage = bulletDamage;
         this.bulletBounces = bulletBounces;
         this.bulletSpeed = bulletSpeed;
@@ -7,8 +7,8 @@ class Tank{
         this.canShoot = true;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
-        this.speed = speed * 10;
-        this.rotSpeed = rotSpeed / 10;
+        this.speed = speed;
+        this.rotSpeed = rotSpeed;
         this.sprite = TankSprites.defaultCardBoard;
         this.bulletType = BulletSprites.default;
         this.powerUps = [];
