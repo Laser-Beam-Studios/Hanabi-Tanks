@@ -14,6 +14,8 @@ class Tank{
         this.bulletType = BulletSprites.default;
         this.powerUps = [];
         this.canRecivePowerUp = true;
+        this.score = 3;
+        this.inmune = true;
 
         this.forward =
         {
@@ -26,6 +28,7 @@ class Tank{
     {
         this.health = this.maxHealth;
         this.canRecivePowerUp = true;
+        this.canShoot = true;
     }
 
     Rotate(rotation)
