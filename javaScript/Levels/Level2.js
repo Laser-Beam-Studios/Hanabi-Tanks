@@ -7,8 +7,8 @@ class Level2 extends Level
     }
 
     //Level2 is loaded when the score is 1-0 or 0-1
-    //World: Player 1 is ahead
-    //inverseWorld: Player 2 is ahead
+    //World: Player1 is ahead
+    //inverseWorld: Player2 is ahead
 
     preload() 
     {
