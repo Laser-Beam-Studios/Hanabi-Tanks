@@ -124,6 +124,15 @@ const PowerUps =
     corkscrewCradBoard: 4
 }
 
+const PowerUpsTankSpriteDic = 
+{
+    3: 0,
+    1: 1,
+    0: 3,
+    2: 4,
+    4: 5
+}
+
 class Level extends Phaser.Scene
 {
     // n -> number of cells in the horizontal  // m -> number of cells in the vertical
@@ -158,34 +167,39 @@ class Level extends Phaser.Scene
     }
 
     init (data) {
-        if (this.name == "PowerUp")
-        {
-            this.nextScene = "Level" + data.next;
-            randoms = [];
-            candidate
-            for (var i = 0; i < 3; i++)
-            {
-                found = true;
-                while (found)
-                {
-                    found = false;
-                    candidate = Math.floor(Math.random() * 4);
-                    randoms.forEach(element => {
-                        if (element == candidate)
-                            found = true
-                    });
-                }
-                randoms.push(candidate);
-            }
-            this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
-        }
-        else if (this.name != "Level1")
+        if (this.name != "Level1")
         {
             this.player1 = data.player1;
             this.player2 = data.player2;
             this.player1.tank.RestartHealth();
             this.player2.tank.RestartHealth();
-        }
+            this.player1.angle = 0;
+            this.player1.tank.forward = { x: 1, y: 0 };
+            this.player2.angle = 180;
+            this.player2.tank.forward = { x: -1, y: 0 };
+            this
+            if (this.name == "PowerUp")
+            {
+                this.nextScene = "Level" + data.next;
+                let randoms = [];
+                let candidate;
+                for (var i = 0; i < 3; i++)
+                {
+                    let found = true;
+                    while (found)
+                    {
+                        found = false;
+                        candidate = Math.floor(Math.random() * 4);
+                        randoms.forEach(element => {
+                            if (element == candidate)
+                                found = true
+                        });
+                    }
+                    randoms.push(candidate);
+                }
+                this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
+                    }
+            }
     }
 
     preload() 
@@ -216,17 +230,17 @@ class Level extends Phaser.Scene
 
     InitPowerUps()
     {
-        posL = { x: Math.ceil(this.n / 2) - 1, y: 2 };
-        posM = { x: Math.ceil(this.n / 2), y: 2 };
-        posR = { x: Math.ceil(this.n / 2) + 1, y: 2 };
+        let posL = { x: Math.floor(this.n / 2) - 1, y: 2 };
+        let posM = { x: Math.floor(this.n / 2), y: 2 };
+        let posR = { x: Math.floor(this.n / 2) + 1, y: 2 };
         this.powerUpsGroup = this.physics.add.group();
-        powerUpL = this.add.image(posL.x * this.sizeOfTile + this.offset.x, posL.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.l);
+        let powerUpL = this.add.image(posL.x * this.sizeOfTile + this.offset.x, posL.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.l);
         powerUpL.type = this.powerUps.l;
         this.powerUpsGroup.add(powerUpL);
-        powerUpM = this.add.image(posM.x * this.sizeOfTile + this.offset.x, posM.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.m);
+        let powerUpM = this.add.image(posM.x * this.sizeOfTile + this.offset.x, posM.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.m);
         powerUpM.type = this.powerUps.m;
         this.powerUpsGroup.add(powerUpM);
-        powerUpR = this.add.image(posR.x * this.sizeOfTile + this.offset.x, posR.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.r);
+        let powerUpR = this.add.image(posR.x * this.sizeOfTile + this.offset.x, posR.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.r);
         powerUpR.type = this.powerUps.r;
         this.powerUpsGroup.add(powerUpR);
     }
@@ -350,8 +364,9 @@ class Level extends Phaser.Scene
         this.UpdateTanks();
 
         if (this.name == "PowerUp")
-            if (this.powerUpsGroup.childer.size == 1)
+            if (this.powerUpsGroup.children.size == 1)
             {                
+                this.powerUpsGroup.destroy();
                 this.scene.stop(this.name);
                 this.scene.start(this.nextScene, { player1: this.player1, player2: this.player2, next: "" });   
             }
@@ -436,7 +451,8 @@ class Level extends Phaser.Scene
     }
 
     InitTankSprites()
-    {        
+    {
+        console.log(this.m);
         let posX1, posX2;
         let posY = ((this.m / 2) - 0.5) * this.sizeOfTile;
         switch (this.name)
@@ -451,7 +467,9 @@ class Level extends Phaser.Scene
                 break;
 
             case "PowerUp":
-                posY = (this.m - 1) * this.sizeOfTile;
+                posX1 = (Math.floor(this.n / 2) - 2) * this.sizeOfTile;
+                posX2 = (Math.floor(this.n / 2) + 2) * this.sizeOfTile;
+                posY = (this.m - 2) * this.sizeOfTile;
                 break;
         }
         
@@ -469,8 +487,10 @@ class Level extends Phaser.Scene
         {
             this.player1.x = posX1 + this.offset.x;
             this.player1.y = posY + this.offset.y;
+            this.player1.setDepth(this.player1.depth + (this.n * this.m * 2));
             this.player2.x = posX2 + this.offset.x
             this.player2.y = posY + this.offset.y;
+            this.player2.setDepth(this.player2.depth + (this.n * this.m * 2));
             //this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", this.player1Tank.sprite);
             //this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", this.player2Tank.sprite);
         }
@@ -480,6 +500,9 @@ class Level extends Phaser.Scene
         this.playersGroup.add(this.player2);
         this.player2.rotation = Math.PI;
         this.player2.tank.forward.x = -1;
+
+        console.log(this.player1.x);
+        console.log(this.player1.y);
     }
 
     InitColliders()
@@ -510,6 +533,7 @@ class Level extends Phaser.Scene
             {
                 if (player.tank.canRecivePowerUp)
                 {
+                    let found;
                     switch (powerUp.type)
                     {
                         case PowerUps.corkscrewCradBoard:
@@ -565,6 +589,7 @@ class Level extends Phaser.Scene
                     }
                     player.tank.powerUps.push(powerUp.type);
                     player.tank.canRecivePowerUp = false;
+                    player.setTexture(PowerUpsTankSpriteDic[powerUp.type]);
                     powerUp.destroy();
                 }
             })
@@ -628,8 +653,8 @@ class Level extends Phaser.Scene
                 callbackScope: this,
                 args: [player]
             });
-            sider = false;
-            player.powerUps.forEach(element =>
+            let sider = false;
+            player.tank.powerUps.forEach(element =>
             {
                 if (element == PowerUps.siderCardBoard)
                     sider = true;
