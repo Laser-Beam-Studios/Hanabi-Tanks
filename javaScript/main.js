@@ -27,7 +27,7 @@ const config = {
         }
     },
 
-    scene: [MainMenu, Credits, Options, PowerUp, Level1, Pause]
+    scene: [MainMenu, Credits, PowerUp, Level1, Pause, Options]
 
 };
 
