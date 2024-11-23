@@ -143,6 +143,10 @@ class AudioManager
             {
                 this.audioControllerInstances[i].SetVolume((channel == "Master")? this.MasterVolume : this.GetChannelVolume(channel) * this.MasterVolume);
             }
+            else if (channel == "Master" && this.audioControllerInstances[i].channel != "Master")
+            {
+                this.audioControllerInstances[i].SetVolume(this.GetChannelVolume(this.audioControllerInstances[i].channel) * this.MasterVolume);
+            }
         }
     }
 
