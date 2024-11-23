@@ -297,20 +297,20 @@ class Level extends Phaser.Scene
                 this.player1Rotate = 1;
                 break;
 
-            case Phaser.Input.Keyboard.KeyCodes.UP:
+            case Phaser.Input.Keyboard.KeyCodes.I:
                 this.MoveTank(this.player2, true);
                 break;
     
-            case Phaser.Input.Keyboard.KeyCodes.DOWN:
+            case Phaser.Input.Keyboard.KeyCodes.K:
                 this.MoveTank(this.player2, false);
                 break;
     
-            case Phaser.Input.Keyboard.KeyCodes.LEFT:
+            case Phaser.Input.Keyboard.KeyCodes.J:
                 this.player2Rotating = true;
                 this.player2Rotate = -1;
                 break;
     
-            case Phaser.Input.Keyboard.KeyCodes.RIGHT:
+            case Phaser.Input.Keyboard.KeyCodes.L:
                 this.player2Rotating = true;
                 this.player2Rotate = 1;
                 break;
@@ -329,8 +329,8 @@ class Level extends Phaser.Scene
                 this.player1.tank.actualSpeed = 0.0;
                 break;
                 
-            case Phaser.Input.Keyboard.KeyCodes.UP:
-            case Phaser.Input.Keyboard.KeyCodes.DOWN:
+            case Phaser.Input.Keyboard.KeyCodes.I:
+            case Phaser.Input.Keyboard.KeyCodes.K:
                 this.player2.tank.actualSpeed = 0.0;
                 break;
 
@@ -340,17 +340,17 @@ class Level extends Phaser.Scene
                 this.player1Rotate = 0;
                 break;
 
-            case Phaser.Input.Keyboard.KeyCodes.LEFT:
-            case Phaser.Input.Keyboard.KeyCodes.RIGHT:
+            case Phaser.Input.Keyboard.KeyCodes.J:
+            case Phaser.Input.Keyboard.KeyCodes.L:
                 this.player2Rotating = false;
                 this.player2Rotate = 0;
                 break;
 
-            case Phaser.Input.Keyboard.KeyCodes.SPACE:
+            case Phaser.Input.Keyboard.KeyCodes.R:
                 this.Shoot(this.player1);
                 break;
 
-            case Phaser.Input.Keyboard.KeyCodes.ENTER:
+            case Phaser.Input.Keyboard.KeyCodes.P:
                 this.Shoot(this.player2);
                 break;
         }
