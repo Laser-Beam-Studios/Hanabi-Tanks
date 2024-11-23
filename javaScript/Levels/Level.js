@@ -164,6 +164,7 @@ class Level extends Phaser.Scene
         this.scaleOfTile = this.sizeOfTile / 64;
 
         this.songsParts = ["Tanks_Party_A", "Tanks_Party_B", "Tanks_Party_C", "Tanks_Party_D", "Tanks_Party_E"];
+        this.levelsNames = ["Level1", "Level2", "Level3", "Level4", "Level5", "Level6"];
     }
 
     init (data) {
@@ -476,10 +477,10 @@ class Level extends Phaser.Scene
         {
             this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
             this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
+            this.player1.score = 0;
+            this.player2.score = 0;
             this.player1.tank = new Tank();
             this.player2.tank = new Tank();
-            this.player1.tank.score = 3;
-            this.player2.tank.score = 3;
         }
         else
         {
@@ -680,13 +681,51 @@ class Level extends Phaser.Scene
 
         if (player.tank.health == 1)
         {
-            player.tank.score--;
-            this.scene.stop(this.name);
-            this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, next: Number(this.name[this.name.length - 1]) + 1 });
-            return;
+            if (player == this.player1) this.player2.score++;
+            else this.player1.score++;
+
+            var nextLevel = this.GetNextLevel();
+            if (nextLevel != "WinScreen")
+            {
+                this.scene.stop(this.name);
+                this.scene.start("PowerUp", { player1: this.player1, player2: this.player2, next: nextLevel});
+                return;
+            }
+            else    // If the game is win go to the win screen and pass the players for acces the scores and powerUps
+            {
+                this.scene.stop(this.name);
+                this.scene.start("WinScreen", {player1: this.player1, player2: this.player2});
+                return;
+            }
         }
 
         player.tank.health--;
+    }
+
+    GetNextLevel()
+    {
+        var scoreDiference = this.player1.tank.score - this.player2.tank.score; 
+        switch(this.name)
+        {
+            case "Level1": // If i'm in level 0 i just can go to the level 2
+                return  "Level2";
+            case "Level2":  // if i'm in level 2 i can go to the level 4 or level 3
+                if (Math.abs(scoreDiference) == 0) return "Level3"
+                else return "Level4";
+            case "Level3":  // I can just go to level 5
+                return "Level5";
+            case "Level4":  // I can finish with one winner or go to level 5
+                if (Math.abs(scoreDiference) == 1) return "Level5";
+                else return "WinScreen";
+            case "Level5":  // I can just go to win screen or to level 6
+                if (Math.abs(scoreDiference) == 0) return "Level6";
+                else return "WinScreen";
+            case "Level6":  // i can just go to win screen
+                return "WinScreen";
+            default:
+                console.log("ERROR_IN_GETNEXTLEVEL_UNKOWN_LEVELNAME: " + this.name);
+                return;
+        }
     }
 
     DamageLevel(bullet, obstacle)

@@ -13,7 +13,7 @@ class MainMenu extends Phaser.Scene
         this.load.image("PlayButton", "../assets/UI/Buttons/play.png");
         this.load.image("OptionsButton", "../assets/UI/Buttons/options.png");
         this.load.image("CreditsButton", "../assets/UI/Buttons/credits.png");
-        this.load.image("BackButton", "../assets/UI/Buttons/mainMenu.png"); // This is load here for used in the other menu scenes
+        this.load.image("BackButton", "../assets/UI/Buttons/back.png"); // This is load here for used in the other menu scenes
 
         this.load.audio("Tanks_Party_A", "../assets/Audio/Music/TanksParty_PART_A.mp3");
         this.load.audio("Tanks_Party_B", "../assets/Audio/Music/TanksParty_PART_B.mp3");
