@@ -29,15 +29,15 @@ class MainMenu extends Phaser.Scene
         const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "MainMenuBackground");
         Scaler.ScaleToGameH(Background);
 
-        const play = this.add.image((WINDOW.WIDHT * 3) / 4, WINDOW.HEIGHT/2, "PlayButton");
+        const play = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT*0.75, "PlayButton");
         Scaler.ScaleToGameW(play, 0.32);
         play.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, play));
 
-        const credits = this.add.image((WINDOW.WIDHT * 3) / 4, (WINDOW.HEIGHT * 3) / 4, "CreditsButton");
+        const credits = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT * 0.95, "CreditsButton");
         Scaler.ScaleToGameW(credits, 0.32);
         credits.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, credits));
 
-        const options = this.add.image((WINDOW.WIDHT * 3) / 4, (WINDOW.HEIGHT * 2.5) / 4, "OptionsButton");
+        const options = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT * 0.85, "OptionsButton");
         Scaler.ScaleToGameW(options, 0.32);
         options.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, options));
 
