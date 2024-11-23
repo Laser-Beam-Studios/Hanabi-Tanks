@@ -179,7 +179,7 @@ class Level extends Phaser.Scene
             this
             if (this.name == "PowerUp")
             {
-                this.nextScene = "Level" + data.next;
+                this.nextScene = "Level" + String(data.next);
                 let randoms = [];
                 let candidate;
                 for (var i = 0; i < 3; i++)
@@ -197,7 +197,11 @@ class Level extends Phaser.Scene
                     randoms.push(candidate);
                 }
                 this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
-                }
+            }
+            else if (this.name == "Victoria")
+            {
+
+            }
         }
     }
 
@@ -246,8 +250,6 @@ class Level extends Phaser.Scene
   
     OnMusicPartEnds(last)
     {
-        console.log("Music ends " + last);
-
         var lastIdx;
         for (var i = 0; i < this.songsParts.length; i++)
         {
@@ -261,7 +263,6 @@ class Level extends Phaser.Scene
         var randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
         while(randomPartIdx == lastIdx)
         {
-            console.log("SAME ID THAT LAST PART: " + this.songsParts[randomPartIdx]);
             randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
         }
         
@@ -315,7 +316,6 @@ class Level extends Phaser.Scene
                 break;
 
             default:
-                console.log("ERROR_UNKNOWN_KEY_PRESSED: " + key.keyCode);
                 break;
         }
     }
@@ -451,7 +451,6 @@ class Level extends Phaser.Scene
 
     InitTankSprites()
     {
-        console.log(this.m);
         let posX1, posX2;
         let posY = ((this.m / 2) - 0.5) * this.sizeOfTile;
         switch (this.name)
@@ -493,6 +492,8 @@ class Level extends Phaser.Scene
             //this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", this.player1Tank.sprite);
             //this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", this.player2Tank.sprite);
         }
+        this.player1.setDepth(this.player1.depth + (this.n * this.m * 2))
+        this.player2.setDepth(this.player2.depth + (this.n * this.m * 2))
         this.player1.scale = this.tankScale;
         this.player2.scale = this.tankScale;
         this.playersGroup.add(this.player1);
@@ -518,19 +519,24 @@ class Level extends Phaser.Scene
             this.DestroyBullet(bullet, this.BounceBullet(bullet, player));
         })
         this.physics.add.collider(this.bulletsGroup, this.levelObstacles, (bullet, obstacle) =>
-        {   
-            console.log(bullet.body.velocity);         
+        {     
             this.DamageLevel(bullet, obstacle);
             this.DestroyBullet(bullet, this.BounceBullet(bullet, obstacle));
         })
         if (this.name == "PowerUp")
         {
             this.physics.add.collider(this.powerUpsGroup, this.levelObstacles);
+            this.powerUpsGroup.getChildren().forEach(element1 =>
+            {
+                this.powerUpsGroup.getChildren().forEach(element2 =>
+                {
+                    this.physics.add.collider(element1, element2);
+                });
+            });
             this.physics.add.collider(this.playersGroup, this.powerUpsGroup, (player, powerUp) =>
             {
                 if (player.tank.canRecivePowerUp)
                 {
-                    console.log(player.tank);
                     let found;
                     switch (powerUp.type)
                     {
@@ -587,11 +593,8 @@ class Level extends Phaser.Scene
                     }
                     player.tank.powerUps.push(powerUp.type);
                     player.tank.canRecivePowerUp = false;
-                    console.log(player.tank.sprite)
                     player.tank.sprite = PowerUpsTankSpriteDic[powerUp.type];
-                    console.log(player.tank.sprite)
                     powerUp.destroy();
-                    console.log(player.tank);
                 }
             })
         }
@@ -681,22 +684,98 @@ class Level extends Phaser.Scene
 
         if (player.tank.health == 1)
         {
-            if (player == this.player1) this.player2.score++;
-            else this.player1.score++;
+            player.tank.score--;
+            let level = 0, player1, player2;
+            if (this.playersGroup.children.entries[0] == player)
+            {
+                player1 = player;
+                player2 = this.playersGroup.children.entries[1];
+                //player2.tank.score++;
+            }
+            else
+            {
+                player1 = this.playersGroup.children.entries[0];
+                //player1.tank.score++;
+                player2 = player;
+            }
 
-            var nextLevel = this.GetNextLevel();
-            if (nextLevel != "WinScreen")
+            switch(3 - player1.tank.score)
             {
-                this.scene.stop(this.name);
-                this.scene.start("PowerUp", { player1: this.player1, player2: this.player2, next: nextLevel});
-                return;
+                case 0:
+                    switch (3 - player2.tank.score)
+                    {
+                        case 0:
+                            level = 1;
+                            break;
+
+                        case 1:
+                            level = 2;
+                            break;
+
+                        case 2:
+                            level = 4;                           
+                            break;
+
+                        case 3:
+                            this.scene.stop(this.name);
+                            this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
+                            break;
+                    }
+                    break;
+
+                case 1:
+                    switch (3 - player2.tank.score)
+                    {
+                        case 0:
+                            level = 2;
+                            break;
+
+                        case 1:
+                            level = 3;
+                            break;
+
+                        case 2:
+                            level = 5;
+                            break;
+
+                        case 3:
+                            this.scene.stop(this.name);
+                            this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
+                            break;
+                    }
+                    break;
+
+                case 2:
+                    switch (3 - player2.tank.score)
+                    {
+                        case 0:
+                            level = 4;
+                            break;
+
+                        case 1:
+                            level = 5;
+                            break;
+
+                        case 2:
+                            level = 6;
+                            break;
+
+                        case 3:
+                            this.scene.stop(this.name);
+                            this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
+                            break;
+                    }
+                    break;
+
+                case 3:
+                    this.scene.stop(this.name);
+                    this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
+                    break;
             }
-            else    // If the game is win go to the win screen and pass the players for acces the scores and powerUps
-            {
-                this.scene.stop(this.name);
-                this.scene.start("WinScreen", {player1: this.player1, player2: this.player2});
-                return;
-            }
+
+            this.scene.stop(this.name);
+            this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, next: level });
+            return;
         }
 
         player.tank.health--;
@@ -731,7 +810,6 @@ class Level extends Phaser.Scene
     DamageLevel(bullet, obstacle)
     {
         let posX = obstacle.posMatrix.x, posY = obstacle.posMatrix.y, newTile, collider = true;
-        //console.log(this.structureMatrix[obstacle.posMatrix.x][obstacle.posMatrix.y]);
         switch(this.structureMatrix[posX][posY])
         {
             case PaperType.h_oneHit:
@@ -789,7 +867,9 @@ class Level extends Phaser.Scene
         }
 
         this.tiles[posX][posY].destroy();
-        this.tiles[posX][posY] = this.add.image((this.MapSize.x * posX)/this.n + this.offset.x, (this.MapSize.y * posY)/this.m + this.offset.y, "World", newTile);
+        let newObstacle = this.add.image((this.MapSize.x * posX)/this.n + this.offset.x, (this.MapSize.y * posY)/this.m + this.offset.y, "World", newTile);
+        newObstacle.posMatrix = { x: posX, y: posY };
+        this.tiles[posX][posY] = newObstacle;
         if (collider)
             this.levelObstacles.add(this.tiles[posX][posY]);
     }
