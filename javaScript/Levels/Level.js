@@ -171,12 +171,10 @@ class Level extends Phaser.Scene
         {
             this.player1 = data.player1;
             this.player2 = data.player2;
-            this.player1.tank.RestartHealth();
-            this.player2.tank.RestartHealth();
-            this.player1.angle = 0;
-            this.player1.tank.forward = { x: 1, y: 0 };
-            this.player2.angle = 180;
-            this.player2.tank.forward = { x: -1, y: 0 };
+            this.player1.RestartHealth();
+            this.player2.RestartHealth();
+            this.player1.forward = { x: 1, y: 0 };
+            this.player2.forward = { x: -1, y: 0 };
             this
             if (this.name == "PowerUp")
             {
@@ -198,8 +196,8 @@ class Level extends Phaser.Scene
                     randoms.push(candidate);
                 }
                 this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
-                    }
-            }
+                }
+        }
     }
 
     preload() 
@@ -368,7 +366,7 @@ class Level extends Phaser.Scene
             {                
                 this.powerUpsGroup.destroy();
                 this.scene.stop(this.name);
-                this.scene.start(this.nextScene, { player1: this.player1, player2: this.player2, next: "" });   
+                this.scene.start(this.nextScene, { player1: this.player1.tank, player2: this.player2.tank, next: this.nextScene });   
             }
     }
 
@@ -392,7 +390,7 @@ class Level extends Phaser.Scene
 
     InitWorld(matrix, rightWinningMatrix = null)
     {
-        if (rightWinningMatrix != null && this.player2Score > this.player1Score)
+        if (rightWinningMatrix != null && this.player2.score > this.player1.score)
         {
             matrix = rightWinningMatrix.map((x) => TilesDictionary[x]);
         }
@@ -478,19 +476,19 @@ class Level extends Phaser.Scene
         {
             this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
             this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
-            this.player1.score = 3;
-            this.player2.score = 3;
             this.player1.tank = new Tank();
             this.player2.tank = new Tank();
+            this.player1.tank.score = 3;
+            this.player2.tank.score = 3;
         }
         else
         {
-            this.player1.x = posX1 + this.offset.x;
-            this.player1.y = posY + this.offset.y;
-            this.player1.setDepth(this.player1.depth + (this.n * this.m * 2));
-            this.player2.x = posX2 + this.offset.x
-            this.player2.y = posY + this.offset.y;
-            this.player2.setDepth(this.player2.depth + (this.n * this.m * 2));
+            let p1 = this.player1, p2 = this.player2;
+            this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", p1.sprite);
+            this.player1.tank = p1;
+            this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", p2.sprite);
+            this.player2.tank = p2;
+            //this.player2.setDepth(this.player2.depth + (this.n * this.m * 2));
             //this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", this.player1Tank.sprite);
             //this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", this.player2Tank.sprite);
         }
@@ -500,9 +498,6 @@ class Level extends Phaser.Scene
         this.playersGroup.add(this.player2);
         this.player2.rotation = Math.PI;
         this.player2.tank.forward.x = -1;
-
-        console.log(this.player1.x);
-        console.log(this.player1.y);
     }
 
     InitColliders()
@@ -529,10 +524,12 @@ class Level extends Phaser.Scene
         })
         if (this.name == "PowerUp")
         {
+            this.physics.add.collider(this.powerUpsGroup, this.levelObstacles);
             this.physics.add.collider(this.playersGroup, this.powerUpsGroup, (player, powerUp) =>
             {
                 if (player.tank.canRecivePowerUp)
                 {
+                    console.log(player.tank);
                     let found;
                     switch (powerUp.type)
                     {
@@ -589,8 +586,11 @@ class Level extends Phaser.Scene
                     }
                     player.tank.powerUps.push(powerUp.type);
                     player.tank.canRecivePowerUp = false;
-                    player.setTexture(PowerUpsTankSpriteDic[powerUp.type]);
+                    console.log(player.tank.sprite)
+                    player.tank.sprite = PowerUpsTankSpriteDic[powerUp.type];
+                    console.log(player.tank.sprite)
                     powerUp.destroy();
+                    console.log(player.tank);
                 }
             })
         }
@@ -635,16 +635,16 @@ class Level extends Phaser.Scene
             player.tank.canShoot = false;
             let bullet = this.physics.add.sprite(player.x + player.tank.forward.x * this.sizeOfTile, player.y + player.tank.forward.y * this.sizeOfTile, "Bullets", player.tank.bulletType);
             bullet.scale = 1 / 10;
-            bullet.shooter = player;
+            bullet.shooter = player.tank;
             this.time.addEvent({
                 delay: 1000,
                 callback: player => {
-                    player.inmune = false;
+                    player.tank.inmune = false;
                 },
                 callbackScope: this,
                 args: [player]
             });
-            player.inmune = true;
+            player.tank.inmune = true;
             this.time.addEvent({
                 delay: player.tank.shootingRate * 1000,
                 callback: player => {
@@ -675,14 +675,14 @@ class Level extends Phaser.Scene
 
     TakeDamage(player, bullet)
     {
-        if (bullet.shooter == player && bullet.inmuneTime > 0)
+        if (bullet.shooter == player && player.tank.inmune)
             return;
 
         if (player.tank.health == 1)
         {
-            player.score--;
+            player.tank.score--;
             this.scene.stop(this.name);
-            this.scene.start("PowerUp", { player1: this.player1, player2: this.player2, next: this.name[this.name.lenght - 1] + 1});
+            this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, next: Number(this.name[this.name.length - 1]) + 1 });
             return;
         }
 
