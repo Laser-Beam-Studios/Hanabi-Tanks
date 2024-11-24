@@ -180,7 +180,7 @@ class Level extends Phaser.Scene
             
             if (this.name == "PowerUp")
             {
-                this.nextScene = "Level" + String(data.next);
+                this.nextScene = data.nextLevel;
                 let randoms = [];
                 let candidate;
                 for (var i = 0; i < 3; i++)
@@ -199,7 +199,7 @@ class Level extends Phaser.Scene
                 }
                 this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
             }
-            else if (this.name == "Victoria")
+            else if (this.name == "Victory")
             {
 
             }
@@ -487,6 +487,10 @@ class Level extends Phaser.Scene
                 posX1 = 2 * this.sizeOfTile;
                 posX2 = (this.m + 1) * this.sizeOfTile;
                 break;
+            case "Level6":
+                posX1 = 3 * this.sizeOfTile;
+                posX2 = (this.m) * this.sizeOfTile;
+                break;
 
             case "PowerUp":
                 posX1 = (Math.floor(this.n / 2) - 2) * this.sizeOfTile;
@@ -711,98 +715,31 @@ class Level extends Phaser.Scene
 
         if (player.tank.health == 1)
         {
-            player.tank.score--;
+            //player.tank.score--;
             let level = 0, player1, player2;
             if (this.playersGroup.children.entries[0] == player)
             {
                 player1 = player;
                 player2 = this.playersGroup.children.entries[1];
-                //player2.tank.score++;
+                player2.tank.score++;
             }
             else
             {
                 player1 = this.playersGroup.children.entries[0];
-                //player1.tank.score++;
+                player1.tank.score++;
                 player2 = player;
             }
 
-            switch(3 - player1.tank.score)
-            {
-                case 0:
-                    switch (3 - player2.tank.score)
-                    {
-                        case 0:
-                            level = 1;
-                            break;
-
-                        case 1:
-                            level = 2;
-                            break;
-
-                        case 2:
-                            level = 4;                           
-                            break;
-
-                        case 3:
-                            this.scene.stop(this.name);
-                            this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
-                            break;
-                    }
-                    break;
-
-                case 1:
-                    switch (3 - player2.tank.score)
-                    {
-                        case 0:
-                            level = 2;
-                            break;
-
-                        case 1:
-                            level = 3;
-                            break;
-
-                        case 2:
-                            level = 5;
-                            break;
-
-                        case 3:
-                            this.scene.stop(this.name);
-                            this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
-                            break;
-                    }
-                    break;
-
-                case 2:
-                    switch (3 - player2.tank.score)
-                    {
-                        case 0:
-                            level = 4;
-                            break;
-
-                        case 1:
-                            level = 5;
-                            break;
-
-                        case 2:
-                            level = 6;
-                            break;
-
-                        case 3:
-                            this.scene.stop(this.name);
-                            this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
-                            break;
-                    }
-                    break;
-
-                case 3:
-                    this.scene.stop(this.name);
-                    this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
-                    break;
-            }
-
+            var nextLevel = this.GetNextLevel();
             this.scene.stop(this.name);
-            this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, next: level });
-            return;
+            if(nextLevel == "Victory")
+            {
+                this.scene.start("Victory", { player1: player1.tank, player2: player2.tank, nextLevel: nextLevel});
+            }
+            else
+            {
+                this.scene.start("PowerUp", { player1: player1.tank, player2: player2.tank, nextLevel: nextLevel});
+            }       
         }
 
         player.tank.health--;
@@ -822,12 +759,12 @@ class Level extends Phaser.Scene
                 return "Level5";
             case "Level4":  // I can finish with one winner or go to level 5
                 if (Math.abs(scoreDiference) == 1) return "Level5";
-                else return "WinScreen";
+                else return "Victory";
             case "Level5":  // I can just go to win screen or to level 6
                 if (Math.abs(scoreDiference) == 0) return "Level6";
-                else return "WinScreen";
+                else return "Victory";
             case "Level6":  // i can just go to win screen
-                return "WinScreen";
+                return "Victory";
             default:
                 console.log("ERROR_IN_GETNEXTLEVEL_UNKOWN_LEVELNAME: " + this.name);
                 return;

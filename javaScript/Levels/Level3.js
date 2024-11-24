@@ -11,7 +11,7 @@ class Level3 extends Level
     preload() 
     {
         super.preload();
-
+        console.log("Start level3");
         // To see the meaning of the characters go to "../javaScript/Levels/Level.js" and look the TilesDictionary const variable
         var world =
         [
