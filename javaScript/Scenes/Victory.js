@@ -16,7 +16,7 @@ class Victory extends Phaser.Scene
     preload() 
     {
         this.load.image("VictoryBackground", "../assets/UI/Screens/win.png");
-        this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 128, frameHeight: 128 });
         this.load.spritesheet("Numbers", "../assets/numbersSpritesheet.png", { frameWidth: 64, frameHeight: 64 });
     }
 
@@ -58,17 +58,17 @@ class Victory extends Phaser.Scene
         // power ups
 
         let powerUp1 = this.add.sprite(WINDOW.WIDHT * 0.23144, WINDOW.HEIGHT * 0.26345, "PowerUps", powerUps[0]);
-        Scaler.ScaleToGameH(powerUp1, 0.12043);
+        Scaler.ScaleToGameH(powerUp1, 0.12043*2.8);
         let powerUp2 = this.add.sprite(WINDOW.WIDHT * 0.48546, WINDOW.HEIGHT * 0.26345, "PowerUps", powerUps[1]);
-        Scaler.ScaleToGameH(powerUp2, 0.12043);
+        Scaler.ScaleToGameH(powerUp2, 0.12043*2.8);
         if (powerUps.lenght == 2)
             return;
         let powerUp3 = this.add.sprite(WINDOW.WIDHT * 0.23144, WINDOW.HEIGHT * 0.54949, "PowerUps", powerUps[2]);
-        Scaler.ScaleToGameH(powerUp3, 0.12043);
+        Scaler.ScaleToGameH(powerUp3, 0.12043*2.8);
         if (powerUps.lenght == 3)
             return;
         let powerUp4 = this.add.sprite(WINDOW.WIDHT * 0.48546, WINDOW.HEIGHT * 0.54949, "PowerUps", powerUps[3]);
-        Scaler.ScaleToGameH(powerUp4, 0.12043);
+        Scaler.ScaleToGameH(powerUp4, 0.12043*2.8);
     }
 
     OnKeyPressed(key)

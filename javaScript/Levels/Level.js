@@ -213,7 +213,7 @@ class Level extends Phaser.Scene
         this.load.spritesheet("World", "../assets/TilesSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet("Tanks", "../assets/TanksSpriteSheet.png", { frameWidth: 256, frameHeight: 256 });
         this.load.spritesheet("Bullets", "../assets/BulletSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
-        this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 128, frameHeight: 128 });
         this.load.image("lives_P1", "../assets/UI/Health/health1.png");
         this.load.image("lives_P2", "../assets/UI/Health/health2.png");
 
@@ -266,12 +266,15 @@ class Level extends Phaser.Scene
         this.powerUpsGroup = this.physics.add.group();
         let powerUpL = this.add.image(posL.x * this.sizeOfTile + this.offset.x, posL.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.l);
         powerUpL.type = this.powerUps.l;
+        Scaler.ScaleToGameW(powerUpL, 0.05);
         this.powerUpsGroup.add(powerUpL);
         let powerUpM = this.add.image(posM.x * this.sizeOfTile + this.offset.x, posM.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.m);
         powerUpM.type = this.powerUps.m;
+        Scaler.ScaleToGameW(powerUpM, 0.05);
         this.powerUpsGroup.add(powerUpM);
         let powerUpR = this.add.image(posR.x * this.sizeOfTile + this.offset.x, posR.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.r);
         powerUpR.type = this.powerUps.r;
+        Scaler.ScaleToGameW(powerUpR, 0.05);
         this.powerUpsGroup.add(powerUpR);
     }
   
