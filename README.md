@@ -135,9 +135,9 @@ No se tiene pensado añadir sistema de logros.
     
   Sonidos de gameplay  
 - **Bala al rebotar con una pared de madera:** Suena un corcho contra una mesa de madera, este tiene dos versiones que se reproducen cuando se debe reproducir de manera aleatoria para eleguir cual.
-  ![WallBounce][audio1]
+  [WallBounce][audio1]
 - **Bala al impactar sobre un tanque:** Suena un corcho sobre una mesa de madera pero más fuerte.
-  ![WallBounce2][audio2]
+  ![WallBounce2](assets/Audio/SFX/Bullets/WallBounce2.mp3)
 - **Bala al destruirse en una pared de madera:** Suena un corcho sobre una mesa de madera pero de manera distinta es más fuerte y seco.
   ![DestroyBullet][audio3]
 - **Tanque al disparar:** Suena una “p” muy cortada hecha con la voz.
