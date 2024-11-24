@@ -119,9 +119,9 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
 ![Nivel_4][image11]  
 - **Nivel 5:**  
 ![Nivel_5][image12]  
-- **Nivel 6:**
+- **Nivel 6:**  
 ![Nivel 6][image13]
-- **Power ups**
+- **Power ups**  
 ![Power Ups][image14]
 
 ### [**Logros**](#índice)  
@@ -131,7 +131,8 @@ No se tiene pensado añadir sistema de logros.
 ### [**Audio**](#índice)
 
 - **Efectos de sonido**:   
-  		Debido a la temática visual del juego, estos estarán relacionados con sonidos de cartones, maderas, papeles y corchos.
+
+  Debido a la temática visual del juego, estos estarán relacionados con sonidos de cartones, maderas, papeles y corchos.
     
   Sonidos de gameplay  
 - **Bala al rebotar con una pared de madera:** Suena un corcho contra una mesa de madera, este tiene dos versiones que se reproducen cuando se debe reproducir de manera aleatoria para eleguir cual.
