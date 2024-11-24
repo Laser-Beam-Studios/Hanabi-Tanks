@@ -73,21 +73,21 @@ class Options extends Phaser.Scene
         
         let letterW = this.add.sprite((WINDOW.WIDHT*0.765), (WINDOW.HEIGHT * 0.44), "Letters",LettersSprites.w);
         Scaler.ScaleToGameW(letterW, 0.026);
-        let letterA = this.add.sprite((WINDOW.WIDHT*0.765), (WINDOW.HEIGHT * 0.57), "Letters",LettersSprites.a);
+        let letterA = this.add.sprite((WINDOW.WIDHT*0.765), (WINDOW.HEIGHT * 0.625), "Letters",LettersSprites.a);
         Scaler.ScaleToGameW(letterA, 0.026);
         let letterS = this.add.sprite((WINDOW.WIDHT*0.765), (WINDOW.HEIGHT * 0.5059), "Letters",LettersSprites.s);
         Scaler.ScaleToGameW(letterS, 0.026);
-        let letterD = this.add.sprite((WINDOW.WIDHT*0.765), (WINDOW.HEIGHT * 0.625), "Letters",LettersSprites.d);
+        let letterD = this.add.sprite((WINDOW.WIDHT*0.765), (WINDOW.HEIGHT * 0.57), "Letters",LettersSprites.d);
         Scaler.ScaleToGameW(letterD, 0.026);
         let letterR = this.add.sprite((WINDOW.WIDHT*0.765), (WINDOW.HEIGHT * 0.685), "Letters",LettersSprites.r);
         Scaler.ScaleToGameW(letterR, 0.026);
         let letterI = this.add.sprite((WINDOW.WIDHT*0.830), (WINDOW.HEIGHT * 0.44), "Letters",LettersSprites.i);
         Scaler.ScaleToGameW(letterI, 0.026);
-        let letterJ = this.add.sprite((WINDOW.WIDHT*0.833), (WINDOW.HEIGHT * 0.568), "Letters",LettersSprites.j);
+        let letterJ = this.add.sprite((WINDOW.WIDHT*0.833), (WINDOW.HEIGHT * 0.620), "Letters",LettersSprites.j);
         Scaler.ScaleToGameW(letterJ, 0.026);
         let letterK = this.add.sprite((WINDOW.WIDHT*0.832), (WINDOW.HEIGHT * 0.5059), "Letters",LettersSprites.k);
         Scaler.ScaleToGameW(letterK, 0.026);
-        let letterL = this.add.sprite((WINDOW.WIDHT*0.833), (WINDOW.HEIGHT * 0.620), "Letters",LettersSprites.l);
+        let letterL = this.add.sprite((WINDOW.WIDHT*0.833), (WINDOW.HEIGHT * 0.564), "Letters",LettersSprites.l);
         Scaler.ScaleToGameW(letterL, 0.026);
         let letterP = this.add.sprite((WINDOW.WIDHT*0.830), (WINDOW.HEIGHT * 0.685), "Letters",LettersSprites.p);
         Scaler.ScaleToGameW(letterP, 0.026);
