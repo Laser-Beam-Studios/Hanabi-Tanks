@@ -163,6 +163,7 @@ class Level extends Phaser.Scene
         // The tiles are images of 64 x 64 pixels
         this.scaleOfTile = this.sizeOfTile / 64;
 
+        this.musicController;
         this.songsParts = ["Tanks_Party_A", "Tanks_Party_B", "Tanks_Party_C", "Tanks_Party_D", "Tanks_Party_E"];
         this.levelsNames = ["Level1", "Level2", "Level3", "Level4", "Level5", "Level6"];
     }
@@ -176,7 +177,7 @@ class Level extends Phaser.Scene
             this.player2.RestartHealth();
             this.player1.forward = { x: 1, y: 0 };
             this.player2.forward = { x: -1, y: 0 };
-            this
+            
             if (this.name == "PowerUp")
             {
                 this.nextScene = "Level" + String(data.next);
@@ -212,14 +213,25 @@ class Level extends Phaser.Scene
         this.load.spritesheet("Tanks", "../assets/TanksSpriteSheet.png", { frameWidth: 256, frameHeight: 256 });
         this.load.spritesheet("Bullets", "../assets/BulletSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
+
+        // SFX
+        this.load.audio("DestroyBullet", "../assets/Audio/SFX/Bullets/DestroyBullet.mp3");
+        this.load.audio("PaperDestroy", "../assets/Audio/SFX/Bullets/PaperDestroy.mp3");
+        this.load.audio("PaperHit", "../assets/Audio/SFX/Bullets/PaperHit.mp3");
+        this.load.audio("Shoot", "../assets/Audio/SFX/Bullets/Shoot.mp3");
+        this.load.audio("TankHit", "../assets/Audio/SFX/Bullets/TankHit.mp3");
+        this.load.audio("WallBounce", "../assets/Audio/SFX/Bullets/WallBounce.mp3");
+        this.load.audio("WallBounce2", "../assets/Audio/SFX/Bullets/WallBounce2.mp3");
+        this.load.audio("VictorySound", "..assets/Audio/SFX/Others/VictorySound.mp3");
     }
 
     create() 
     {
         AudioManager.Instance.SetActiveScene(this);
 
-        var controller = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music", "complete", this.OnMusicPartEnds.bind(this, "Tanks_Party_A"));
-        controller.Play();
+        this.musicController = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music");
+        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, "Tanks_Part_A"));
+        this.musicController.Play();
 
         this.InitWorldSprites();
         this.InitTankSprites();
@@ -229,6 +241,17 @@ class Level extends Phaser.Scene
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
         this.input.keyboard.on("keyup", this.OnKeyReleased.bind(this));
+        this.events.on('resume', this.CheckMusic.bind(this, this));
+    }
+
+    CheckMusic(scene)
+    {
+        if (!scene.musicController.IsPlaying())
+        {
+            scene.musicController = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music");
+            scene.musicController.SetCallBack("complete", scene.OnMusicPartEnds.bind(scene, "Tanks_Part_A"));
+            scene.musicController.Play();
+        }
     }
 
     InitPowerUps()
@@ -266,8 +289,9 @@ class Level extends Phaser.Scene
             randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
         }
         
-        var controller = AudioManager.Instance.CreateInstance(this.songsParts[randomPartIdx], "Music", "complete", this.OnMusicPartEnds.bind(this, this.songsParts[randomPartIdx]));
-        controller.Play();
+        this.musicController = AudioManager.Instance.CreateInstance(this.songsParts[randomPartIdx], "Music");
+        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, this.songsParts[randomPartIdx]));
+        this.musicController.Play();
     }
 
     OnKeyPressed(key)
@@ -674,6 +698,9 @@ class Level extends Phaser.Scene
             bullet.setVelocityY(bullet.velocity.y);
             bullet.bouncesLeft = player.tank.bulletBounces;
             bullet.damage = player.tank.bulletDamage;
+
+            // ShootAudio
+            AudioManager.Instance.PlayOneShoot("Shoot", "SFX");
         }
     }
 

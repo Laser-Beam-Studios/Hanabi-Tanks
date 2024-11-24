@@ -21,6 +21,7 @@ class Pause extends Phaser.Scene
     {
         AudioManager.Instance.SetActiveScene(this, false);
 
+
         const background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "PauseBackground");
         Scaler.ScaleToGameW(background);
 
@@ -44,6 +45,7 @@ class Pause extends Phaser.Scene
         switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
+                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 this.scene.stop("Pause");
                 this.scene.resume(this.lastScene);
                 break;
@@ -60,14 +62,17 @@ class Pause extends Phaser.Scene
         switch(button.texture.key)
         {
             case "BackButton":
+                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 this.scene.stop("Pause");
                 this.scene.resume(this.lastScene);
                 break;
             case "OptionsButton":
+                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 this.scene.pause("Pause");
                 this.scene.launch("Options", {scene: "Pause"});
                 break;
             case "MainMenuButton":
+                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 this.scene.stop("Pause");
                 this.scene.stop(this.lastScene);
                 this.scene.start("MainMenu");

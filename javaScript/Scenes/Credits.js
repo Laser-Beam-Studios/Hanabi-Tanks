@@ -29,6 +29,7 @@ class Credits extends Phaser.Scene
         switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
+                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 this.scene.stop("Credits");
                 this.scene.start("MainMenu");
                 break;
@@ -45,6 +46,7 @@ class Credits extends Phaser.Scene
         switch(button.texture.key)
         {
             case "BackButton":
+                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 this.scene.stop("Credits");
                 this.scene.start("MainMenu");
                 break;
