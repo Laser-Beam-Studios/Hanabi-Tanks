@@ -36,4 +36,9 @@ class AudioController
         return this.audioInstance.isPlaying;
     }
 
+    SetCallBack(callbackType, callback)
+    {
+        this.audioInstance.on(callbackType, callback);
+    }
+
 }

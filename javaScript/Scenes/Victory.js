@@ -32,6 +32,7 @@ class Victory extends Phaser.Scene
         back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back))
         
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
+        
         let index = 0;
         let powerUps = [];
         if (this.player1.score > this.player2.score)
