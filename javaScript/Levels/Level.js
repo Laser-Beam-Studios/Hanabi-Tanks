@@ -214,6 +214,8 @@ class Level extends Phaser.Scene
         this.load.spritesheet("Tanks", "../assets/TanksSpriteSheet.png", { frameWidth: 256, frameHeight: 256 });
         this.load.spritesheet("Bullets", "../assets/BulletSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
+        this.load.image("lives_P1", "../assets/UI/Health/health1.png");
+        this.load.image("lives_P2", "../assets/UI/Health/health2.png");
 
         // SFX
         this.load.audio("DestroyBullet", "../assets/Audio/SFX/Bullets/DestroyBullet.mp3");
@@ -438,6 +440,7 @@ class Level extends Phaser.Scene
     {
         this.levelObstacles = this.physics.add.staticGroup();
         this.levelWalls = this.physics.add.staticGroup();
+        this.levelPapers = this.physics.add.staticGroup();
         this.offset = 
         {
             x: (WINDOW.WIDHT - this.MapSize.x) / 2 + this.sizeOfTile/2,
@@ -528,7 +531,36 @@ class Level extends Phaser.Scene
                         this.levelObstacles.add(this.tiles[i][j]);
                         break;
 
-                    default:                            
+                    case TileType.Paper.h_perfect:
+                        this.levelPapers.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Paper.h_oneHit:
+                        this.levelPapers.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Paper.h_twoHit:
+                        this.levelPapers.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Paper.h_destroy:
+                        this.levelPapers.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Paper.v_perfect:
+                        this.levelPapers.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Paper.v_oneHit:
+                        this.levelPapers.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Paper.v_twoHit:
+                        this.levelPapers.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Paper.v_destroy:
+                        this.levelPapers.add(this.tiles[i][j]);
                         this.levelObstacles.add(this.tiles[i][j]);
                         break;
                 }
@@ -613,11 +645,15 @@ class Level extends Phaser.Scene
             {
                 this.DestroyBullet(bullet, this.BounceBullet(bullet, obstacle));
             })
-        this.physics.add.collider(this.bulletsGroup, this.levelObstacles, (bullet, obstacle) =>
+        this.physics.add.collider(this.bulletsGroup, this.levelWalls, (bullet, obstacle) =>
         {     
-            this.DamageLevel(bullet, obstacle);
             this.DestroyBullet(bullet, this.BounceBullet(bullet, obstacle));
         })
+        this.physics.add.collider(this.bulletsGroup, this.levelPapers, (bullet, obstacle) =>
+            {     
+                this.DamageLevel(bullet, obstacle);
+                this.DestroyBullet(bullet, true);
+            })
         if (this.name == "PowerUp")
         {
             this.physics.add.collider(this.powerUpsGroup, this.levelObstacles);
@@ -777,6 +813,7 @@ class Level extends Phaser.Scene
 
     TakeDamage(player, bullet)
     {
+        bullet.bouncesLeft = 0;
         if (bullet.shooter == player && player.tank.inmune)
             return;
 
@@ -840,11 +877,12 @@ class Level extends Phaser.Scene
                     collider = false;
                     AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
                 }
-                else
+                else{
                     newTile = PaperType.h_twoHit;
                     this.structureMatrix[posX][posY] = newTile;
                     AudioManager.Instance.PlayOneShoot("PaperHit", "SFX");
-                
+                }
+                bullet.bouncesLeft = 0;
                 break;
 
             case PaperType.h_perfect:
@@ -854,17 +892,19 @@ class Level extends Phaser.Scene
                     collider = false;
                     AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
                 }
-                else
+                else{
                     newTile = PaperType.h_oneHit;
                     this.structureMatrix[posX][posY] = newTile;
                     AudioManager.Instance.PlayOneShoot("PaperHit", "SFX");
-                    
+                }
+                bullet.bouncesLeft = 0;    
                 break;
 
             case PaperType.h_twoHit:
                 newTile = PaperType.h_destroy;
                 collider = false;
                 AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
+                bullet.bouncesLeft = 0;
                 break;
 
             case PaperType.v_oneHit:
@@ -874,10 +914,12 @@ class Level extends Phaser.Scene
                     collider = false;
                     AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
                 }
-                else
+                else{
                     newTile = PaperType.v_twoHit;
                     this.structureMatrix[posX][posY] = newTile;
                     AudioManager.Instance.PlayOneShoot("PaperHit", "SFX");
+                }
+                    bullet.bouncesLeft = 0;
                 break;
 
             case PaperType.v_perfect:
@@ -887,16 +929,19 @@ class Level extends Phaser.Scene
                     collider = false;
                     AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
                 }
-                else
+                else{
                     newTile = PaperType.v_oneHit;
                     this.structureMatrix[posX][posY] = newTile;
                     AudioManager.Instance.PlayOneShoot("PaperHit", "SFX");
+                }
+                    bullet.bouncesLeft = 0;
                 break;
 
             case PaperType.v_twoHit:
                 newTile = PaperType.v_destroy;
                 collider = false;
                 AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
+                bullet.bouncesLeft = 0;
                 break;
 
             default:
@@ -909,7 +954,9 @@ class Level extends Phaser.Scene
         this.tiles[posX][posY] = newObstacle;
         if (collider){
             this.levelObstacles.add(this.tiles[posX][posY]);
+            this.levelPapers.add(this.tiles[posX][posY]);
             this.physics.add.existing(this.tiles[posX][posY], true);
+            
         }        
     }
 
