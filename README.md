@@ -135,35 +135,35 @@ No se tiene pensado añadir sistema de logros.
     
   Sonidos de gameplay  
 - **Bala al rebotar con una pared de madera:** Suena un corcho contra una mesa de madera, este tiene dos versiones que se reproducen cuando se debe reproducir de manera aleatoria para eleguir cual.
-  ![Music][audio1]
+  [WallBounce][audio1]
 - **Bala al impactar sobre un tanque:** Suena un corcho sobre una mesa de madera pero más fuerte.
-  ![Music](assets/Audio/SFX/Bullets/WallBounce2.mp3)
+  [WallBounce2][audio2]
 - **Bala al destruirse en una pared de madera:** Suena un corcho sobre una mesa de madera pero de manera distinta es más fuerte y seco.
-  ![DestroyBullet][audio3]
+  [DestroyBullet][audio3]
 - **Tanque al disparar:** Suena una “p” muy cortada hecha con la voz.
-  ![Shoot][audio4]
+  [Shoot][audio4]
 - **Bala al romper una pared de papel:** Suena un papel atravesado y rasgado con un punzón.
-  ![PaperDestroy][audio5]
+  [PaperDestroy][audio5]
   
   Sonidos de interfaz
 - **Pasar el cursor por encima de un botón (entrar):** Suena un re con la ocarina, tocando con un staccato.
-  ![PointerEnter][audio6]
+  [PointerEnter][audio6]
 - **Pasar el cursor por encima de un botón (salir):** Suena un sol con la ocarina, tocando con un staccato.
-  ![PointerExit][audio7]
+  [PointerExit][audio7]
 - **Sonido de abrir un menú o cambiar del mismo:** Suena una frase descendente con la ocarina con sonido suave y sutil.
-  ![ChangeMenu][audio8]  
+  [ChangeMenu][audio8]  
 - **Sonido de comienzo de nivel:** Suena una melodía muy simple con la ocarina, usando el re y el do graves.
-  ![StartLevel][audio9]
+  [StartLevel][audio9]
 
 - **Música**:  
   Tiene una canción de fondo durante toda su ejecución, está compuesta por 5 partes, de misma duración y progresión armónica, siendo esta I IV V, en la escala de C major (Do mayor). Estás partes se pueden conectar todas con todas y en el juego siguen un orden aleatorizado de ejecución de las mismas.
 Su compás es 4/4 y tiene un ritmo y melodías alegres, está interpretado sobre un piano eléctrico con sonido de vibráfono y hardischop.
 
-- **Part A -> ** ![ParteA][song1-A]
-- **Part B -> ** ![ParteB][song1-B]
-- **Part C -> ** ![ParteC][song1-C]
-- **Part D -> ** ![ParteD][song1-D]
-- **Part E -> ** ![ParteE][song1-E]
+- **Part A -> ** [ParteA][song1-A]
+- **Part B -> ** [ParteB][song1-B]
+- **Part C -> ** [ParteC][song1-C]
+- **Part D -> ** [ParteD][song1-D]
+- **Part E -> ** [ParteE][song1-E]
 
 ### [**Arte**](#índice)  
 Tanques: Los tanques cambian dependiendo del último Power Up que haya escogido el jugador.
