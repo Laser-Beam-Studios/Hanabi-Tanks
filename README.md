@@ -1,4 +1,4 @@
-# **GDD Hanabi Tanks** *Versión 1.0*
+# **GDD Hanabi Tanks** *Versión 1.1*
 ## Por Laser Beam Studios
 
 ### Descripción
@@ -119,6 +119,10 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
 ![Nivel_4][image11]  
 **Nivel 5:**  
 ![Nivel_5][image12]  
+**Nivel 6:**
+![Nivel 6][image13]
+**Power ups**
+![Power Ups][image14]
 
 ### [**Logros**](#índice)  
 	  
@@ -127,49 +131,62 @@ No se tiene pensado añadir sistema de logros.
 ### [**Audio**](#índice)
 
 - **Efectos de sonido**:   
-  	Debido a la temática visual del juego, estos estarán relacionados con sonidos de cartones, maderas, papeles y corchos.  
+  		Debido a la temática visual del juego, estos estarán relacionados con sonidos de cartones, maderas, papeles y corchos.
     
   Sonidos de gameplay  
-- **Bala al rebotar con una pared de madera:** sonará como un corcho al rebotar en madera.  
-- **Bala al impactar sobre un tanque:** sonará un golpe de un corcho sobre cartón, mientras se escucha un sonido de explosión junto a una onomatopeya de explosión de fondo. Esto último debido a que el juego pasa en la mente de un niño, así que se escuchara el sonido real y lo que escucharía el niño en su imaginación, así como el sonido que hace el niño mientras juega.  
-- **Bala al destruirse en una pared de madera:** sonará como un corcho al caer al suelo.  
-- **Tanque al disparar:** sonará como un corcho al ser abierta una botella, y de fondo la onomatopeya del niño al recrear el disparo de un tanque.  
-- **Tanque al moverse:** sonará como se arrastra un cartón sobre madera, y la onomatopeya del sonido mecánico que producen los tanques.  
-- **Tanque al chocar con una pared de madera:** sonará como un cartón al golpear la madera.  
-- **Bala al romper una pared de papel:** sonará como un papel resquebrajándose.
-
-
-	Sonidos de interfaz
-
-- **Pasar el cursor por encima de un botón:** sonará una onomatopeya de un niño jugando a elegir opciones.  
-- **Pulsar un botón:** sonará como cuando chocan dos cartones.  
-- **Sonido de abrir un menú o cambiar del mismo:** sonará como un cartón deslizándose sobre la madera.  
-- **Sonido de victoria:** sonará como la onomatopeya de victoria que hace un niño al ganar un bando cuando juega a los soldados, el típico ta ta taran, pero no será la onomatopeya la que sonará sino que lo harán instrumentos.
+- **Bala al rebotar con una pared de madera:** Suena un corcho contra una mesa de madera, este tiene dos versiones que se reproducen cuando se debe reproducir de manera aleatoria para eleguir cual.
+  ![WallBounce][audio1]
+- **Bala al impactar sobre un tanque:** Suena un corcho sobre una mesa de madera pero más fuerte.
+  ![WallBounce2][audio2]
+- **Bala al destruirse en una pared de madera:** Suena un corcho sobre una mesa de madera pero de manera distinta es más fuerte y seco.
+  ![DestroyBullet][audio3]
+- **Tanque al disparar:** Suena una “p” muy cortada hecha con la voz.
+  ![Shoot][audio4]
+- **Bala al romper una pared de papel:** Suena un papel atravesado y rasgado con un punzón.
+  ![PaperDestroy][audio5]
+  
+  Sonidos de interfaz
+- **Pasar el cursor por encima de un botón (entrar):** Suena un re con la ocarina, tocando con un staccato.
+  ![PointerEnter][audio6]
+- **Pasar el cursor por encima de un botón (salir):** Suena un sol con la ocarina, tocando con un staccato.
+  ![PointerExit][audio7]
+- **Sonido de abrir un menú o cambiar del mismo:** Suena una frase descendente con la ocarina con sonido suave y sutil.
+  ![ChangeMenu][audio8]  
+- **Sonido de comienzo de nivel:** Suena una melodía muy simple con la ocarina, usando el re y el do graves.
+  ![StartLevel][audio9]
 
 - **Música**:  
-  Debido a la estética será una canción sencilla compuesta principalmente por instrumentos “sencillos” como la flauta dulce y el xilófono.  
-    
-  De esta manera se logrará tener una música inmersiva al mundo ficticio del juego, mientras es una música suave, sin mucha relevancia. Un ejemplo de todo lo auditivo, ya que está inspirado en ello, sería el modo de tanques del Wii party.
+  Tiene una canción de fondo durante toda su ejecución, está compuesta por 5 partes, de misma duración y progresión armónica, siendo esta I IV V, en la escala de C major (Do mayor). Estás partes se pueden conectar todas con todas y en el juego siguen un orden aleatorizado de ejecución de las mismas.
+Su compás es 4/4 y tiene un ritmo y melodías alegres, está interpretado sobre un piano eléctrico con sonido de vibráfono y hardischop.
+
+- **Part A -> ** ![ParteA][song1-A]
+- **Part B -> ** ![ParteB][song1-B]
+- **Part C -> ** ![ParteC][song1-C]
+- **Part D -> ** ![ParteD][song1-D]
+- **Part E -> ** ![ParteE][song1-E]
 
 ### [**Arte**](#índice)  
-Al tratarse de juguetes creados por el niño, las referencias visuales que usamos son aquellos materiales que pueden tener a su alcance, siendo el cartón y el papel los principales:  
-Paredes madera  
-Paredes rompibles papel.  
-Balas corcho.  
-Tanques: Cartón.
+Tanques: Los tanques cambian dependiendo del último Power Up que haya escogido el jugador.
+![TanksSpriteSheet][]
 
-* La saga Paper Mario.  
-* The Plucky Squire.  
-* NIntendo Switch Labo.
+Balas: Las balas cambian dependiendo del tanque que esté controlando el jugador. 
+![Bullets][]
 
-Concepts arts:  
-![Concepts_1][image13]  
-Primeras iteraciones de los tanques de juguete.  
-![Concepts_2][image14]  
-Iteración teniendo en cuenta elementos de papelería.  
-![Concepts_3][image15]  
-Sprites preliminares, de los tanques.  
-![Paredes][image16]  
+Botones: Los botones que se han metido en el juego.
+![Back][]
+![Credits][]
+![MainMenu][]
+![Options][]
+![Play][]
+![VolumeSlider][]
+
+Tiles de juego: 
+![TilesSpriteSheet][]
+
+Tiles PowerUps.
+![PowerUpsSpriteSheet][]
+
+
 Modelos de paredes de papel y cartón.  
 ### [**Herramientas utilizadas**](#índice)
 
@@ -181,34 +198,38 @@ Software organizativo: Trello
 Frameworks: Phaser 3  
 Software de presentaciones: Canva
 
+[audio1]: assets/Audio/SFX/Bullets/WallBounce.mp3
+[audio2]: assets/Audio/SFX/Bullets/WallBounce2.mp3
+[audio3]: assets/Audio/SFX/Bullets/DestroyBullet.mp3
+[audio4]: assets/Audio/SFX/Bullets/Shoot.mp3
+[audio5]: assets/Audio/SFX/Bullets/PaperDestroy.mp3
+
+[audio6]: assets/Audio/SFX/UI/EnterOverButton.mp3
+[audio7]: assets/Audio/SFX/UI/ExitOverButton.mp3
+[audio8]: assets/Audio/SFX/UI/ChangeMenu.mp3
+[audio9]: assets/Audio/SFX/Others/VictorySound.mp3
+
+[song1-A]: assets/Audio/Music/TanksParty_PART_A.mp3
+[song1-B]: assets/Audio/Music/TanksParty_PART_B.mp3
+[song1-C]: assets/Audio/Music/TanksParty_PART_C.mp3
+[song1-D]: assets/Audio/Music/TanksParty_PART_D.mp3
+[song1-E]: assets/Audio/Music/TanksParty_PART_E.mp3
+
 [image1]: ImagenesJER/mainmenu.png  
-
 [image2]: ImagenesJER/options.png  
-
 [image3]: ImagenesJER/gameplay.png  
-
 [image4]: ImagenesJER/pause.png  
-
 [image5]: ImagenesJER/win.png  
-
 [image6]: ImagenesJER/credits.png  
 
 [image7]: ImagenesJER/Navegacion_Hanabi_Tanks.png  
 
 [image8]: ImagenesJER/lv1.png  
-
 [image9]: ImagenesJER/lv2.png  
-
 [image10]: ImagenesJER/lv3.png  
-
 [image11]: ImagenesJER/lv4.png  
-
 [image12]: ImagenesJER/lv5.png  
-
 [image13]: ImagenesJER/BocetoTanques.png  
-
 [image14]: ImagenesJER/BocetoTanques2.png  
-
 [image15]: ImagenesJER/TanquesDeCarton.png  
-
 [image16]: ImagenesJER/Paredes.png  
