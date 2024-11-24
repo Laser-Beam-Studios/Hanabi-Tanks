@@ -99,7 +99,7 @@ class AudioManager
         return audioController;
     }
 
-    CreateInstance(soundKey, channel, callbackType, callback)
+    CreateInstance(soundKey, channel)
     {
         var config = 
         {
@@ -113,7 +113,6 @@ class AudioManager
         }
 
         var audioController = new AudioController(this.activeScene.sound.add(soundKey, config), channel);
-        audioController.audioInstance.on(callbackType, callback);
         this.audioControllerInstances.push(audioController);
 
         return audioController;

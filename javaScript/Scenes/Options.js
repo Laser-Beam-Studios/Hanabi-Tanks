@@ -125,6 +125,7 @@ class Options extends Phaser.Scene
         switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
+                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 this.scene.stop("Options");
                 this.scene.resume(this.lastScene);
                 break;
@@ -141,6 +142,7 @@ class Options extends Phaser.Scene
         switch(button.texture.key)
         {
             case "BackButton":
+                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 this.scene.stop("Options");
                 this.scene.resume(this.lastScene);
                 break;

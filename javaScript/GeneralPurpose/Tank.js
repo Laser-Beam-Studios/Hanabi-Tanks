@@ -14,7 +14,7 @@ class Tank{
         this.bulletType = BulletSprites.default;
         this.powerUps = [];
         this.canRecivePowerUp = true;
-        this.score = 3;
+        this.score = 0;
         this.inmune = true;
 
         this.forward =

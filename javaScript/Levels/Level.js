@@ -163,6 +163,7 @@ class Level extends Phaser.Scene
         // The tiles are images of 64 x 64 pixels
         this.scaleOfTile = this.sizeOfTile / 64;
 
+        this.musicController;
         this.songsParts = ["Tanks_Party_A", "Tanks_Party_B", "Tanks_Party_C", "Tanks_Party_D", "Tanks_Party_E"];
         this.levelsNames = ["Level1", "Level2", "Level3", "Level4", "Level5", "Level6"];
     }
@@ -176,10 +177,10 @@ class Level extends Phaser.Scene
             this.player2.RestartHealth();
             this.player1.forward = { x: 1, y: 0 };
             this.player2.forward = { x: -1, y: 0 };
-            this
+            
             if (this.name == "PowerUp")
             {
-                this.nextScene = "Level" + String(data.next);
+                this.nextScene = data.nextLevel;
                 let randoms = [];
                 let candidate;
                 for (var i = 0; i < 3; i++)
@@ -198,7 +199,7 @@ class Level extends Phaser.Scene
                 }
                 this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
             }
-            else if (this.name == "Victoria")
+            else if (this.name == "Victory")
             {
 
             }
@@ -214,14 +215,25 @@ class Level extends Phaser.Scene
         this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
         this.load.image("lives_P1", "../assets/UI/Health/health1.png");
         this.load.image("lives_P2", "../assets/UI/Health/health2.png");
+
+        // SFX
+        this.load.audio("DestroyBullet", "../assets/Audio/SFX/Bullets/DestroyBullet.mp3");
+        this.load.audio("PaperDestroy", "../assets/Audio/SFX/Bullets/PaperDestroy.mp3");
+        this.load.audio("PaperHit", "../assets/Audio/SFX/Bullets/PaperHit.mp3");
+        this.load.audio("Shoot", "../assets/Audio/SFX/Bullets/Shoot.mp3");
+        this.load.audio("TankHit", "../assets/Audio/SFX/Bullets/TankHit.mp3");
+        this.load.audio("WallBounce", "../assets/Audio/SFX/Bullets/WallBounce.mp3");
+        this.load.audio("WallBounce2", "../assets/Audio/SFX/Bullets/WallBounce2.mp3");
+        this.load.audio("VictorySound", "..assets/Audio/SFX/Others/VictorySound.mp3");
     }
 
     create() 
     {
         AudioManager.Instance.SetActiveScene(this);
 
-        var controller = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music", "complete", this.OnMusicPartEnds.bind(this, "Tanks_Party_A"));
-        controller.Play();
+        this.musicController = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music");
+        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, "Tanks_Part_A"));
+        this.musicController.Play();
 
         this.InitWorldSprites();
         this.InitTankSprites();
@@ -231,6 +243,17 @@ class Level extends Phaser.Scene
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
         this.input.keyboard.on("keyup", this.OnKeyReleased.bind(this));
+        this.events.on('resume', this.CheckMusic.bind(this, this));
+    }
+
+    CheckMusic(scene)
+    {
+        if (!scene.musicController.IsPlaying())
+        {
+            scene.musicController = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music");
+            scene.musicController.SetCallBack("complete", scene.OnMusicPartEnds.bind(scene, "Tanks_Part_A"));
+            scene.musicController.Play();
+        }
     }
 
     InitPowerUps()
@@ -268,8 +291,9 @@ class Level extends Phaser.Scene
             randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
         }
         
-        var controller = AudioManager.Instance.CreateInstance(this.songsParts[randomPartIdx], "Music", "complete", this.OnMusicPartEnds.bind(this, this.songsParts[randomPartIdx]));
-        controller.Play();
+        this.musicController = AudioManager.Instance.CreateInstance(this.songsParts[randomPartIdx], "Music");
+        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, this.songsParts[randomPartIdx]));
+        this.musicController.Play();
     }
 
     OnKeyPressed(key)
@@ -393,6 +417,7 @@ class Level extends Phaser.Scene
 
     InitWorld(matrix, rightWinningMatrix = null)
     {
+        // The player1 and player2 variables store the tank object, from the init to the initTankSprites, but for the order of layers in the sprites for simplicity are reversed
         if (rightWinningMatrix != null && this.player2.score > this.player1.score)
         {
             matrix = rightWinningMatrix.map((x) => TilesDictionary[x]);
@@ -558,6 +583,10 @@ class Level extends Phaser.Scene
                 posX1 = 2 * this.sizeOfTile;
                 posX2 = (this.m + 1) * this.sizeOfTile;
                 break;
+            case "Level6":
+                posX1 = 3 * this.sizeOfTile;
+                posX2 = (this.m) * this.sizeOfTile;
+                break;
 
             case "PowerUp":
                 posX1 = (Math.floor(this.n / 2) - 2) * this.sizeOfTile;
@@ -571,8 +600,6 @@ class Level extends Phaser.Scene
         {
             this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
             this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
-            this.player1.score = 0;
-            this.player2.score = 0;
             this.player1.tank = new Tank();
             this.player2.tank = new Tank();
         }
@@ -777,6 +804,9 @@ class Level extends Phaser.Scene
             bullet.setVelocityY(bullet.velocity.y);
             bullet.bouncesLeft = player.tank.bulletBounces;
             bullet.damage = player.tank.bulletDamage;
+
+            // ShootAudio
+            AudioManager.Instance.PlayOneShoot("Shoot", "SFX");
         }
     }
 
@@ -788,101 +818,24 @@ class Level extends Phaser.Scene
 
         if (player.tank.health == 1)
         {
-            player.tank.score--;
-            let level = 0, player1, player2;
-            if (this.playersGroup.children.entries[0] == player)
+            if (this.player1 == player) this.player2.tank.score++;
+            else this.player1.tank.score++;
+
+            var nextLevel = this.GetNextLevel();
+            this.scene.stop(this.name);
+            if(nextLevel == "Victory")
             {
-                player1 = player;
-                player2 = this.playersGroup.children.entries[1];
-                //player2.tank.score++;
+                this.scene.start("Victory", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
             }
             else
             {
-                player1 = this.playersGroup.children.entries[0];
-                //player1.tank.score++;
-                player2 = player;
-            }
-
-            switch(3 - player1.tank.score)
-            {
-                case 0:
-                    switch (3 - player2.tank.score)
-                    {
-                        case 0:
-                            level = 1;
-                            break;
-
-                        case 1:
-                            level = 2;
-                            break;
-
-                        case 2:
-                            level = 4;                           
-                            break;
-
-                        case 3:
-                            this.scene.stop(this.name);
-                            this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
-                            break;
-                    }
-                    break;
-
-                case 1:
-                    switch (3 - player2.tank.score)
-                    {
-                        case 0:
-                            level = 2;
-                            break;
-
-                        case 1:
-                            level = 3;
-                            break;
-
-                        case 2:
-                            level = 5;
-                            break;
-
-                        case 3:
-                            this.scene.stop(this.name);
-                            this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
-                            break;
-                    }
-                    break;
-
-                case 2:
-                    switch (3 - player2.tank.score)
-                    {
-                        case 0:
-                            level = 4;
-                            break;
-
-                        case 1:
-                            level = 5;
-                            break;
-
-                        case 2:
-                            level = 6;
-                            break;
-
-                        case 3:
-                            this.scene.stop(this.name);
-                            this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
-                            break;
-                    }
-                    break;
-
-                case 3:
-                    this.scene.stop(this.name);
-                    this.scene.start("Victory", { player1: player1.tank, player2: player2.tank });
-                    break;
-            }
-
-            this.scene.stop(this.name);
-            this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, next: level });
-            return;
+                this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
+            }       
         }
 
         player.tank.health--;
+
+        AudioManager.Instance.PlayOneShoot("TankHit", "SFX");
     }
 
     GetNextLevel()
@@ -899,12 +852,12 @@ class Level extends Phaser.Scene
                 return "Level5";
             case "Level4":  // I can finish with one winner or go to level 5
                 if (Math.abs(scoreDiference) == 1) return "Level5";
-                else return "WinScreen";
+                else return "Victory";
             case "Level5":  // I can just go to win screen or to level 6
                 if (Math.abs(scoreDiference) == 0) return "Level6";
-                else return "WinScreen";
+                else return "Victory";
             case "Level6":  // i can just go to win screen
-                return "WinScreen";
+                return "Victory";
             default:
                 console.log("ERROR_IN_GETNEXTLEVEL_UNKOWN_LEVELNAME: " + this.name);
                 return;
@@ -1030,10 +983,16 @@ class Level extends Phaser.Scene
 
         if (bullet.bouncesLeft == 0)
         {
+            // Destroy Bullet Audio
+            AudioManager.Instance.PlayOneShoot("DestroyBullet", "SFX");
             bullet.destroy();
             return;
         }
         bullet.bouncesLeft--;
+
+        // Bounce Audio
+        
+        AudioManager.Instance.PlayOneShoot("WallBounce", "SFX");
     }
 }
 

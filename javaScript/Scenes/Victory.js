@@ -1,21 +1,23 @@
-class Credits extends Phaser.Scene
+class Victory extends Phaser.Scene
 {
     constructor() 
     {
-        super({ key: 'Credits' });
+        super({ key: 'Victory' });
+
+        this.music;
     }
 
     preload() 
     {
-        this.load.image("CreditsScreen", "../assets/UI/Screens/Creditos.png");
+        this.load.image("VictoryBackground", "../assets/UI/Screens/win.png");
     }
 
     create() 
     {
         AudioManager.Instance.SetActiveScene(this, false);
 
-        const credits = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "CreditsScreen");
-        Scaler.ScaleToGameH(credits, 0.85);
+        const victory = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "VictoryBackground");
+        Scaler.ScaleToGameH(victory);
 
         const back = this.add.image(WINDOW.WIDHT/6, (WINDOW.HEIGHT * 14)/15, "BackButton");
         Scaler.ScaleToGameW(back, 0.32);
@@ -29,8 +31,7 @@ class Credits extends Phaser.Scene
         switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
-                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
-                this.scene.stop("Credits");
+                this.scene.stop("Victory");
                 this.scene.start("MainMenu");
                 break;
             default:
@@ -46,8 +47,7 @@ class Credits extends Phaser.Scene
         switch(button.texture.key)
         {
             case "BackButton":
-                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
-                this.scene.stop("Credits");
+                this.scene.stop("Victory");
                 this.scene.start("MainMenu");
                 break;
             default:
@@ -60,5 +60,4 @@ class Credits extends Phaser.Scene
     {
 
     }
-
 }
