@@ -159,11 +159,11 @@ No se tiene pensado añadir sistema de logros.
   Tiene una canción de fondo durante toda su ejecución, está compuesta por 5 partes, de misma duración y progresión armónica, siendo esta I IV V, en la escala de C major (Do mayor). Estás partes se pueden conectar todas con todas y en el juego siguen un orden aleatorizado de ejecución de las mismas.
 Su compás es 4/4 y tiene un ritmo y melodías alegres, está interpretado sobre un piano eléctrico con sonido de vibráfono y hardischop.
 
-- **Part A -> ** [ParteA][song1-A]
-- **Part B -> ** [ParteB][song1-B]
-- **Part C -> ** [ParteC][song1-C]
-- **Part D -> ** [ParteD][song1-D]
-- **Part E -> ** [ParteE][song1-E]
+- Part A [ParteA][song1-A]
+- Part B [ParteB][song1-B]
+- Part C [ParteC][song1-C]
+- Part D [ParteD][song1-D]
+- Part E [ParteE][song1-E]
 
 ### [**Arte**](#índice)  
 Tanques: Los tanques cambian dependiendo del último Power Up que haya escogido el jugador.
