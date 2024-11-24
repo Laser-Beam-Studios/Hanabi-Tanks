@@ -109,19 +109,19 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
 - Nivel 5: Es un nivel que ofrece una desventaja masiva a ambos jugadores, se tiene pensado hacer que sea con cierto grado de aleatoriedad en las coberturas centrales para que sea caótico.
 
 #### **Ejemplos de niveles**  
-**Nivel 1:**  
+- **Nivel 1:**  
 ![Nivel_1][image8]  
-**Nivel 2:**  
+- **Nivel 2:**  
 ![Nivel_2][image9]  
-**Nivel 3:**  
+- **Nivel 3:**  
 ![Nivel_3][image10]  
-**Nivel 4:**  
+- **Nivel 4:**  
 ![Nivel_4][image11]  
-**Nivel 5:**  
+- **Nivel 5:**  
 ![Nivel_5][image12]  
-**Nivel 6:**
+- **Nivel 6:**
 ![Nivel 6][image13]
-**Power ups**
+- **Power ups**
 ![Power Ups][image14]
 
 ### [**Logros**](#índice)  
@@ -234,8 +234,8 @@ Software de presentaciones: Canva
 [image13]: ImagenesJER/Level6.png  
 [image14]: ImagenesJER/PowerUp.png  
 
-[image15]: ImagenesJER/TankSpriteSheet.png  
-[image16]: ImagenesJER/BulletSpriteSheet.png  
+[image15]: ImagenesJER/TanksSpriteSheet.png  
+[image16]: ImagenesJER/BulletsSpriteSheet.png  
 [image17]: ImagenesJER/PowerUpsSpriteSheet.png
 
 [image18]: assets/UI/Buttons/back.png
