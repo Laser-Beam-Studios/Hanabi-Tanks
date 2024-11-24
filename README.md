@@ -167,24 +167,26 @@ Su compás es 4/4 y tiene un ritmo y melodías alegres, está interpretado sobre
 
 ### [**Arte**](#índice)  
 Tanques: Los tanques cambian dependiendo del último Power Up que haya escogido el jugador.
-![TanksSpriteSheet][]
+![TanksSpriteSheet][image15]
 
 Balas: Las balas cambian dependiendo del tanque que esté controlando el jugador. 
-![Bullets][]
-
-Botones: Los botones que se han metido en el juego.
-![Back][]
-![Credits][]
-![MainMenu][]
-![Options][]
-![Play][]
-![VolumeSlider][]
-
-Tiles de juego: 
-![TilesSpriteSheet][]
+![Bullets][image16]
 
 Tiles PowerUps.
-![PowerUpsSpriteSheet][]
+![PowerUpsSpriteSheet][image17]
+
+Botones: Los botones que se han metido en el juego.
+![Back][image18]
+![Credits][image19]
+![MainMenu][image20]
+![Options][image21]
+![Play][image22]
+![VolumeSlider][image23]
+
+Tiles de juego: 
+![TilesSpriteSheet][image24]
+
+
 
 
 Modelos de paredes de papel y cartón.  
@@ -215,21 +217,34 @@ Software de presentaciones: Canva
 [song1-D]: assets/Audio/Music/TanksParty_PART_D.mp3
 [song1-E]: assets/Audio/Music/TanksParty_PART_E.mp3
 
-[image1]: ImagenesJER/mainmenu.png  
-[image2]: ImagenesJER/options.png  
-[image3]: ImagenesJER/gameplay.png  
-[image4]: ImagenesJER/pause.png  
-[image5]: ImagenesJER/win.png  
-[image6]: ImagenesJER/credits.png  
+[image1]: ImagenesJER/MainMenu.png  
+[image2]: ImagenesJER/Options.png  
+[image3]: ImagenesJER/Gameplay.png  
+[image4]: ImagenesJER/Pause.png  
+[image5]: ImagenesJER/WinScreen.png  
+[image6]: ImagenesJER/Credits.png  
 
 [image7]: ImagenesJER/Navegacion_Hanabi_Tanks.png  
 
-[image8]: ImagenesJER/lv1.png  
-[image9]: ImagenesJER/lv2.png  
-[image10]: ImagenesJER/lv3.png  
-[image11]: ImagenesJER/lv4.png  
-[image12]: ImagenesJER/lv5.png  
-[image13]: ImagenesJER/BocetoTanques.png  
-[image14]: ImagenesJER/BocetoTanques2.png  
-[image15]: ImagenesJER/TanquesDeCarton.png  
-[image16]: ImagenesJER/Paredes.png  
+[image8]: ImagenesJER/Level1.png  
+[image9]: ImagenesJER/Level2.png  
+[image10]: ImagenesJER/Level3.png  
+[image11]: ImagenesJER/Level4.png  
+[image12]: ImagenesJER/Level5.png  
+[image13]: ImagenesJER/Level6.png  
+[image14]: ImagenesJER/PowerUp.png  
+
+[image15]: ImagenesJER/TankSpriteSheet.png  
+[image16]: ImagenesJER/BulletSpriteSheet.png  
+[image17]: ImagenesJER/PowerUpsSpriteSheet.png
+
+[image18]: assets/UI/Buttons/back.png
+[image19]: assets/UI/Buttons/credits.png
+[image20]: assets/UI/Buttons/mainMenu.png
+[image21]: assets/UI/Buttons/options.png
+[image22]: assets/UI/Buttons/play.png
+[image23]: assets/UI/Buttons/volume.png
+[image24]: assets/TilesSpriteSheet.png
+
+
+
