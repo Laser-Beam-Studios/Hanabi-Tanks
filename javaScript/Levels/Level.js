@@ -415,6 +415,7 @@ class Level extends Phaser.Scene
 
     InitWorld(matrix, rightWinningMatrix = null)
     {
+        // The player1 and player2 variables store the tank object, from the init to the initTankSprites, but for the order of layers in the sprites for simplicity are reversed
         if (rightWinningMatrix != null && this.player2.score > this.player1.score)
         {
             matrix = rightWinningMatrix.map((x) => TilesDictionary[x]);
@@ -567,8 +568,6 @@ class Level extends Phaser.Scene
         {
             this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
             this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
-            this.player1.score = 0;
-            this.player2.score = 0;
             this.player1.tank = new Tank();
             this.player2.tank = new Tank();
         }
@@ -782,30 +781,18 @@ class Level extends Phaser.Scene
 
         if (player.tank.health == 1)
         {
-            //player.tank.score--;
-            let level = 0, player1, player2;
-            if (this.playersGroup.children.entries[0] == player)
-            {
-                player1 = player;
-                player2 = this.playersGroup.children.entries[1];
-                player2.tank.score++;
-            }
-            else
-            {
-                player1 = this.playersGroup.children.entries[0];
-                player1.tank.score++;
-                player2 = player;
-            }
+            if (this.player1 == player) this.player2.tank.score++;
+            else this.player1.tank.score++;
 
             var nextLevel = this.GetNextLevel();
             this.scene.stop(this.name);
             if(nextLevel == "Victory")
             {
-                this.scene.start("Victory", { player1: player1.tank, player2: player2.tank, nextLevel: nextLevel});
+                this.scene.start("Victory", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
             }
             else
             {
-                this.scene.start("PowerUp", { player1: player1.tank, player2: player2.tank, nextLevel: nextLevel});
+                this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
             }       
         }
 
@@ -950,10 +937,16 @@ class Level extends Phaser.Scene
 
         if (bullet.bouncesLeft == 0)
         {
+            // Destroy Bullet Audio
+            AudioManager.Instance.PlayOneShoot("DestroyBullet", "SFX");
             bullet.destroy();
             return;
         }
         bullet.bouncesLeft--;
+
+        // Bounce Audio
+        
+        AudioManager.Instance.PlayOneShoot("WallBounce", "SFX");
     }
 }
 
