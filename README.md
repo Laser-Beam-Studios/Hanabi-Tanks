@@ -1,7 +1,7 @@
 # **GDD Hanabi Tanks** *Versión 1.1*
 ## Por Laser Beam Studios
 
-## Sin cambios entre version 1.0 y 1.1   
+## Sin cambios entre versión 1.0 y 1.1   
 ### Descripción
 
 Grupo de desarrolladores universitarios con la intención de crear juegos simples y divertidos para jugar con tus amigos, estén donde estén.
@@ -48,7 +48,7 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 - **Inspiración**: diep.io, Wii play (tanks)
 
 ### [**Guion**](#índice)  
-Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado él mismo una maquetas de tanques y escenarios a base de cortar y pintar cartones. El niño juega en su cuarto ilusionado, y lo que se ve en el juego es la visión e imaginación del niño cuando juega.
+Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado él mismo unas maquetas de tanques y escenarios a base de cortar y pintar cartones. El niño juega en su cuarto ilusionado, y lo que se ve en el juego es la visión e imaginación del niño cuando juega.
 
 ### [**Gameplay**](#índice)
 
@@ -78,7 +78,7 @@ Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado 
 
 - **¿Cómo funciona el juego?**: Los jugadores comienzan una partida al mejor de 5 rondas con un tanque predefinido. Cuando una ronda acaba, los jugadores reciben mejoras para su tanque antes de empezar la siguiente ronda. El jugador que gana la ronda recibe una desventaja en su terreno para hacer el juego más divertido y equilibrado. En caso de que los jugadores se encuentren 2-2 en el marcador, no existirán desventajas para ninguno de los jugadores. El juego acaba cuando uno de los jugadores consigue acabar con el tanque enemigo 3 veces, es decir, cuando gana 3 rondas.
 
-## Version 1.0   
+## Versión 1.0   
 ### [**Interfaces**](#índice)   
 Prototipos de las posibles interfaces:  
 **Main Menu:**  
@@ -96,10 +96,10 @@ Prototipos de las posibles interfaces:
 ### [**Estados**](#índice)  
 ![States][Ver0-image7]
 
-Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menu de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menu de pausa y si accediste desde el menú principal devuelve al menu principal.
+Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menú de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menú de pausa y si accediste desde el menú principal devuelve al menú principal.
 
 
-## Version 1.1   
+## Versión 1.1   
 
 Interfaces del juego:  
 **Main Menu:**  
@@ -117,9 +117,9 @@ Interfaces del juego:
 ### [**Estados**](#índice)  
 ![States][image7]
 
-Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menu de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menu de pausa y si accediste desde el menú principal devuelve al menu principal.
+Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menú de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menú de pausa y si accediste desde el menú principal devuelve al menú principal.
 
-## Version 1.0   
+## Versión 1.0   
 ### [**Niveles**](#índice)    
 Los niveles dispondrán de paredes de madera (no rompibles) y paredes de papel (rompibles). Están diseñados para que cruzar del lado en el que aparece el otro jugador sea complicado al ser una zona abierta, y esto es importante ya que no serán simétricos ni por tanto sus lados tendrán las mismas coberturas.
 
@@ -143,7 +143,7 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
 **Nivel 5:**  
 ![Nivel_5][Ver0-image12]  
 
-## Version 1.1   
+## Versión 1.1   
 
 Los niveles dispondrán de paredes de madera (no rompibles) y paredes de papel (rompibles). Están diseñados para que cruzar del lado en el que aparece el otro jugador sea complicado al ser una zona abierta, y esto es importante ya que no serán simétricos ni por tanto sus lados tendrán las mismas coberturas.
 
@@ -172,13 +172,13 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
 - **Power ups**  
 ![Power Ups][image14]
 
-## Sin cambios entre version 1.0 y 1.1   
+## Sin cambios entre versión 1.0 y 1.1   
 ### [**Logros**](#índice)  
 	  
 No se tiene pensado añadir sistema de logros.   
 
 
-## Version 1.0   
+## Versión 1.0   
 ### [**Audio**](#índice)   
 
 - **Efectos de sonido**:   
@@ -199,7 +199,7 @@ No se tiene pensado añadir sistema de logros.
 - **Pasar el cursor por encima de un botón:** sonará una onomatopeya de un niño jugando a elegir opciones.  
 - **Pulsar un botón:** sonará como cuando chocan dos cartones.  
 - **Sonido de abrir un menú o cambiar del mismo:** sonará como un cartón deslizándose sobre la madera.  
-- **Sonido de victoria:** sonará como la onomatopeya de victoria que hace un niño al ganar un bando cuando juega a los soldados, el típico ta ta taran, pero no será la onomatopeya la que sonará sino que lo harán instrumentos.
+- **Sonido de victoria:** sonará como la onomatopeya de victoria que hace un niño al ganar un bando cuando juega a los soldados, el típico ta ta taran, pero no será la onomatopeya la que sonará, sino que lo harán instrumentos.
 
 - **Música**:  
   Debido a la estética será una canción sencilla compuesta principalmente por instrumentos “sencillos” como la flauta dulce y el xilófono.  
@@ -207,18 +207,18 @@ No se tiene pensado añadir sistema de logros.
   De esta manera se logrará tener una música inmersiva al mundo ficticio del juego, mientras es una música suave, sin mucha relevancia. Un ejemplo de todo lo auditivo, ya que está inspirado en ello, sería el modo de tanques del Wii party.
 
 
-## Version 1.1   
+## Versión 1.1   
 
 - **Efectos de sonido**:   
 
   Debido a la temática visual del juego, estos estarán relacionados con sonidos de cartones, maderas, papeles y corchos.
     
   Sonidos de gameplay  
-- **Bala al rebotar con una pared de madera:** Suena un corcho contra una mesa de madera, este tiene dos versiones que se reproducen cuando se debe reproducir de manera aleatoria para eleguir cual.
+- **Bala al rebotar con una pared de madera:** Suena un corcho contra una mesa de madera, este tiene dos versiones que se reproducen cuando se debe reproducir de manera aleatoria para elegir cual.
   [WallBounce][audio1]
-- **Bala al impactar sobre un tanque:** Suena un corcho sobre una mesa de madera pero más fuerte.
+- **Bala al impactar sobre un tanque:** Suena un corcho sobre una mesa de madera, pero más fuerte.
   [WallBounce2][audio2]
-- **Bala al destruirse en una pared de madera:** Suena un corcho sobre una mesa de madera pero de manera distinta es más fuerte y seco.
+- **Bala al destruirse en una pared de madera:** Suena un corcho sobre una mesa de madera, pero de manera distinta es más fuerte y seco.
   [DestroyBullet][audio3]
 - **Tanque al disparar:** Suena una “p” muy cortada hecha con la voz.
   [Shoot][audio4]
@@ -236,7 +236,7 @@ No se tiene pensado añadir sistema de logros.
   [StartLevel][audio9]
 
 - **Música**:  
-  Tiene una canción de fondo durante toda su ejecución, está compuesta por 5 partes, de misma duración y progresión armónica, siendo esta I IV V, en la escala de C major (Do mayor). Estás partes se pueden conectar todas con todas y en el juego siguen un orden aleatorizado de ejecución de las mismas.
+  Tiene una canción de fondo durante toda su ejecución, está compuesta por 5 partes, de misma duración y progresión armónica, siendo esta I IV V, en la escala de C major (Do mayor). Estás partes se pueden conectar todas con todas y en el juego siguen un orden aleatorizado de ejecución de estas.
 Su compás es 4/4 y tiene un ritmo y melodías alegres, está interpretado sobre un piano eléctrico con sonido de vibráfono y hardischop.
 
 - Part A [ParteA][song1-A]
@@ -246,7 +246,7 @@ Su compás es 4/4 y tiene un ritmo y melodías alegres, está interpretado sobre
 - Part E [ParteE][song1-E]
 
 
-## Version 1.0   
+## Versión 1.0   
 ### [**Arte**](#índice)  
 Al tratarse de juguetes creados por el niño, las referencias visuales que usamos son aquellos materiales que pueden tener a su alcance, siendo el cartón y el papel los principales:  
 Paredes madera  
@@ -269,7 +269,7 @@ Sprites preliminares, de los tanques.
 Modelos de paredes de papel y cartón.  
 
 
-## Version 1.1   
+## Versión 1.1   
 - Tanques: Los tanques cambian dependiendo del último Power Up que haya escogido el jugador.  
 ![TanksSpriteSheet][image15]
 
