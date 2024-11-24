@@ -39,21 +39,39 @@ class MainMenu extends Phaser.Scene
         }
         this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, "Tanks_Party_A"));
 
-        
+
         const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "MainMenuBackground");
         Scaler.ScaleToGameH(Background);
 
         const play = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT*0.75, "PlayButton");
         Scaler.ScaleToGameW(play, 0.32);
         play.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, play));
+        play.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        play.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
         const credits = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT * 0.95, "CreditsButton");
         Scaler.ScaleToGameW(credits, 0.32);
         credits.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, credits));
+        credits.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        credits.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
         const options = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT * 0.85, "OptionsButton");
         Scaler.ScaleToGameW(options, 0.32);
         options.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, options));
+        options.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        options.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+    }
+
+    OnPointerEnter()
+    {
+        console.log("Pointer Enter");
+        AudioManager.Instance.PlayOneShoot("EnterButton", "SFX");
+    }
+
+    OnPointerExit()
+    {
+        console.log("Pointer Exit");
+        AudioManager.Instance.PlayOneShoot("ExitButton", "SFX");
     }
 
     OnMusicPartEnds(last)
@@ -87,7 +105,6 @@ class MainMenu extends Phaser.Scene
         switch(button.texture.key)
         {
             case "PlayButton":
-                
                 this.scene.stop("MainMenu");
                 this.scene.start("Level1");
                 break;

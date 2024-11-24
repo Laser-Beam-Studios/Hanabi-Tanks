@@ -49,7 +49,8 @@ class Options extends Phaser.Scene
         const back = this.add.image(WINDOW.WIDHT/6, (WINDOW.HEIGHT * 14)/15, "BackButton")
         Scaler.ScaleToGameW(back, 0.32);
         back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back));
-
+        back.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        back.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
 
         const MasterVolumeSlide = this.add.image(this.GetSliderPosition(AudioManager.Instance.GetChannelVolume("Master")), (WINDOW.HEIGHT * 3.55)/8, "VolumeSlide");
@@ -91,8 +92,18 @@ class Options extends Phaser.Scene
         Scaler.ScaleToGameW(letterL, 0.026);
         let letterP = this.add.sprite((WINDOW.WIDHT*0.830), (WINDOW.HEIGHT * 0.685), "Letters",LettersSprites.p);
         Scaler.ScaleToGameW(letterP, 0.026);
+    }
 
+    OnPointerEnter()
+    {
+        console.log("Pointer Enter");
+        AudioManager.Instance.PlayOneShoot("EnterButton", "SFX");
+    }
 
+    OnPointerExit()
+    {
+        console.log("Pointer Exit");
+        AudioManager.Instance.PlayOneShoot("ExitButton", "SFX");
     }
 
     GetSliderPosition(volume)

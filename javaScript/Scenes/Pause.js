@@ -28,16 +28,35 @@ class Pause extends Phaser.Scene
         const back = this.add.image(WINDOW.WIDHT/6, (WINDOW.HEIGHT * 14)/15, "BackButton")
         Scaler.ScaleToGameW(back, 0.32);
         back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back));
+        back.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        back.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
         const options = this.add.image((WINDOW.WIDHT) / 2, (WINDOW.HEIGHT) / 2, "OptionsButton");
         Scaler.ScaleToGameW(options, 0.32);
         options.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, options));
+        options.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        options.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+        
         
         const mainMenu = this.add.image((WINDOW.WIDHT) / 2, (WINDOW.HEIGHT * 2) / 3, "MainMenuButton");
         Scaler.ScaleToGameW(mainMenu, 0.32);
         mainMenu.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, mainMenu));
+        mainMenu.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        mainMenu.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
+    }
+
+    OnPointerEnter()
+    {
+        console.log("Pointer Enter");
+        AudioManager.Instance.PlayOneShoot("EnterButton", "SFX");
+    }
+
+    OnPointerExit()
+    {
+        console.log("Pointer Exit");
+        AudioManager.Instance.PlayOneShoot("ExitButton", "SFX");
     }
 
     OnKeyPressed(key)
