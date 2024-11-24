@@ -167,31 +167,31 @@ Su compás es 4/4 y tiene un ritmo y melodías alegres, está interpretado sobre
 - Part E [ParteE][song1-E]
 
 ### [**Arte**](#índice)  
-- Tanques: Los tanques cambian dependiendo del último Power Up que haya escogido el jugador.
+- Tanques: Los tanques cambian dependiendo del último Power Up que haya escogido el jugador.  
 ![TanksSpriteSheet][image15]
 
-- Balas: Las balas cambian dependiendo del tanque que esté controlando el jugador. 
+- Balas: Las balas cambian dependiendo del tanque que esté controlando el jugador.  
 ![Bullets][image16]
 
-- Tiles PowerUps.
+- Tiles PowerUps.  
 ![PowerUpsSpriteSheet][image17]
 
-- Botones: Los botones que se han metido en el juego.
-![Back][image18]
-![Credits][image19]
-![MainMenu][image20]
-![Options][image21]
-![Play][image22]
-![VolumeSlider][image23]
+- Botones: Los botones que se han metido en el juego.  
+![Back][image18]  
+![Credits][image19]  
+![MainMenu][image20]  
+![Options][image21]  
+![Play][image22]  
+![VolumeSlider][image23]  
 
-- Tiles de juego: 
-![TilesSpriteSheet][image24]
+- Tiles de juego:  
+![TilesSpriteSheet][image24]  
 
 
 
 
 Modelos de paredes de papel y cartón.  
-### [**Herramientas utilizadas**](#índice)
+### [**Herramientas utilizadas**](#índice)  
 
 Software de dibujo: Clip Studio Paint  
 Software de Diagramas: Draw.io  
