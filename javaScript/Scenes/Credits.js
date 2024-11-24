@@ -7,15 +7,15 @@ class Credits extends Phaser.Scene
 
     preload() 
     {
-        this.load.image("CreditsBackground", "../assets/UI/Screens/credits.png");
+        this.load.image("CreditsScreen", "../assets/UI/Screens/Creditos.png");       
     }
 
     create() 
     {
-        AudioManager.Instance.SetActiveScene(this, false);
+        AudioManager.Instance.SetActiveScene(this, false);        
 
-        const credits = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "CreditsBackground");
-        Scaler.ScaleToGameH(credits);
+        const credits = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "CreditsScreen");        
+        Scaler.ScaleToGameH(credits, 0.85);        
 
         const back = this.add.image(WINDOW.WIDHT/6, (WINDOW.HEIGHT * 14)/15, "BackButton");
         Scaler.ScaleToGameW(back, 0.32);
