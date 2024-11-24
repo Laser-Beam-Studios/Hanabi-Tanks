@@ -411,6 +411,7 @@ class Level extends Phaser.Scene
     InitWorldSprites()
     {
         this.levelObstacles = this.physics.add.staticGroup();
+        this.levelWalls = this.physics.add.staticGroup();
         this.offset = 
         {
             x: (WINDOW.WIDHT - this.MapSize.x) / 2 + this.sizeOfTile/2,
@@ -437,6 +438,68 @@ class Level extends Phaser.Scene
                     case TileType.Floor.upRight:
                     case TileType.Paper.h_destroy:
                     case TileType.Paper.v_destroy:
+                        break;
+
+                    case TileType.Wall.upLeft:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Wall.upRight:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Wall.vertical:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Wall.horizontal:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Wall.downLeft:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Wall.downRight:                    
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                     
+                    case TileType.Border.upLeft:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Border.up:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Border.upRight:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Border.left:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Border.center:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Border.right:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Border.downLeft:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Border.down:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
+                        break;
+                    case TileType.Border.downRight:
+                        this.levelWalls.add(this.tiles[i][j]);
+                        this.levelObstacles.add(this.tiles[i][j]);
                         break;
 
                     default:                            
@@ -522,6 +585,10 @@ class Level extends Phaser.Scene
             this.TakeDamage(player, bullet);
             this.DestroyBullet(bullet, this.BounceBullet(bullet, player));
         })
+        this.physics.add.collider(this.siderBulletsGroup, this.levelWalls, (bullet, obstacle) =>
+            {
+                this.DestroyBullet(bullet, this.BounceBullet(bullet, obstacle));
+            })
         this.physics.add.collider(this.bulletsGroup, this.levelObstacles, (bullet, obstacle) =>
         {     
             this.DamageLevel(bullet, obstacle);
@@ -757,6 +824,9 @@ class Level extends Phaser.Scene
                 }
                 else
                     newTile = PaperType.h_twoHit;
+                    this.structureMatrix[posX][posY] = newTile;
+                    
+                
                 break;
 
             case PaperType.h_perfect:
@@ -767,6 +837,8 @@ class Level extends Phaser.Scene
                 }
                 else
                     newTile = PaperType.h_oneHit;
+                    this.structureMatrix[posX][posY] = newTile;
+                    
                 break;
 
             case PaperType.h_twoHit:
@@ -782,6 +854,7 @@ class Level extends Phaser.Scene
                 }
                 else
                     newTile = PaperType.v_twoHit;
+                    this.structureMatrix[posX][posY] = newTile;
                 break;
 
             case PaperType.v_perfect:
@@ -791,7 +864,8 @@ class Level extends Phaser.Scene
                     collider = false;
                 }
                 else
-                    newTile = PaperType.h_oneHit;
+                    newTile = PaperType.v_oneHit;
+                    this.structureMatrix[posX][posY] = newTile;
                 break;
 
             case PaperType.v_twoHit:
@@ -807,8 +881,10 @@ class Level extends Phaser.Scene
         let newObstacle = this.add.image((this.MapSize.x * posX)/this.n + this.offset.x, (this.MapSize.y * posY)/this.m + this.offset.y, "World", newTile);
         newObstacle.posMatrix = { x: posX, y: posY };
         this.tiles[posX][posY] = newObstacle;
-        if (collider)
+        if (collider){
             this.levelObstacles.add(this.tiles[posX][posY]);
+            this.physics.add.existing(this.tiles[posX][posY], true);
+        }        
     }
 
     BounceBullet(bullet, obstacle)
@@ -836,6 +912,7 @@ class Level extends Phaser.Scene
         bullet.body.setVelocity(velocityX, velocityY);
         return true;
     }
+
 
     DestroyBullet(bullet, bounced)
     {
