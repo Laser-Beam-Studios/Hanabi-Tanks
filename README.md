@@ -220,7 +220,7 @@ Software de presentaciones: Canva
 
 [image1]: ImagenesJER/MainMenu.png  
 [image2]: ImagenesJER/Options.png  
-[image3]: ImagenesJER/Gameplay.png  
+[image3]: ImagenesJER/Level1.png  
 [image4]: ImagenesJER/Pause.png  
 [image5]: ImagenesJER/WinScreen.png  
 [image6]: ImagenesJER/Credits.png  
