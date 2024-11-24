@@ -743,6 +743,8 @@ class Level extends Phaser.Scene
         }
 
         player.tank.health--;
+
+        AudioManager.Instance.PlayOneShoot("TankHit", "SFX");
     }
 
     GetNextLevel()
