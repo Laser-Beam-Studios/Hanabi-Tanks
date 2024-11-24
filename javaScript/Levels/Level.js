@@ -166,6 +166,7 @@ class Level extends Phaser.Scene
         this.musicController;
         this.songsParts = ["Tanks_Party_A", "Tanks_Party_B", "Tanks_Party_C", "Tanks_Party_D", "Tanks_Party_E"];
         this.levelsNames = ["Level1", "Level2", "Level3", "Level4", "Level5", "Level6"];
+        this.bouncesSounds = ["WallBounce", "WallBounce2"];
     }
 
     init (data) {
@@ -837,11 +838,12 @@ class Level extends Phaser.Scene
                 {
                     newTile = PaperType.h_destroy;
                     collider = false;
+                    AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
                 }
                 else
                     newTile = PaperType.h_twoHit;
                     this.structureMatrix[posX][posY] = newTile;
-                    
+                    AudioManager.Instance.PlayOneShoot("PaperHit", "SFX");
                 
                 break;
 
@@ -850,16 +852,19 @@ class Level extends Phaser.Scene
                 {
                     newTile = PaperType.h_destroy;
                     collider = false;
+                    AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
                 }
                 else
                     newTile = PaperType.h_oneHit;
                     this.structureMatrix[posX][posY] = newTile;
+                    AudioManager.Instance.PlayOneShoot("PaperHit", "SFX");
                     
                 break;
 
             case PaperType.h_twoHit:
                 newTile = PaperType.h_destroy;
                 collider = false;
+                AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
                 break;
 
             case PaperType.v_oneHit:
@@ -867,10 +872,12 @@ class Level extends Phaser.Scene
                 {
                     newTile = PaperType.v_destroy;
                     collider = false;
+                    AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
                 }
                 else
                     newTile = PaperType.v_twoHit;
                     this.structureMatrix[posX][posY] = newTile;
+                    AudioManager.Instance.PlayOneShoot("PaperHit", "SFX");
                 break;
 
             case PaperType.v_perfect:
@@ -878,15 +885,18 @@ class Level extends Phaser.Scene
                 {
                     newTile = PaperType.v_destroy;
                     collider = false;
+                    AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
                 }
                 else
                     newTile = PaperType.v_oneHit;
                     this.structureMatrix[posX][posY] = newTile;
+                    AudioManager.Instance.PlayOneShoot("PaperHit", "SFX");
                 break;
 
             case PaperType.v_twoHit:
                 newTile = PaperType.v_destroy;
                 collider = false;
+                AudioManager.Instance.PlayOneShoot("PaperDestroy", "SFX");
                 break;
 
             default:
@@ -929,7 +939,6 @@ class Level extends Phaser.Scene
         return true;
     }
 
-
     DestroyBullet(bullet, bounced)
     {
         if (!bounced)
@@ -945,8 +954,9 @@ class Level extends Phaser.Scene
         bullet.bouncesLeft--;
 
         // Bounce Audio
-        
-        AudioManager.Instance.PlayOneShoot("WallBounce", "SFX");
+        var randomBounceSoundIdx = Math.floor(Math.random() * this.bouncesSounds.length); 
+        console.log("IDX: " + randomBounceSoundIdx + ", Name: " + this.bouncesSounds[randomBounceSoundIdx]);
+        AudioManager.Instance.PlayOneShoot(this.bouncesSounds[randomBounceSoundIdx], "SFX");
     }
 }
 
