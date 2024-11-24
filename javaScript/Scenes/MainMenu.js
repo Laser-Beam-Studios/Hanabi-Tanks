@@ -4,7 +4,8 @@ class MainMenu extends Phaser.Scene
     {
         super({ key: 'MainMenu' });
 
-        this.music;
+        this.musicController;
+        this.songsParts = ["Tanks_Party_A", "Tanks_Party_B", "Tanks_Party_C", "Tanks_Party_D", "Tanks_Party_E"];
     }
 
     preload() 
@@ -14,17 +15,31 @@ class MainMenu extends Phaser.Scene
         this.load.image("OptionsButton", "../assets/UI/Buttons/options.png");
         this.load.image("CreditsButton", "../assets/UI/Buttons/credits.png");
         this.load.image("BackButton", "../assets/UI/Buttons/back.png"); // This is load here for used in the other menu scenes
-
+        
+        // Song
         this.load.audio("Tanks_Party_A", "../assets/Audio/Music/TanksParty_PART_A.mp3");
         this.load.audio("Tanks_Party_B", "../assets/Audio/Music/TanksParty_PART_B.mp3");
         this.load.audio("Tanks_Party_C", "../assets/Audio/Music/TanksParty_PART_C.mp3");
         this.load.audio("Tanks_Party_D", "../assets/Audio/Music/TanksParty_PART_D.mp3");
         this.load.audio("Tanks_Party_E", "../assets/Audio/Music/TanksParty_PART_E.mp3");
+        // SFX
+        this.load.audio("ChangeMenu", "../assets/Audio/SFX/UI/ChangeMenu.mp3");
+        this.load.audio("EnterButton", "../assets/Audio/SFX/UI/EnterOverButton.mp3");
+        this.load.audio("ExitButton", "../assets/Audio/SFX/UI/ExitOverButton.mp3");
     }
 
     create() 
     {
         AudioManager.Instance.SetActiveScene(this, false);
+
+        if (this.musicController == null)
+        {
+            this.musicController = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music");
+            this.musicController.Play();
+        }
+        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, "Tanks_Party_A"));
+
+
 
         const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "MainMenuBackground");
         Scaler.ScaleToGameH(Background);
@@ -40,18 +55,40 @@ class MainMenu extends Phaser.Scene
         const options = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT * 0.85, "OptionsButton");
         Scaler.ScaleToGameW(options, 0.32);
         options.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, options));
+    }
 
+    OnMusicPartEnds(last)
+    {
+        var lastIdx;
+        for (var i = 0; i < this.songsParts.length; i++)
+        {
+            if(this.songsParts[i] == last) 
+            {
+                lastIdx = i;
+                break;
+            }
+        }
+
+        var randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
+        while(randomPartIdx == lastIdx)
+        {
+            randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
+        }
         
-        // if (this.music == null) this.music = AudioManager.Instance.PlayLoop("Song1", "Music");
+        this.musicController = AudioManager.Instance.CreateInstance(this.songsParts[randomPartIdx], "Music");
+        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, this.songsParts[randomPartIdx]));
+        this.musicController.Play();
     }
 
     OnClickOnButton(button)
     {
         console.log("boton pulsado = " + button.texture.key);
+        AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
         
         switch(button.texture.key)
         {
             case "PlayButton":
+                
                 this.scene.stop("MainMenu");
                 this.scene.start("Level1");
                 break;
