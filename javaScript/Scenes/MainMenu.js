@@ -39,8 +39,7 @@ class MainMenu extends Phaser.Scene
         }
         this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, "Tanks_Party_A"));
 
-
-
+        
         const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "MainMenuBackground");
         Scaler.ScaleToGameH(Background);
 

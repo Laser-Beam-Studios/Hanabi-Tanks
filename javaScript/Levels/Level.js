@@ -225,13 +225,14 @@ class Level extends Phaser.Scene
         this.load.audio("TankHit", "../assets/Audio/SFX/Bullets/TankHit.mp3");
         this.load.audio("WallBounce", "../assets/Audio/SFX/Bullets/WallBounce.mp3");
         this.load.audio("WallBounce2", "../assets/Audio/SFX/Bullets/WallBounce2.mp3");
-        this.load.audio("VictorySound", "..assets/Audio/SFX/Others/VictorySound.mp3");
+        this.load.audio("VictorySound", "../assets/Audio/SFX/Others/VictorySound.mp3");
     }
 
     create() 
     {
         AudioManager.Instance.SetActiveScene(this);
-
+        AudioManager.Instance.PlayOneShoot("VictorySound", "SFX");
+        
         this.musicController = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music");
         this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, "Tanks_Part_A"));
         this.musicController.Play();
@@ -817,6 +818,8 @@ class Level extends Phaser.Scene
         if (bullet.shooter == player && player.tank.inmune)
             return;
 
+        AudioManager.Instance.PlayOneShoot("TankHit", "SFX");
+
         if (player.tank.health == 1)
         {
             if (this.player1 == player) this.player2.tank.score++;
@@ -835,8 +838,6 @@ class Level extends Phaser.Scene
         }
 
         player.tank.health--;
-
-        AudioManager.Instance.PlayOneShoot("TankHit", "SFX");
     }
 
     GetNextLevel()
