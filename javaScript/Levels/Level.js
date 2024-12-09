@@ -601,7 +601,7 @@ class Level extends Phaser.Scene
         }
         
         this.playersGroup = this.physics.add.group();
-        if (this.player1 == null)
+        if (this.player1 == null || this.name == "Level1")
         {
             this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
             this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
