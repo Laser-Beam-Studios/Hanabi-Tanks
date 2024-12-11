@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.lang.foreign.Linker.Option;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,9 @@ public class UserController
     @GetMapping("/{username}")
     public ResponseEntity<UserDTO> getUserDTO(@PathVariable String username) 
     {
-        return ResponseEntity.ok(this.userService.getUserDTO(username).get());
+        UserDTO userDTO = this.userService.getUserDTO(username).get();
+        System.out.println("The User DTO is: " + userDTO);
+        return (userDTO.getUsername() != "" && userDTO.getNumberOfVictories() != -1)? ResponseEntity.ok(userDTO) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("")

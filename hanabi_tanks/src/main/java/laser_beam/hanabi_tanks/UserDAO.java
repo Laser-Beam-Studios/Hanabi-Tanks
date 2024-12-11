@@ -71,7 +71,7 @@ public class UserDAO
         catch (IOException e) 
         {
             e.printStackTrace();
-            return Optional.of(null);
+            return Optional.of(new UserDTO("", -1, 0));
         }
         finally
         {
