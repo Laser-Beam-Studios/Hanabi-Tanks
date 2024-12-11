@@ -65,8 +65,8 @@ public class UserDAO
             // Construct the file path dynamically based on the username
             String filePath = this.usersPath + "/" + username + ".json";
             File file = new File(filePath);
-            // Write the updated User object back to the file
-            return Optional.of(this.objectMapper.readValue(file, UserDTO.class));
+            // Read the file and return it has a UserDTO
+            return Optional.of(new UserDTO(this.objectMapper.readValue(file, User.class)));
         } 
         catch (IOException e) 
         {
@@ -80,10 +80,12 @@ public class UserDAO
     }
 
     // Method to update the User in the JSON file
-    public Optional<UserDTO> updateUser(User updatedUser) {
+    public Optional<UserDTO> updateUser(User updatedUser) 
+    {
         var writeLock = this.lock.writeLock();
         writeLock.lock();
-        try {
+        try 
+        {
             // Construct the file path dynamically based on the username
             String filePath = this.usersPath + "/" + updatedUser.getUsername() + ".json";
             File file = new File(filePath);
@@ -91,32 +93,44 @@ public class UserDAO
             // Write the updated User object back to the file
             this.objectMapper.writeValue(file, updatedUser);
             return Optional.of(new UserDTO(updatedUser));
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             e.printStackTrace();
             return Optional.of(null);
         }
-        finally{
+        finally
+        {
             writeLock.unlock();
         }
     }
 
     // Method to delete the User from the JSON file
-    public boolean deleteUser(String username) {
+    public boolean deleteUser(String username) 
+    {
+        var writeLock = this.lock.writeLock();
+        writeLock.lock();
         try {
             // Construct the file path dynamically based on the username
             String filePath = this.usersPath + "/" + username + ".json";
             File file = new File(filePath);
 
-            if (!file.exists()) {
+            if (!file.exists()) 
+            {
                 return false; // File does not exist, return false
             }
 
-            // Delete the file (or overwrite it with empty content if you prefer)
-            boolean isDeleted = file.delete(); // Deleting the file
-            return isDeleted;
-        } catch (Exception e) {
+            // Delete the file
+            return file.delete();
+        }
+        catch (Exception e) 
+        {
             e.printStackTrace();
             return false; // Error occurred while deleting the file
+        }
+        finally
+        {
+            writeLock.unlock();
         }
     }
 }

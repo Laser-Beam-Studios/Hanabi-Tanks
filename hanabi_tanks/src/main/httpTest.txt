@@ -7,3 +7,7 @@ content-type: application/json
     "numberOfVictories": 0,
     "lastSeen": 15
 }
+
+GET http://localhost:8080/api/users/Pepe HTTP/1.1
+
+DELETE http://localhost:8080/api/users/Pepe HTTP/1.1

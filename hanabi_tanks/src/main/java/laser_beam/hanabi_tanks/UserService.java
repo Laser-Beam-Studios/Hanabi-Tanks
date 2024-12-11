@@ -12,11 +12,8 @@ public class UserService
     @Autowired
     private UserDAO userDAO;
 
-    private final ReentrantReadWriteLock lock;
-
     public UserService(UserDAO userDAO)
     {
-        this.lock = new ReentrantReadWriteLock();
         this.userDAO = userDAO;
     }
 
@@ -32,15 +29,6 @@ public class UserService
 
     public boolean deleteUser(String username)
     {
-        WriteLock writeLock = lock.writeLock();
-        writeLock.lock();
-        try
-        {
-            return this.userDAO.deleteUser(username);
-        }
-        finally
-        {
-            writeLock.unlock();
-        }
+        return this.userDAO.deleteUser(username);
     }
 }
