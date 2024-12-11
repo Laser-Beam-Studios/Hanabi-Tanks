@@ -54,4 +54,10 @@ public class UserController
     {
         return (this.userService.deleteUser(username))? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<?> modifyUser(@PathVariable String username, @RequestBody UserDTO userDTO) 
+    {
+        return (this.userService.modifyUser(username, userDTO))? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

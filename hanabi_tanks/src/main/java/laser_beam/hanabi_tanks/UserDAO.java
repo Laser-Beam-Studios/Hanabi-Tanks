@@ -105,6 +105,56 @@ public class UserDAO
         }
     }
 
+    public boolean modifyUser(String username, UserDTO userDTO)
+    {
+        var writeLock = this.lock.writeLock();
+        writeLock.lock();
+        try 
+        {
+            // Construct the file path dynamically based on the username
+            String filePath = this.usersPath + "/" + username + ".json";
+            File file = new File(filePath);
+
+            // Write the updated User object back to the file
+            System.out.println("LLEGA");
+            objectMapper.writeValue(file, new User(userDTO, this.getUserPassword(username)));
+            System.out.println("LLEGA aqui tambien");
+            return true;
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+            return false;
+        }
+        finally
+        {
+            writeLock.unlock();
+        }
+    }
+
+    private String getUserPassword(String username)
+    {
+        var readlock = this.lock.readLock();
+        readlock.lock();
+        try
+        {
+            // Construct the file path dynamically based on the username
+            String filePath = this.usersPath + "/" + username + ".json";
+            File file = new File(filePath);
+            // Read the file and return it has a UserDTO
+            return this.objectMapper.readValue(file, User.class).getPassword();
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+            return "";
+        }
+        finally
+        {
+            readlock.unlock();
+        }
+    }
+
     // Method to delete the User from the JSON file
     public boolean deleteUser(String username) 
     {

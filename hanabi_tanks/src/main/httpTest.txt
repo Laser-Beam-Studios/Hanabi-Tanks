@@ -11,3 +11,12 @@ content-type: application/json
 GET http://localhost:8080/api/users/Pepe HTTP/1.1
 
 DELETE http://localhost:8080/api/users/Pepe HTTP/1.1
+
+PUT http://localhost:8080/api/users/Pepe HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Pepe",
+    "numberOfVictories": 1,
+    "lastSeen": 0
+}

@@ -20,6 +20,14 @@ public class User
         this.lastSeen = lastSeen;
     }
 
+    public User(UserDTO userDTO, String password)
+    {
+        this.username = userDTO.getUsername();
+        this.numberOfVictories = userDTO.getNumberOfVictories();
+        this.password = password;
+        this.lastSeen = userDTO.getLastSeen();
+    }
+
     public String getPassword() { return this.password; }
     public String getUsername() { return this.username; }
     public long getLastSeen() { return this.lastSeen; }

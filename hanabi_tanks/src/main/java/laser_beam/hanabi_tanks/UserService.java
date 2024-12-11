@@ -31,4 +31,9 @@ public class UserService
     {
         return this.userDAO.deleteUser(username);
     }
+
+    public boolean modifyUser(String username, UserDTO userDTO)
+    {
+        return this.userDAO.modifyUser(username, userDTO);
+    }
 }
