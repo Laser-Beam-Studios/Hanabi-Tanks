@@ -1,9 +1,6 @@
 package laser_beam.hanabi_tanks;
 
-import java.io.IOException;
 import java.util.Optional;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,6 +17,11 @@ public class UserService
     public Optional<UserDTO> getUserDTO(String username)
     {
         return this.userDAO.getUserDTOByName(username);
+    }
+
+    public int getUsersConnected(int maxTimeSinceLastSeen)
+    {
+        return this.userDAO.getUsersConnected(maxTimeSinceLastSeen);
     }
 
     public Optional<UserDTO> registerUser(User newUser)

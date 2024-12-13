@@ -13,7 +13,7 @@ public class HanabiTanksApplication
 		return "data/users";
 	}
 
-	@Bean
+	@Bean(name = "userDAO")
 	public UserDAO getUserDAO(String usersPath)
 	{
 		return new UserDAO(usersPath);

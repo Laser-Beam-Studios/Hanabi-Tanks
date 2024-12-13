@@ -62,4 +62,6 @@ public class User
         }
         return false;
     }
+
+    public boolean equals() {return true;}
 }
