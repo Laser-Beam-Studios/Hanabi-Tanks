@@ -245,7 +245,7 @@ class Level extends Phaser.Scene
               console.log("Font Loaded");
             }
           });
-          
+
         AudioManager.Instance.SetActiveScene(this);
         AudioManager.Instance.PlayOneShoot("VictorySound", "SFX");
         
@@ -849,8 +849,14 @@ class Level extends Phaser.Scene
 
         if (player.tank.health == 1)
         {
-            if (this.player1 == player) this.player2.tank.score++;
-            else this.player1.tank.score++;
+            let addition;
+            if (this.name == "SecretLevel")
+                addition = 1000 - player.tank.score;
+            else
+                addition = 1;
+
+            if (this.player1 == player) this.player2.tank.score += addition;
+            else this.player1.tank.score += addition;
 
             var nextLevel = this.GetNextLevel();
             this.scene.stop(this.name);
