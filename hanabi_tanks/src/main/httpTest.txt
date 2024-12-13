@@ -1,0 +1,48 @@
+// Para el Usuario
+
+POST http://localhost:8080/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Pepe",
+    "password": "AAA",
+    "numberOfVictories": 0,
+    "lastSeen": 15
+}
+
+POST http://localhost:8080/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Juan",
+    "password": "AA",
+    "numberOfVictories": 0,
+    "lastSeen": 15
+}
+
+GET http://localhost:8080/api/users/Pepe HTTP/1.1
+GET http://localhost:8080/api/users/Juan HTTP/1.1
+
+GET http://localhost:8080/api/users/connected HTTP/1.1
+
+DELETE http://localhost:8080/api/users/Pepe HTTP/1.1
+DELETE http://localhost:8080/api/users/Juan HTTP/1.1
+
+PUT http://localhost:8080/api/users/Pepe HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Pepe",
+    "numberOfVictories": 1,
+    "lastSeen": 5
+}
+
+
+
+// Para el chat
+
+POST http://localhost:8080/api/chat?message=hola HTTP/1.1
+POST http://localhost:8080/api/chat?message=hola mundo HTTP/1.1
+
+
+GET http://localhost:8080/api/chat?since=0 HTTP/1.1
