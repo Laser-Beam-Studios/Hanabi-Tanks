@@ -1,3 +1,18 @@
+const texts =
+{
+    PlayButton:
+    {
+        pos: { x: 512, y: 256 },
+        name: "PlayButton"
+    }
+}
+
+const bigFont = "32px fontChild";
+const mediumFont = "24px fontChild";
+const smallFont = "16px fontChild";
+
+const blackColor = "#ffffff";
+
 class MainMenu extends Phaser.Scene
 {
     constructor() 
@@ -10,6 +25,7 @@ class MainMenu extends Phaser.Scene
 
     preload() 
     {
+        this.load.json("localization_en", "'../../localization/english.json'")
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
         this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
@@ -34,13 +50,29 @@ class MainMenu extends Phaser.Scene
     {
         WebFont.load({
             custom: {
-              families: ['FontChild'], 
-              urls: ['../../css/styles.css']
+              families: ["FontChild"], 
+              urls: ["../../css/styles.css"]
             },
             active: () => {
               console.log("Font Loaded");
             }
           });
+        
+        const enData = this.cache.load.json("localization_en");          
+        
+        LanguageManager.getInstance().loadLanguage(enData);
+
+        this.textsGroup = {};
+        // Ejemplo de crear textos
+        // this.textsGroup["texts.PlayButton.name"] = this.add.text(texts.PlayButton.pos.x, texts.playButton.pos.y, LanguageManager.getInstance().getText("MainMenu", texts.PlayButton.name), { font: bigFont, fill: blackColor }));
+
+        LanguageManager.getInstance().onLanguageChanged(() =>
+        {
+            for (let key in Object.keys(this.textsGroup))
+            {
+                this.textsGroup[key].setText(LanguageManager.getInstance().getText("MainMenu", key));
+            }
+        })
 
         AudioManager.Instance.SetActiveScene(this, false);
 
