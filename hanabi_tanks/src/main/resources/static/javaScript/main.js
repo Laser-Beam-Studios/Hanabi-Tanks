@@ -26,7 +26,7 @@ const config = {
             gravity: { y: 0 }
         }
     },
-    scene: [MainMenu, Credits, Victory, PowerUp, Level1, Level2, Level3, Level4, Level5, Level6, Pause, Options]
+    scene: [MainMenu, Credits, Victory, PowerUp, Level1, Level2, Level3, Level4, Level5, Level6, Pause, Options, SecretLevel]
 };
 
 const audioManager = new AudioManager();

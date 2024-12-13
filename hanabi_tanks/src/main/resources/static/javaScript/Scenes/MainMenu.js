@@ -10,6 +10,8 @@ class MainMenu extends Phaser.Scene
 
     preload() 
     {
+        this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
+
         this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
         this.load.image("PlayButton", "../assets/UI/Buttons/play.png");
         this.load.image("OptionsButton", "../assets/UI/Buttons/options.png");
@@ -30,6 +32,16 @@ class MainMenu extends Phaser.Scene
 
     create() 
     {
+        WebFont.load({
+            custom: {
+              families: ['FontChild'], 
+              urls: ['../../css/styles.css']
+            },
+            active: () => {
+              console.log("Font Loaded");
+            }
+          });
+
         AudioManager.Instance.SetActiveScene(this, false);
 
         if (this.musicController == null)

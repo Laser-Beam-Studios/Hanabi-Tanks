@@ -15,6 +15,8 @@ class Victory extends Phaser.Scene
 
     preload() 
     {
+        this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
+
         this.load.image("VictoryBackground", "../assets/UI/Screens/win.png");
         this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 128, frameHeight: 128 });
         this.load.spritesheet("Numbers", "../assets/numbersSpritesheet.png", { frameWidth: 64, frameHeight: 64 });
@@ -22,6 +24,16 @@ class Victory extends Phaser.Scene
 
     create() 
     {
+        WebFont.load({
+            custom: {
+              families: ['FontChild'], 
+              urls: ['../../css/styles.css']
+            },
+            active: () => {
+              console.log("Font Loaded");
+            }
+          });
+          
         AudioManager.Instance.SetActiveScene(this, false);
 
         const victory = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "VictoryBackground");
