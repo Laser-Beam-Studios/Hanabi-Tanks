@@ -2,16 +2,17 @@
 <html lang="es">
 	<head>
 		<title> Hanabi Tanks </title>
-		<meta charset = "UTF-8" />
 
 		<link type="text/css" rel="stylesheet" href="../css/styles.css"></style>
 		<!-- ADD PHASER3 -->
 		<script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser-arcade-physics.min.js"></script>
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="../javaScript/GeneralPurpose/JqueryInit.js"></script>
 		<script src="../javaScript/GeneralPurpose/Scaler.js"></script>
 		<script src="../javaScript/GeneralPurpose/AudioManager.js"></script>
 		<script src="../javaScript/GeneralPurpose/AudioController.js"></script>
 
-
+		<script src="../javaScript/Scenes/Login.js"></script>
 		<script src="../javaScript/Scenes/MainMenu.js"></script>
 		<script src="../javaScript/Scenes/Pause.js"></script>
 		<script src="../javaScript/Scenes/Credits.js"></script>
@@ -30,7 +31,9 @@
 	</head>
 
 	<body> 
-		<canvas id="game-canvas" width="1181" height="886"></canvas>
-		<script src="../javaScript/main.js"></script>
+		<div id="Context">
+			<canvas id="game-canvas" width="1181" height="886"></canvas>
+			<script src="../javaScript/main.js"></script>
+		</div>
 	</body>
 </html>

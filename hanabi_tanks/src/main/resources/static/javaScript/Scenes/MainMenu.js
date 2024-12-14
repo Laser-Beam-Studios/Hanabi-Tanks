@@ -10,18 +10,12 @@ class MainMenu extends Phaser.Scene
 
     preload() 
     {
-        this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
+        //this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
         this.load.image("PlayButton", "../assets/UI/Buttons/play.png");
         this.load.image("OptionsButton", "../assets/UI/Buttons/options.png");
         this.load.image("CreditsButton", "../assets/UI/Buttons/credits.png");
         this.load.image("BackButton", "../assets/UI/Buttons/back.png"); // This is load here for used in the other menu scenes
         
-        // Song
-        this.load.audio("Tanks_Party_A", "../assets/Audio/Music/TanksParty_PART_A.mp3");
-        this.load.audio("Tanks_Party_B", "../assets/Audio/Music/TanksParty_PART_B.mp3");
-        this.load.audio("Tanks_Party_C", "../assets/Audio/Music/TanksParty_PART_C.mp3");
-        this.load.audio("Tanks_Party_D", "../assets/Audio/Music/TanksParty_PART_D.mp3");
-        this.load.audio("Tanks_Party_E", "../assets/Audio/Music/TanksParty_PART_E.mp3");
         // SFX
         this.load.audio("ChangeMenu", "../assets/Audio/SFX/UI/ChangeMenu.mp3");
         this.load.audio("EnterButton", "../assets/Audio/SFX/UI/EnterOverButton.mp3");
