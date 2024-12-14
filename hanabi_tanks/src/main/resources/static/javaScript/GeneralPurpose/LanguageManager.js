@@ -7,6 +7,11 @@ class LanguageManager
         this.subscribers = [];
     }
 
+    hasData()
+    {
+        return Object.keys(this.languageTexts) > 0;
+    }
+
     loadLanguage(language, data)
     {
         this.languageTexts[language] = data;

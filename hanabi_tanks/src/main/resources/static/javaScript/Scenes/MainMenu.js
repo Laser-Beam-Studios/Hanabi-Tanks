@@ -25,7 +25,13 @@ class MainMenu extends Phaser.Scene
 
     preload() 
     {
-        this.load.json("localization_en", "'../../localization/english.json'")
+        if (!LanguageManager.getInstance().hasData())
+        {
+            console.log("Loading Localization");
+            this.load.json("localization_en", "/assets/localization/english.json");
+            this.cache.text.add("localization_en");
+            console.log("Localization loaded");
+        }
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
         this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
@@ -57,22 +63,25 @@ class MainMenu extends Phaser.Scene
               console.log("Font Loaded");
             }
           });
-        
-        const enData = this.cache.load.json("localization_en");          
-        
-        LanguageManager.getInstance().loadLanguage(enData);
 
-        this.textsGroup = {};
-        // Ejemplo de crear textos
-        // this.textsGroup["texts.PlayButton.name"] = this.add.text(texts.PlayButton.pos.x, texts.playButton.pos.y, LanguageManager.getInstance().getText("MainMenu", texts.PlayButton.name), { font: bigFont, fill: blackColor }));
-
-        LanguageManager.getInstance().onLanguageChanged(() =>
+        if (!LanguageManager.getInstance().hasData())
         {
-            for (let key in Object.keys(this.textsGroup))
+            const enData = this.cache.text.get("localization_en");          
+            
+            LanguageManager.getInstance().loadLanguage(enData);
+    
+            this.textsGroup = {};
+            // Ejemplo de crear textos
+            // this.textsGroup["texts.PlayButton.name"] = this.add.text(texts.PlayButton.pos.x, texts.playButton.pos.y, LanguageManager.getInstance().getText("MainMenu", texts.PlayButton.name), { font: bigFont, fill: blackColor }));
+    
+            LanguageManager.getInstance().onLanguageChanged(() =>
             {
-                this.textsGroup[key].setText(LanguageManager.getInstance().getText("MainMenu", key));
-            }
-        })
+                for (let key in Object.keys(this.textsGroup))
+                {
+                    this.textsGroup[key].setText(LanguageManager.getInstance().getText("MainMenu", key));
+                }
+            })
+        }
 
         AudioManager.Instance.SetActiveScene(this, false);
 
