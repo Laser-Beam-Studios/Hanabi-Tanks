@@ -1,4 +1,6 @@
 const font = "FontChild";
+const blackColor = "#000000";
+
 const styleOptions = 
 {
     fontStyle:
@@ -18,8 +20,9 @@ const texts =
         scale: 0.32, 
         style: 
         {
-            font: font,
-            //fontStyle: styleOptions.fontStyle.bold
+            fontFamily: font,
+            //fontStyle: styleOptions.fontStyle.bold,
+            color: blackColor
         } 
     },
     "OptionsButton": 
@@ -35,8 +38,6 @@ const texts =
         scale: 0.32 
     }
 }
-
-const blackColor = "#000000";
 
 class MainMenu extends Phaser.Scene
 {
