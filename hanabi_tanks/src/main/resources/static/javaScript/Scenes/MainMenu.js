@@ -1,17 +1,42 @@
-const texts =
+const font = "FontChild";
+const styleOptions = 
 {
-    PlayButton:
+    fontStyle:
     {
-        pos: { x: 512, y: 256 },
-        name: "PlayButton"
+        bold: "bold",
+        italic: "italic",
+        boldItalic: "bold italic"
     }
 }
 
-const bigFont = "32px fontChild";
-const mediumFont = "24px fontChild";
-const smallFont = "16px fontChild";
+const texts =
+{
+    "PlayButton": 
+    { 
+        x: 0.82, 
+        y: 0.75, 
+        scale: 0.32, 
+        style: 
+        {
+            font: font,
+            //fontStyle: styleOptions.fontStyle.bold
+        } 
+    },
+    "OptionsButton": 
+    { 
+        x: 0.82, 
+        y: 0.85, 
+        scale: 0.32 
+    },
+    "CreditsButton": 
+    { 
+        x: 0.82, 
+        y: 0.95, 
+        scale: 0.32 
+    }
+}
 
-const blackColor = "#ffffff";
+const blackColor = "#000000";
 
 class MainMenu extends Phaser.Scene
 {
@@ -27,10 +52,7 @@ class MainMenu extends Phaser.Scene
     {
         if (!LanguageManager.getInstance().hasData())
         {
-            console.log("Loading Localization");
-            this.load.json("localization_en", "/assets/localization/english.json");
-            this.cache.text.add("localization_en");
-            console.log("Localization loaded");
+            this.load.pack("localization_en", "/assets/localization/english.json");
         }
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
@@ -60,28 +82,30 @@ class MainMenu extends Phaser.Scene
               urls: ["../../css/styles.css"]
             },
             active: () => {
-              console.log("Font Loaded");
+              if (!LanguageManager.getInstance().hasData())
+                {
+                    const enData = this.cache.json.get("localization_en");          
+                    
+                    LanguageManager.getInstance().loadLanguage("english", enData);
+            
+                    this.textsGroup = {};
+                    // Ejemplo de crear textos
+                    Object.keys(texts).forEach((key) =>
+                    {
+                        this.textsGroup[key] = this.add.text(texts[key].x * WINDOW.WIDHT, texts[key].y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("MainMenu", key), texts[key].style);
+                        this.textsGroup[key].setOrigin(0.5, 0.5);
+                        Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
+                    });
+                    LanguageManager.getInstance().onLanguageChanged(() =>
+                    {
+                        for (let key in Object.keys(this.textsGroup))
+                        {
+                            this.textsGroup[key].setText(LanguageManager.getInstance().getText("MainMenu", key));
+                        }
+                    })
+                }
             }
           });
-
-        if (!LanguageManager.getInstance().hasData())
-        {
-            const enData = this.cache.text.get("localization_en");          
-            
-            LanguageManager.getInstance().loadLanguage(enData);
-    
-            this.textsGroup = {};
-            // Ejemplo de crear textos
-            // this.textsGroup["texts.PlayButton.name"] = this.add.text(texts.PlayButton.pos.x, texts.playButton.pos.y, LanguageManager.getInstance().getText("MainMenu", texts.PlayButton.name), { font: bigFont, fill: blackColor }));
-    
-            LanguageManager.getInstance().onLanguageChanged(() =>
-            {
-                for (let key in Object.keys(this.textsGroup))
-                {
-                    this.textsGroup[key].setText(LanguageManager.getInstance().getText("MainMenu", key));
-                }
-            })
-        }
 
         AudioManager.Instance.SetActiveScene(this, false);
 
@@ -96,23 +120,23 @@ class MainMenu extends Phaser.Scene
         const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "MainMenuBackground");
         Scaler.ScaleToGameH(Background);
 
-        const play = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT*0.75, "PlayButton");
-        Scaler.ScaleToGameW(play, 0.32);
+        const play = this.add.image(texts["PlayButton"].x * WINDOW.WIDHT, texts["PlayButton"].y * WINDOW.HEIGHT, "PlayButton");
+        Scaler.ScaleToGameW(play, texts["PlayButton"].scale);
         play.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, play));
         play.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         play.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
-        const credits = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT * 0.95, "CreditsButton");
-        Scaler.ScaleToGameW(credits, 0.32);
+        const credits = this.add.image(texts["CreditsButton"].x * WINDOW.WIDHT, texts["CreditsButton"].y * WINDOW.HEIGHT, "CreditsButton");
+        Scaler.ScaleToGameW(credits, texts["CreditsButton"].scale);
         credits.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, credits));
         credits.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         credits.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
-        const options = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT * 0.85, "OptionsButton");
-        Scaler.ScaleToGameW(options, 0.32);
+        const options = this.add.image(texts["OptionsButton"].x * WINDOW.WIDHT, texts["OptionsButton"].y * WINDOW.HEIGHT, "OptionsButton");
+        Scaler.ScaleToGameW(options, texts["CreditsButton"].scale);
         options.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, options));
         options.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
-        options.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+        options.setInteractive().on("pointerout", this.OnPointerExit.bind(this))
     }
 
     OnPointerEnter()

@@ -25,7 +25,7 @@ class LanguageManager
         }
         catch (error)
         {
-            console.warn("Text not found: ${scene} -> ${object} with ${currentLanguage} language");
+            console.warn("Text not found: " + scene + " -> " + object + " with " + currentLanguage + "language");
             return object;
         }
     }
