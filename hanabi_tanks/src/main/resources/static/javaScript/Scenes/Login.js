@@ -61,7 +61,11 @@ class Login extends Phaser.Scene
                         url: USERS_BASE_URL,
                         contentType: "application/json",
                         data: body,
-                        success: null,
+                        success: (data, status) =>
+                        {
+                            console.log(data);
+                            console.log(status);
+                        },
                         dataType: "json"
                       });
                 }
