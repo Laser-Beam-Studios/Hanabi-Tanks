@@ -4,7 +4,7 @@ class LanguageManager
     {
         this.languageTexts = {};
         this.currentLanguage = "english";
-        this.subscribers = [];
+        this.subscribers = {};
     }
 
     hasData()
@@ -37,17 +37,42 @@ class LanguageManager
         return LanguageManager.instance;
     }
 
-    onLanguageChanged(callback)
+    getLanguages()
     {
-        this.subscribers.push(callback);
+        return Object.keys(this.languageTexts);
+    }
+
+    onLanguageChanged(scene, callback)
+    {
+        let contains = false;
+        Object.keys(this.languageTexts).forEach((key) =>
+        {
+            if (key == scene)
+            {
+                contains = true;
+                return;
+            }
+        })
+
+        if (!contains)
+            this.subscribers[scene] = [];
+        this.subscribers[scene].push(callback);
+    }
+
+    desubscribe(scene)
+    {
+        delete this.subscribers[scene];
     }
 
     changeLanguage(language)
     {
         this.currentLanguage = language;
-        for (let sub in this.subscribers)
+        Object.keys(this.languageTexts).forEach((key) =>
         {
-            sub();
-        }
+            Object.keys(this.languageTexts[key]).forEach((sub) =>
+            {
+                sub();
+            });
+        });
     }
 }
