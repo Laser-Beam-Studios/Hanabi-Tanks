@@ -1,6 +1,8 @@
 {
     "MainMenu":
     {
-        "PlayButton": "Play"
+        "PlayButton": "Play",
+        "OptionsButton": "Options",
+        "CreditsButton": "Credits"
     }
 }

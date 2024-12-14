@@ -29,13 +29,25 @@ const texts =
     { 
         x: 0.82, 
         y: 0.85, 
-        scale: 0.32 
+        scale: 0.32, 
+        style: 
+        {
+            fontFamily: font,
+            //fontStyle: styleOptions.fontStyle.bold,
+            color: blackColor
+        } 
     },
     "CreditsButton": 
     { 
         x: 0.82, 
         y: 0.95, 
-        scale: 0.32 
+        scale: 0.32, 
+        style: 
+        {
+            fontFamily: font,
+            //fontStyle: styleOptions.fontStyle.bold,
+            color: blackColor
+        } 
     }
 }
 
