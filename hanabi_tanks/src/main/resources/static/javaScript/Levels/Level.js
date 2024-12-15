@@ -199,16 +199,22 @@ class Level extends Phaser.Scene
                     randoms.push(candidate);
                 }
                 this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
+                if (Math.random() * 100 <= 25)
+                    this.hasSecretButton = true;
             }
-            else if (this.name == "Victory")
+            else if (this.name == "SecretLevel")
             {
-
+                this.instaWin = true;
             }
         }
     }
 
     preload() 
     {
+        this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
+
+        this.load.image("SecretButton", "../assets/secret.png");
+
         // load the spriteSheet and 
         this.load.spritesheet("World", "../assets/TilesSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet("Tanks", "../assets/TanksSpriteSheet.png", { frameWidth: 256, frameHeight: 256 });
@@ -230,6 +236,16 @@ class Level extends Phaser.Scene
 
     create() 
     {
+        WebFont.load({
+            custom: {
+              families: ['FontChild'], 
+              urls: ['../../css/styles.css']
+            },
+            active: () => {
+              console.log("Font Loaded");
+            }
+          });
+
         AudioManager.Instance.SetActiveScene(this);
         AudioManager.Instance.PlayOneShoot("VictorySound", "SFX");
         
@@ -276,6 +292,9 @@ class Level extends Phaser.Scene
         powerUpR.type = this.powerUps.r;
         Scaler.ScaleToGameW(powerUpR, 0.05);
         this.powerUpsGroup.add(powerUpR);
+
+        if (this.hasSecretButton)
+            this.secretButton = this.add.image(posM.x * this.sizeOfTile + this.offset.x, 1 * this.sizeOfTile + this.offset.y, "SecretButton");
     }
   
     OnMusicPartEnds(last)
@@ -731,7 +750,12 @@ class Level extends Phaser.Scene
                     player.tank.sprite = PowerUpsTankSpriteDic[powerUp.type];
                     powerUp.destroy();
                 }
-            })
+            });
+            if (this.hasSecretButton)
+                this.physics.add.collider(this.playersGroup, this.secretButton, (player, secretButton) =>
+            {
+                this.loadSecretLevel = true;
+            });
         }
     }
 
@@ -825,8 +849,14 @@ class Level extends Phaser.Scene
 
         if (player.tank.health == 1)
         {
-            if (this.player1 == player) this.player2.tank.score++;
-            else this.player1.tank.score++;
+            let addition;
+            if (this.name == "SecretLevel")
+                addition = 1000 - player.tank.score;
+            else
+                addition = 1;
+
+            if (this.player1 == player) this.player2.tank.score += addition;
+            else this.player1.tank.score += addition;
 
             var nextLevel = this.GetNextLevel();
             this.scene.stop(this.name);
@@ -845,6 +875,9 @@ class Level extends Phaser.Scene
 
     GetNextLevel()
     {
+        if (this.loadSecretLevel)
+            return "SecretLevel";
+
         var scoreDiference = this.player1.tank.score - this.player2.tank.score; 
         switch(this.name)
         {
@@ -863,6 +896,10 @@ class Level extends Phaser.Scene
                 else return "Victory";
             case "Level6":  // i can just go to win screen
                 return "Victory";
+
+            case "SecretLevel":
+                return "Victory";
+
             default:
                 console.log("ERROR_IN_GETNEXTLEVEL_UNKOWN_LEVELNAME: " + this.name);
                 return;
