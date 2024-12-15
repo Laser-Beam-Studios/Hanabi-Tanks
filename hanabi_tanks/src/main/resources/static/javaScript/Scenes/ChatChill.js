@@ -40,6 +40,8 @@ class ChatChill extends Phaser.Scene
 
         this.lastMessageId = 0;
         this.chatBoxDomElement = this.add.dom(0, WINDOW.HEIGHT - 100).createFromCache("ChatDom");
+        this.chatBoxDomElement.alpha = 0.4;
+
         this.chatBox = $("#chatBox");
         this.inputMessage = $("#message");
         this.messages = $("#messages");
@@ -111,6 +113,11 @@ class ChatChill extends Phaser.Scene
                 if (this.chatOpen) 
                 {
                     this.SendMessage();
+                    this.chatBoxDomElement.alpha = 0.4;
+                }
+                else
+                {
+                    this.chatBoxDomElement.alpha = 1.0;
                 }
                 this.chatOpen = !this.chatOpen;
                 break;

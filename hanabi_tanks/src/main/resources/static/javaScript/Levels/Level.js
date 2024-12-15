@@ -283,6 +283,11 @@ class Level extends Phaser.Scene
 
     OnKeyPressed(key)
     {
+        if (this.scene.get("ChatChill").chatOpen) 
+        {
+            console.log("Chat open so don't move");
+            return;
+        }
         switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
@@ -333,6 +338,11 @@ class Level extends Phaser.Scene
 
     OnKeyReleased(key)
     {
+        if (this.scene.get("ChatChill").chatOpen) 
+        {
+            console.log("Chat open so don't move");
+            return;
+        }
         switch (key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.W:
