@@ -8,6 +8,9 @@ const config = {
     type: Phaser.Canvas,
     width: WINDOW.WIDHT,
     height: WINDOW.HEIGHT,
+    dom: {
+        createContainer: true
+    },
     aduio: {
         disableWebAudio: true
     },
@@ -16,7 +19,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    parent: "parent",
+    parent: document.getElementById("Context"),
     canvas: document.getElementById("game-canvas"),
     backgroundColor: "#000000",
     physics: {
@@ -26,14 +29,14 @@ const config = {
             gravity: { y: 0 }
         }
     },
-    scene: [MainMenu, Credits, Victory, PowerUp, Level1, Level2, Level3, Level4, Level5, Level6, SecretLevel, Pause, Options]
+    scene: [Login, MainMenu, Credits, Victory, PowerUp, Level1, Level2, Level3, Level4, Level5, Level6, SecretLevel, Pause, Options]
 };
 
 const audioManager = new AudioManager();
 
 //Create the game instance
 const game = new Phaser.Game(config);
-game.scene.start("MainMenu");
+game.scene.start("Login");
 
 function ScreenResize()
 {
