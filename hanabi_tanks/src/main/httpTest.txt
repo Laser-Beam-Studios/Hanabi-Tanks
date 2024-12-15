@@ -42,7 +42,7 @@ content-type: application/json
 
 // Para el chat
 
-POST http://localhost:8080/api/chat?message=aasda&username=A HTTP/1.1
+POST http://localhost:8080/api/chat?message=hola&username=Pepe HTTP/1.1
 POST http://localhost:8080/api/chat?message=hola mundo HTTP/1.1
 
 

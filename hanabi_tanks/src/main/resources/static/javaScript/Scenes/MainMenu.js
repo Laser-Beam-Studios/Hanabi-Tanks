@@ -92,15 +92,6 @@ class MainMenu extends Phaser.Scene
         this.load.audio("ExitButton", "../assets/Audio/SFX/UI/ExitOverButton.mp3");
     }
 
-    init()
-    {
-        if (!this.scene.isActive("ChatChill"))
-        {
-            console.log("Launchn the ChatChill Scene");
-            this.scene.launch("ChatChill");
-        }
-    }
-
     create() 
     {
         WebFont.load({

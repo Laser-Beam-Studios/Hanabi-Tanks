@@ -48,6 +48,7 @@ class Login extends Phaser.Scene
                                 {
                                     scene.stop("Login");
                                     scene.start("MainMenu");
+                                    scene.launch("ChatChill", { username: inputUsername });
                                 }
                         },
                         dataType: "json"
