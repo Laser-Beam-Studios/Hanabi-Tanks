@@ -1,5 +1,70 @@
+const font = "FontChild";
+const blackColor = "#000000";
+
+const textDivider = 9.0;
+
+const styleOptions = 
+{
+    fontStyle:
+    {
+        bold: "bold",
+        italic: "italic",
+        boldItalic: "bold italic"
+    }
+}
+
 class MainMenu extends Phaser.Scene
 {
+    textsScale = 
+    {
+        "PlayButton": 0.32,
+        "OptionsButton": 0.32,
+        "CreditsButton": 0.32
+    }
+
+    texts =
+    {
+        "PlayButton": 
+        { 
+            pos: { x: 0.82, y: 0.75 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["PlayButton"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+       },
+       "OptionsButton": 
+       { 
+            pos: { x: 0.82, y: 0.85 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["OptionsButton"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        },
+        "CreditsButton": 
+        { 
+            pos: { x: 0.82, y: 0.95 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["CreditsButton"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        }
+    }
+
     constructor() 
     {
         super({ key: 'MainMenu' });
@@ -10,6 +75,11 @@ class MainMenu extends Phaser.Scene
 
     preload() 
     {
+        if (!LanguageManager.getInstance().hasData())
+        {
+            this.load.pack("localization_en", "/assets/localization/english.json");
+            this.load.pack("localization_es", "/assets/localization/español.json")
+        }
         //this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
@@ -35,13 +105,42 @@ class MainMenu extends Phaser.Scene
     {
         WebFont.load({
             custom: {
-              families: ['FontChild'], 
-              urls: ['../../css/styles.css']
+                families: ["FontChild"], 
+                urls: ["../../css/styles.css"]
             },
             active: () => {
-              console.log("Font Loaded");
+                if (!LanguageManager.getInstance().hasData())
+                {
+                    const enData = this.cache.json.get("localization_en");      
+                    const esData = this.cache.json.get("localization_es");
+                    
+                    LanguageManager.getInstance().loadLanguage("english", enData);
+                    LanguageManager.getInstance().loadLanguage("español", esData);
+            
+                    this.textsGroup = {};
+                    // Ejemplo de crear textos
+                    Object.keys(this.texts).forEach((key) =>
+                    {
+                        this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("MainMenu", key), this.texts[key].style);
+                        this.textsGroup[key].setOrigin(this.texts[key].center.x, this.texts[key].center.y);
+                        this.textsGroup[key].rotation = this.texts[key].rotation;
+                        //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
+                    });
+                    LanguageManager.getInstance().onLanguageChanged("MainMenu", () =>
+                    {
+                        Object.keys(this.textsGroup).forEach((key) =>
+                        {
+                            this.textsGroup[key].text = LanguageManager.getInstance().getText("MainMenu", key);
+                        });
+                    });
+
+                    this.events.once("shutdown", () =>
+                    {
+                        LanguageManager.getInstance().desubscribe("MainMenu");
+                    });
+                }
             }
-          });
+        });
 
         AudioManager.Instance.SetActiveScene(this, false);
 
@@ -56,23 +155,23 @@ class MainMenu extends Phaser.Scene
         const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "MainMenuBackground");
         Scaler.ScaleToGameH(Background);
 
-        const play = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT*0.75, "PlayButton");
-        Scaler.ScaleToGameW(play, 0.32);
+        const play = this.add.image(this.texts["PlayButton"].pos.x * WINDOW.WIDHT, this.texts["PlayButton"].pos.y * WINDOW.HEIGHT, "PlayButton");
+        Scaler.ScaleToGameW(play, this.textsScale["PlayButton"]);
         play.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, play));
         play.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         play.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
-        const credits = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT * 0.95, "CreditsButton");
-        Scaler.ScaleToGameW(credits, 0.32);
+        const credits = this.add.image(this.texts["CreditsButton"].pos.x * WINDOW.WIDHT, this.texts["CreditsButton"].pos.y * WINDOW.HEIGHT, "CreditsButton");
+        Scaler.ScaleToGameW(credits, this.textsScale["CreditsButton"]);
         credits.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, credits));
         credits.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         credits.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
-        const options = this.add.image(WINDOW.WIDHT * 0.82, WINDOW.HEIGHT * 0.85, "OptionsButton");
-        Scaler.ScaleToGameW(options, 0.32);
+        const options = this.add.image(this.texts["OptionsButton"].pos.x * WINDOW.WIDHT, this.texts["OptionsButton"].pos.y * WINDOW.HEIGHT, "OptionsButton");
+        Scaler.ScaleToGameW(options, this.textsScale["CreditsButton"]);
         options.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, options));
         options.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
-        options.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+        options.setInteractive().on("pointerout", this.OnPointerExit.bind(this))
     }
 
     OnPointerEnter()

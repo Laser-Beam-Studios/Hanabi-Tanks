@@ -1,0 +1,25 @@
+{
+    "MainMenu":
+    {
+        "PlayButton": "Play",
+        "OptionsButton": "Options",
+        "CreditsButton": "Credits"
+    },
+    "Options":
+    {
+        "OptionsTitle": "Options",
+        "AudioTitle": "Audio",
+        "MasterOption": "Master",
+        "SFXOption": "SFX",
+        "MusicOption": "Music",
+        "ControlsTitle": "Controls",
+        "UpOption": "Up",
+        "DownOption": "Down",
+        "RightOption": "Right",
+        "LeftOption": "Left",
+        "ShootOption": "Shoot",
+        "BackButton": "Back",
+        "P1Column": "P1",
+        "P2Column": "P2"
+    }
+}
