@@ -1,6 +1,39 @@
 <style>
-
+    #chatBox
+    {
+        background: rgba(255, 255, 255, 0.479);
+        height: 100px;
+        width: 450px;
+        align-items: left;
+        position: absolute;
+    }
+    input
+    {
+        font-size: 100%;
+        color: black;
+        background-color: rgba(255, 255, 255, 0.479);
+        border: 0px;
+        padding: 0px;
+        text-align: left;
+        width: 100%;
+        display: flex;
+    }
+    #messages
+    {
+        position: relative;
+        overflow-y: scroll;
+        align-items: left;
+        height: 80px;
+        width: 450px;
+    }
+    .message
+    {
+        font-size: 100%;
+        color: black;
+        
+    }
 </style>
 <div id="chatBox">
-    
+    <div id="messages"></div>
+    <input type="text" id="message" name="message">
 </div>

@@ -3,71 +3,119 @@ class ChatChill extends Phaser.Scene
     constructor() 
     {
         super({ key: 'ChatChill' });
+
+        this.musicController;
+        this.songsParts = ["Tanks_Party_A", "Tanks_Party_B", "Tanks_Party_C", "Tanks_Party_D", "Tanks_Party_E"];
+        
+        this.lastMessageId = 0;
+        this.chatBox;
+        this.messages;
+        this.chatBoxDomElement;
+        this.inputMessage;
+        this.chatOpen = false;
+
     }
 
     preload()
     {
         this.load.html("ChatDom", "../html/Chat.html");
 
-        
+        // Song
+        this.load.audio("Tanks_Party_A", "../assets/Audio/Music/TanksParty_PART_A.mp3");
+        this.load.audio("Tanks_Party_B", "../assets/Audio/Music/TanksParty_PART_B.mp3");
+        this.load.audio("Tanks_Party_C", "../assets/Audio/Music/TanksParty_PART_C.mp3");
+        this.load.audio("Tanks_Party_D", "../assets/Audio/Music/TanksParty_PART_D.mp3");
+        this.load.audio("Tanks_Party_E", "../assets/Audio/Music/TanksParty_PART_E.mp3");
     }
 
     create()
     {
-        AudioManager.Instance.SetActiveScene(this, false);        
+        AudioManager.Instance.SetActiveScene(this);
 
-        const credits = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "CreditsScreen");        
-        Scaler.ScaleToGameH(credits, 0.85);
+        this.musicController = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music");
+        this.musicController.Play();
+        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, "Tanks_Party_A"));
 
-        const back = this.add.image(WINDOW.WIDHT/6, (WINDOW.HEIGHT * 14)/15, "BackButton");
-        Scaler.ScaleToGameW(back, 0.32);
-        back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back));
-        back.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
-        back.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
-        
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
+
+        this.lastMessageId = 0;
+        this.chatBoxDomElement = this.add.dom(0, WINDOW.HEIGHT - 100).createFromCache("ChatDom");
+        this.chatBox = $("#chatBox");
+        this.inputMessage = $("#message");
+        this.messages = $("#messages");
+
+        setInterval(this.UpdateChat, 2000, this);
     }
 
-    OnPointerEnter()
+    SendMessage()
     {
-        console.log("Pointer Enter");
-        AudioManager.Instance.PlayOneShoot("EnterButton", "SFX");
+        const message = this.chatBoxDomElement.getChildByName("message").value;
+        var THIS = this;
+
+        //  Any message
+        if (message.value !== "")
+        {
+            $.post(CHAT_BASE_URL, { message: message }, (data, status) =>
+            {
+                $("#message").val("");
+                this.UpdateChat(THIS);
+            });
+        }
     }
 
-    OnPointerExit()
+    UpdateChat(THIS)
     {
-        console.log("Pointer Exit");
-        AudioManager.Instance.PlayOneShoot("ExitButton", "SFX");
+        console.log("UpdateChat: " + THIS.lastMessageId);
+
+        $.get(CHAT_BASE_URL, { since: THIS.lastMessageId }, (data) =>
+        {
+            console.log("The get returns: " + data.lastId);
+            if (data.messages && data.messages.length > 0 && THIS.lastMessageId <= data.lastId) {
+                data.messages.forEach(msg => {
+                    THIS.messages.append("<div class='message'>" + `${msg}` + "</div>");
+                });
+                THIS.messages.scrollTop(THIS.messages.prop("scrollHeight"));
+                THIS.lastMessageId = data.lastId + 1;    // The + 1 it's for the server api, it returns the actual index of the message that it's now display in the chatBox so the next time i get the nexts
+            }
+        });
+    }
+
+    OnMusicPartEnds(last)
+    {
+        var lastIdx;
+        for (var i = 0; i < this.songsParts.length; i++)
+        {
+            if(this.songsParts[i] == last) 
+            {
+                lastIdx = i;
+                break;
+            }
+        }
+
+        var randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
+        while(randomPartIdx == lastIdx)
+        {
+            randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
+        }
+        
+        this.musicController = AudioManager.Instance.CreateInstance(this.songsParts[randomPartIdx], "Music");
+        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, this.songsParts[randomPartIdx]));
+        this.musicController.Play();
     }
 
     OnKeyPressed(key)
     {
         switch(key.keyCode)
         {
-            case Phaser.Input.Keyboard.KeyCodes.ESC:
-                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
-                this.scene.stop("Credits");
-                this.scene.start("MainMenu");
+            case Phaser.Input.Keyboard.KeyCodes.ENTER:
+                if (this.chatOpen) 
+                {
+                    this.SendMessage();
+                }
+                this.chatOpen = !this.chatOpen;
                 break;
             default:
                 console.log("ERROR_UNKNOWN_KEY_PRESSED: " + key.keyCode);
-                break;
-        }
-    }
-
-    OnClickOnButton(button)
-    {
-        console.log("boton pulsado = " + button.texture.key);
-        
-        switch(button.texture.key)
-        {
-            case "BackButton":
-                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
-                this.scene.stop("Credits");
-                this.scene.start("MainMenu");
-                break;
-            default:
-                console.log("ERROR_IN_CLICK_BUTTON: UNKNOWN_BUTTON_KEY: " + button.texture.key);
                 break;
         }
     }

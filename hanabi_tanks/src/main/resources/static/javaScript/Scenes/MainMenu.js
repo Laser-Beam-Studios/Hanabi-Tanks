@@ -68,17 +68,14 @@ class MainMenu extends Phaser.Scene
     constructor() 
     {
         super({ key: 'MainMenu' });
-
-        this.musicController;
-        this.songsParts = ["Tanks_Party_A", "Tanks_Party_B", "Tanks_Party_C", "Tanks_Party_D", "Tanks_Party_E"];
     }
 
     preload() 
     {
         if (!LanguageManager.getInstance().hasData())
         {
-            this.load.pack("localization_en", "/assets/localization/english.json");
-            this.load.pack("localization_es", "/assets/localization/español.json")
+            this.load.pack("localization_en", "../assets/localization/english.json");
+            this.load.pack("localization_es", "../assets/localization/espanol.json")
         }
         //this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
@@ -89,16 +86,19 @@ class MainMenu extends Phaser.Scene
         this.load.image("BackButton", "../assets/UI/Buttons/back.png"); // This is load here for used in the other menu scenes
         
 
-        // Song
-        this.load.audio("Tanks_Party_A", "../assets/Audio/Music/TanksParty_PART_A.mp3");
-        this.load.audio("Tanks_Party_B", "../assets/Audio/Music/TanksParty_PART_B.mp3");
-        this.load.audio("Tanks_Party_C", "../assets/Audio/Music/TanksParty_PART_C.mp3");
-        this.load.audio("Tanks_Party_D", "../assets/Audio/Music/TanksParty_PART_D.mp3");
-        this.load.audio("Tanks_Party_E", "../assets/Audio/Music/TanksParty_PART_E.mp3");
         // SFX
         this.load.audio("ChangeMenu", "../assets/Audio/SFX/UI/ChangeMenu.mp3");
         this.load.audio("EnterButton", "../assets/Audio/SFX/UI/EnterOverButton.mp3");
         this.load.audio("ExitButton", "../assets/Audio/SFX/UI/ExitOverButton.mp3");
+    }
+
+    init()
+    {
+        if (!this.scene.isActive("ChatChill"))
+        {
+            console.log("Launchn the ChatChill Scene");
+            this.scene.launch("ChatChill");
+        }
     }
 
     create() 
@@ -144,13 +144,6 @@ class MainMenu extends Phaser.Scene
 
         AudioManager.Instance.SetActiveScene(this, false);
 
-        if (this.musicController == null)
-        {
-            this.musicController = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music");
-            this.musicController.Play();
-        }
-        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, "Tanks_Party_A"));
-
 
         const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "MainMenuBackground");
         Scaler.ScaleToGameH(Background);
@@ -184,29 +177,6 @@ class MainMenu extends Phaser.Scene
     {
         console.log("Pointer Exit");
         AudioManager.Instance.PlayOneShoot("ExitButton", "SFX");
-    }
-
-    OnMusicPartEnds(last)
-    {
-        var lastIdx;
-        for (var i = 0; i < this.songsParts.length; i++)
-        {
-            if(this.songsParts[i] == last) 
-            {
-                lastIdx = i;
-                break;
-            }
-        }
-
-        var randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
-        while(randomPartIdx == lastIdx)
-        {
-            randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
-        }
-        
-        this.musicController = AudioManager.Instance.CreateInstance(this.songsParts[randomPartIdx], "Music");
-        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, this.songsParts[randomPartIdx]));
-        this.musicController.Play();
     }
 
     OnClickOnButton(button)
