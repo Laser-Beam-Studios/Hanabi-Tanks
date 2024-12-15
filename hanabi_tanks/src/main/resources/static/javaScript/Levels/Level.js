@@ -135,6 +135,20 @@ const PowerUpsTankSpriteDic =
 
 class Level extends Phaser.Scene
 {
+    gameTimerScale = 0.1;
+
+    gameTimerConfig = 
+    {
+        pos: { x: 0.5, y: 0.1 },
+        center: {x: 0.5, y: 0.5 },
+        style:
+        {
+            fontFamily: font,
+            fontSize: String(WINDOW.HEIGHT * this.gameTimerScale) + "px",
+            //fontStyle: styleOptions.fontStyle.bold,
+            color: blackColor
+        }
+    }
     // n -> number of cells in the horizontal  // m -> number of cells in the vertical
     constructor(n, m, sizeOfTile, name)
     {
@@ -199,7 +213,7 @@ class Level extends Phaser.Scene
                     randoms.push(candidate);
                 }
                 this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
-                if (Math.random() * 100 <= 25)
+                if (Math.random() * 100 <= 1000)
                     this.hasSecretButton = true;
             }
             else if (this.name == "SecretLevel")
@@ -262,6 +276,20 @@ class Level extends Phaser.Scene
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
         this.input.keyboard.on("keyup", this.OnKeyReleased.bind(this));
         this.events.on('resume', this.CheckMusic.bind(this, this));
+
+        this.gameTimer = 3000;
+        this.gameTimerText = this.add.text(this.gameTimerConfig.pos.x * WINDOW.WIDHT, this.gameTimerConfig.pos.y * WINDOW.HEIGHT, "0:03", this.gameTimerConfig.style);
+
+        this.time.addEvent({
+            delay: 3000,
+            callback: () => {
+                this.canPlay = true;
+                this.gameTimer = 150000;
+                this.gameTimerText.text = "3:00";
+                this.gameTimerText.setOrigin(this.gameTimerConfig.center.x, this.gameTimerConfig.center.y);
+            },
+            callbackScope: this
+        });
     }
 
     CheckMusic(scene)
@@ -294,7 +322,12 @@ class Level extends Phaser.Scene
         this.powerUpsGroup.add(powerUpR);
 
         if (this.hasSecretButton)
-            this.secretButton = this.add.image(posM.x * this.sizeOfTile + this.offset.x, 1 * this.sizeOfTile + this.offset.y, "SecretButton");
+        {
+            this.secretButton = this.physics.add.staticGroup();
+            let button = this.add.image(posM.x * this.sizeOfTile + this.offset.x, 1 * this.sizeOfTile + this.offset.y, "SecretButton");
+            Scaler.ScaleToGameW(button, 0.05);
+            this.secretButton.add(button);
+        }
     }
   
     OnMusicPartEnds(last)
@@ -322,6 +355,9 @@ class Level extends Phaser.Scene
 
     OnKeyPressed(key)
     {
+        if (!this.canPlay)
+            return;
+
         switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
@@ -372,6 +408,9 @@ class Level extends Phaser.Scene
 
     OnKeyReleased(key)
     {
+        if (!this.canPlay)
+            return;
+
         switch (key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.W:
@@ -408,9 +447,25 @@ class Level extends Phaser.Scene
 
     update(time, delta) 
     {
+        console.log("time: " + time + ", delta: " + delta);
         this.CheckTankRotations();
 
         this.UpdateTanks();
+
+        if (this.name != "PowerUp")
+            if (this.UpdateGameTimer(delta))
+            {
+                var nextLevel = this.GetNextLevel();
+                this.scene.stop(this.name);
+                if(nextLevel == "Victory")
+                {
+                    this.scene.start("Victory", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
+                }
+                else
+                {
+                    this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
+                }  
+            }
 
         if (this.name == "PowerUp")
             if (this.powerUpsGroup.children.size == 1)
@@ -419,6 +474,21 @@ class Level extends Phaser.Scene
                 this.scene.stop(this.name);
                 this.scene.start(this.nextScene, { player1: this.player1.tank, player2: this.player2.tank, next: this.nextScene });   
             }
+    }
+
+    UpdateGameTimer(delta)
+    {
+        this.gameTimer -= delta;
+        if (this.gameTimer <= 0)
+            return true;
+        //console.log(this.gameTimer);
+        let seconds = Math.ceil(this.gameTimer);
+        let minutes = Math.ceil(seconds / 60);
+        //console.log(minutes + " minutes");
+        seconds -= minutes * 60;
+        //console.log(seconds + " seconds");
+        this.gameTimerText.text = String(minutes) + ":" + String(seconds);
+        return false;
     }
 
     CheckTankRotations()
@@ -604,6 +674,7 @@ class Level extends Phaser.Scene
             case "Level3":
             case "Level4":
             case "Level5":
+            case "SecretLevel":
                 posX1 = 2 * this.sizeOfTile;
                 posX2 = (this.m + 1) * this.sizeOfTile;
                 break;
@@ -703,7 +774,7 @@ class Level extends Phaser.Scene
                             });
 
                             if (found)
-                                return;
+                                break;
 
                             player.tank.shootingRate += 60;
                             break;
@@ -726,7 +797,7 @@ class Level extends Phaser.Scene
                             });
 
                             if (found)
-                                return;
+                                break;
 
                             player.tank.bulletDamage++;
                             break;
@@ -740,7 +811,7 @@ class Level extends Phaser.Scene
                             });
 
                             if (found)
-                                return;
+                                break;
 
                             player.tank.bulletSpeed += 500;
                             break;
@@ -751,11 +822,14 @@ class Level extends Phaser.Scene
                     powerUp.destroy();
                 }
             });
+            console.log(this.hasSecretButton);
             if (this.hasSecretButton)
                 this.physics.add.collider(this.playersGroup, this.secretButton, (player, secretButton) =>
-            {
-                this.loadSecretLevel = true;
-            });
+                {
+                    this.nextScene = "SecretLevel";
+                    console.log("Preparing Secret Level");
+                    secretButton.destroy();
+                });
         }
     }
 
@@ -879,6 +953,23 @@ class Level extends Phaser.Scene
             return "SecretLevel";
 
         var scoreDiference = this.player1.tank.score - this.player2.tank.score; 
+        // if (scoreDiference == 0)
+        // {
+        //     let healthDiference = (this.player1.tank.health / this.player1.tank.maxHealth) - (this.player2.tank.health / this.player2.tank.maxHealth)
+        //     if (healthDiference > 0)
+        //         this.player1.tank.score++;
+        //     else if (healthDiference < 0)
+        //         this.player2.tank.score++;
+        //     else
+        //     {
+        //         let random = Math.Between(1, 2);
+        //         if (random == 1)
+        //             this.player1.tank.score++;
+        //         else
+        //             this.player2.tank.score++;
+        //     }
+        //     scoreDiference = this.player1.tank.score - this.player2.tank.score;
+        // }
         switch(this.name)
         {
             case "Level1": // If i'm in level 0 i just can go to the level 2
