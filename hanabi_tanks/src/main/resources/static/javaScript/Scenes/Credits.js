@@ -7,11 +7,23 @@ class Credits extends Phaser.Scene
 
     preload() 
     {
+        this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
+
         this.load.image("CreditsScreen", "../assets/UI/Screens/Creditos.png");
     }
 
     create() 
     {
+        WebFont.load({
+            custom: {
+              families: ['FontChild'], 
+              urls: ['../../css/styles.css']
+            },
+            active: () => {
+              console.log("Font Loaded");
+            }
+          });
+          
         AudioManager.Instance.SetActiveScene(this, false);        
 
         const credits = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "CreditsScreen");        

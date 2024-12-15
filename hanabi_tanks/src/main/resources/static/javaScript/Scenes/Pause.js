@@ -13,12 +13,24 @@ class Pause extends Phaser.Scene
 
     preload() 
     {
+        this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
+
         this.load.image("PauseBackground", "../assets/UI/Screens/bgPauseTranparent.png");
         this.load.image("MainMenuButton", "../assets/UI/Buttons/mainMenu.png")
     }
 
     create() 
     {
+        WebFont.load({
+            custom: {
+              families: ['FontChild'], 
+              urls: ['../../css/styles.css']
+            },
+            active: () => {
+              console.log("Font Loaded");
+            }
+          });
+          
         AudioManager.Instance.SetActiveScene(this, false);
 
 

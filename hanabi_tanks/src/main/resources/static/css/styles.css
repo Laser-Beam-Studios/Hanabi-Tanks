@@ -2,3 +2,14 @@ html
 {
     background-color: black;
 }
+
+@font-face
+{
+    font-family: 'FontChild';
+    src: url('../assets/fonts/fontChild.woff2') format('woff2'),
+         url('../assets/fonts/fontChild.woff') format('woff');
+
+    font-weight: normal;
+    font-style: normal;
+
+}
