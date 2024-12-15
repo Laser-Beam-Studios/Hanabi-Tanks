@@ -38,7 +38,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.1, y: 0.13 },
             center: { x: 0, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -51,7 +51,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.12, y: 0.34 },
             center: { x: 0, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -64,7 +64,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.25, y: 0.45 },
             center: { x: 1, y: 0.5 }, 
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -77,7 +77,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.25, y: 0.545 },
             center: { x: 1, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -90,7 +90,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.25, y: 0.64 },
             center: { x: 1, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -103,7 +103,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.555, y: 0.34 },
             center: { x: 0, y: 0.5 }, 
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -116,7 +116,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.64, y: 0.44 },
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -129,7 +129,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.64, y: 0.51 },
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -142,7 +142,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.64, y: 0.57 }, 
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -155,7 +155,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.64, y: 0.63 }, 
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -168,7 +168,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.64, y: 0.69 }, 
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -181,7 +181,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.17, y: 0.94 }, 
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -194,7 +194,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.77, y: 0.4 }, 
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -207,7 +207,7 @@ class Options extends Phaser.Scene
         { 
             pos: { x: 0.835, y: 0.4 }, 
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -251,33 +251,34 @@ class Options extends Phaser.Scene
     {
         WebFont.load({
             custom: {
-              families: ['FontChild'], 
-              urls: ['../../css/styles.css']
+                families: ['FontChild'], 
+                urls: ['../../css/styles.css']
             },
-            active: () => {
-              console.log("Font Loaded");
+            active: () => 
+            {
+                console.log("Font Loaded");
 
-              this.textsGroup = {};
-                    // Ejemplo de crear textos
-                    Object.keys(this.texts).forEach((key) =>
+                this.textsGroup = {};
+                // Ejemplo de crear textos
+                Object.keys(this.texts).forEach((key) =>
+                {
+                    this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Options", key), this.texts[key].style);
+                    this.textsGroup[key].setOrigin(this.texts[key].center.x, this.texts[key].center.y);
+                    this.textsGroup[key].rotation = this.texts[key].rotation;
+                    //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
+                });
+                LanguageManager.getInstance().onLanguageChanged("Options", () =>
+                {
+                    Object.keys(this.textsGroup).forEach((key) =>
                     {
-                        this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Options", key), this.texts[key].style);
-                        this.textsGroup[key].setOrigin(this.texts[key].center.x, this.texts[key].center.y);
-                        this.textsGroup[key].rotation = this.texts[key].rotation;
-                        //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
+                        this.textsGroup[key].text = LanguageManager.getInstance().getText("Options", key);
                     });
-                    LanguageManager.getInstance().onLanguageChanged("Options", () =>
-                    {
-                        for (let key in Object.keys(this.textsGroup))
-                        {
-                            this.textsGroup[key].setText(LanguageManager.getInstance().getText("Options", key));
-                        }
-                    });
+                });
 
-                    this.events.on("shutdown", () =>
-                    {
-                        LanguageManager.getInstance().desubscribe("Options");
-                    });
+                this.events.once("shutdown", () =>
+                {
+                    LanguageManager.getInstance().desubscribe("Options");
+                });
             }
           });
           
@@ -292,17 +293,20 @@ class Options extends Phaser.Scene
         back.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         back.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
+        let i = 0;
         LanguageManager.getInstance().getLanguages().forEach((language) =>
         {
             let key = language + "Button";
-            pos = { x: 0, y: 0 };
+            let pos = { x: 0.89 - (0.05 * i), y: 0.09 + (0.005 * i) };
             const button = this.add.image(pos.x * WINDOW.WIDHT, pos.y * WINDOW.HEIGHT, key);
-            Scaler.ScaleToGameW(button, 0.32);
+            Scaler.ScaleToGameW(button, 0.03);
+            button.setOrigin(0.5, 0.5);
+            button.rotation = Phaser.Math.DegToRad(Phaser.Math.Between(-15, 15));
             button.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, button));
             button.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
             button.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+            i++;
         });
-
 
         const MasterVolumeSlide = this.add.image(this.GetSliderPosition(AudioManager.Instance.GetChannelVolume("Master")), (WINDOW.HEIGHT * 3.55)/8, "VolumeSlide");
         Scaler.ScaleToGameH(MasterVolumeSlide, 0.05);
@@ -411,7 +415,7 @@ class Options extends Phaser.Scene
 
             case "englishButton":
                 AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
-                LanguageManager.getInstance().changeLanguage("enghlish");
+                LanguageManager.getInstance().changeLanguage("english");
                 break;
 
             case "españolButton":

@@ -25,7 +25,7 @@ class LanguageManager
         }
         catch (error)
         {
-            console.warn("Text not found: " + scene + " -> " + object + " with " + currentLanguage + "language");
+            console.warn("Text not found: " + scene + " -> " + object + " with " + this.currentLanguage + " language");
             return object;
         }
     }
@@ -66,12 +66,16 @@ class LanguageManager
 
     changeLanguage(language)
     {
+        console.log(this.languageTexts);
+        if (language == this.currentLanguage)
+            return;
+
         this.currentLanguage = language;
-        Object.keys(this.languageTexts).forEach((key) =>
+        Object.keys(this.subscribers).forEach((key) =>
         {
-            Object.keys(this.languageTexts[key]).forEach((sub) =>
+            this.subscribers[key].forEach((callback) =>
             {
-                sub();
+                callback();
             });
         });
     }

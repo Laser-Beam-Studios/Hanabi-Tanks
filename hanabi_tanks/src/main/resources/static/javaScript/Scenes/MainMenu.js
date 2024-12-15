@@ -28,7 +28,7 @@ class MainMenu extends Phaser.Scene
         { 
             pos: { x: 0.82, y: 0.75 },
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -41,7 +41,7 @@ class MainMenu extends Phaser.Scene
        { 
             pos: { x: 0.82, y: 0.85 },
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -54,7 +54,7 @@ class MainMenu extends Phaser.Scene
         { 
             pos: { x: 0.82, y: 0.95 },
             center: { x: 0.5, y: 0.5 },
-            rotation: Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
@@ -78,6 +78,7 @@ class MainMenu extends Phaser.Scene
         if (!LanguageManager.getInstance().hasData())
         {
             this.load.pack("localization_en", "/assets/localization/english.json");
+            this.load.pack("localization_es", "/assets/localization/español.json")
         }
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
@@ -109,9 +110,11 @@ class MainMenu extends Phaser.Scene
             active: () => {
                 if (!LanguageManager.getInstance().hasData())
                 {
-                    const enData = this.cache.json.get("localization_en");          
+                    const enData = this.cache.json.get("localization_en");      
+                    const esData = this.cache.json.get("localization_es");
                     
                     LanguageManager.getInstance().loadLanguage("english", enData);
+                    LanguageManager.getInstance().loadLanguage("español", esData);
             
                     this.textsGroup = {};
                     // Ejemplo de crear textos
@@ -124,13 +127,13 @@ class MainMenu extends Phaser.Scene
                     });
                     LanguageManager.getInstance().onLanguageChanged("MainMenu", () =>
                     {
-                        for (let key in Object.keys(this.textsGroup))
+                        Object.keys(this.textsGroup).forEach((key) =>
                         {
-                            this.textsGroup[key].setText(LanguageManager.getInstance().getText("MainMenu", key));
-                        }
+                            this.textsGroup[key].text = LanguageManager.getInstance().getText("MainMenu", key);
+                        });
                     });
 
-                    this.events.on("shutdown", () =>
+                    this.events.once("shutdown", () =>
                     {
                         LanguageManager.getInstance().desubscribe("MainMenu");
                     });
