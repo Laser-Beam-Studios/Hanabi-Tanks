@@ -3,7 +3,9 @@
     {
         "PlayButton": "Jugar",
         "OptionsButton": "Opciones",
-        "CreditsButton": "Créditos"
+        "CreditsButton": "Créditos",
+        "TutorialButton": "Tutorial",
+        "UserButton": "Usuario"
     },
     "Options":
     {
