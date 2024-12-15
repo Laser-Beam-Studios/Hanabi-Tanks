@@ -23,5 +23,23 @@
         "BackButton": "Atrás",
         "P1Column": "J1",
         "P2Column": "J2"
+    },
+    "Victory":
+    {
+        "BackButton": "Volver"
+    },
+    "Credits":
+    {
+        "BackButton": "Volver"
+    },
+    "Tutorial":
+    {
+        "BackButton": "Volver"
+    },
+    "Pause":
+    {
+        "BackButton": "Volver",
+        "OptionsButton": "Opciones",
+        "MainMenuButton": "Menu Principal"
     }
 }
