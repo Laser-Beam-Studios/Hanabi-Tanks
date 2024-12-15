@@ -17,11 +17,11 @@ class MainMenu extends Phaser.Scene
 {
     textsScale = 
     {
-        "PlayButton": 0.28,
-        "OptionsButton": 0.28,
-        "CreditsButton": 0.28,
-        "TutorialButton": 0.28,
-        "UserButton": 0.28
+        "PlayButton": 0.32,
+        "OptionsButton": 0.32,
+        "CreditsButton": 0.32,
+        "TutorialButton": 0.32,
+        "UserButton": 0.32
     }
 
     texts =

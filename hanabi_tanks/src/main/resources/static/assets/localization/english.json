@@ -23,5 +23,23 @@
         "BackButton": "Back",
         "P1Column": "P1",
         "P2Column": "P2"
+    },
+    "Victory":
+    {
+        "BackButton": "Back"
+    },
+    "Credits":
+    {
+        "BackButton": "Back"
+    },
+    "Tutorial":
+    {
+        "BackButton": "Back"
+    },
+    "Pause":
+    {
+        "BackButton": "Back",
+        "OptionsButton": "Options",
+        "MainMenuButton": "Main Menu"
     }
 }

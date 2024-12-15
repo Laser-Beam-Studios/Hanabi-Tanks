@@ -1,5 +1,26 @@
 class Tutorial extends Phaser.Scene
 {
+    textsScale =
+    {
+        "BackButton": 0.32
+    }
+    
+    texts = 
+    {
+        "BackButton":
+        { 
+            pos: { x: 0.17, y: 0.94 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["BackButton"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        }
+    }
     constructor() 
     {
         super({ key: 'Tutorial' });
@@ -23,21 +44,41 @@ class Tutorial extends Phaser.Scene
     {
         WebFont.load({
             custom: {
-              families: ['FontChild'], 
-              urls: ['../../css/styles.css']
+                families: ['FontChild'], 
+                urls: ['../../css/styles.css']
             },
             active: () => {
-              console.log("Font Loaded");
+                console.log("Font Loaded");
+                this.textsGroup = {};
+                Object.keys(this.texts).forEach((key) =>
+                {
+                    this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Credits", key), this.texts[key].style);
+                    this.textsGroup[key].setOrigin(this.texts[key].center.x, this.texts[key].center.y);
+                    this.textsGroup[key].rotation = this.texts[key].rotation;
+                    //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
+                });
+                LanguageManager.getInstance().onLanguageChanged("Tutorial", () =>
+                {
+                    Object.keys(this.textsGroup).forEach((key) =>
+                    {
+                        this.textsGroup[key].text = LanguageManager.getInstance().getText("Tutorial", key);
+                    });
+                });
+    
+                this.events.once("shutdown", () =>
+                {
+                    LanguageManager.getInstance().desubscribe("Tutorial");
+                });
             }
-          });
+        });
           
         AudioManager.Instance.SetActiveScene(this, false);
 
         const background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "PauseBackground");
         Scaler.ScaleToGameW(background);
 
-        const back = this.add.image(WINDOW.WIDHT/6, (WINDOW.HEIGHT * 14)/15, "BackButton")
-        Scaler.ScaleToGameW(back, 0.32);
+        const back = this.add.image(this.texts["BackButton"].pos.x * WINDOW.WIDHT, this.texts["BackButton"].pos.y * WINDOW.HEIGHT, "BackButton");
+        Scaler.ScaleToGameW(back, this.textsScale["BackButton"]);
         back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back));
         back.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         back.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
