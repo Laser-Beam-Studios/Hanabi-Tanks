@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Hashtable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -77,6 +78,36 @@ public class UserDAO
         {
             e.printStackTrace(); // Handle the error appropriately
             return null; // Return null in case of an error
+        }
+    }
+
+    public List<String> getAllUsernames()
+    {
+        var readlock = this.lock.readLock();
+        readlock.lock();
+        try
+        {
+            Path path = Paths.get(usersPath);
+
+            return Files.list(path) // List all files in the directory
+                    .filter(Files::isRegularFile) // Ensure that only files are processed
+                    .filter(file -> file.toString().endsWith(".json")) // Only consider .json files
+                    .map(file -> 
+                    {
+                        String fileName = file.getFileName().toString();
+                        return fileName.substring(0, fileName.lastIndexOf('.'));
+                    })
+                    .collect(Collectors.toList()); // Collect the results into a List
+            
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+        finally
+        {
+            readlock.unlock();
         }
     }
 

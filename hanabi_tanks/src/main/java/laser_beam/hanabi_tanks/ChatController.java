@@ -25,11 +25,13 @@ public class ChatController
     private final AtomicInteger lastId = new AtomicInteger(-1);
     private final int maxMessageCache;
     private ReentrantReadWriteLock lock;
+    private UserService userService;
 
-    public ChatController() 
+    public ChatController(UserService userService) 
     { 
         this.lock = new ReentrantReadWriteLock();
         this.maxMessageCache = 100;
+        this.userService = userService;
     }
 
     @GetMapping("")
@@ -40,6 +42,7 @@ public class ChatController
         try
         {
             List<String> messagesToReturn = new ArrayList<>();
+            List<String> usernames = new ArrayList<>();
             int lastId = since;
 
             for (ChatMessage message : this.messages)
@@ -47,10 +50,11 @@ public class ChatController
                 if (message.id() >= since)
                 {
                     messagesToReturn.add(message.message());
+                    usernames.add(message.username());
                     lastId = message.id();
                 }
             }
-            return new ChatResponse(messagesToReturn, lastId);
+            return new ChatResponse(messagesToReturn, usernames, lastId);
         }
         finally
         {
@@ -60,13 +64,15 @@ public class ChatController
 
     @PostMapping("")
     @ResponseBody
-    public ResponseEntity<?> postMethodName(@RequestParam String message) 
+    public ResponseEntity<?> postMethodName(@RequestParam(name = "message") String message, @RequestParam(name = "username") String username) 
     {
         var writeLock = this.lock.writeLock();
         writeLock.lock();
         try
         {
-            if (this.messages.add(new ChatMessage(message.trim(), this.lastId.incrementAndGet())))
+            if (!this.userService.getAllUsernames().contains(username)) return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+            if (this.messages.add(new ChatMessage(message.trim(), username, this.lastId.incrementAndGet())))
             {
                 System.out.println("The message id is: " + this.lastId);
                 if (this.messages.size() > this.maxMessageCache)
@@ -90,15 +96,17 @@ public class ChatController
     public static class ChatResponse
     {
         private final List<String> messages;
+        private final List<String> usernames;
         private final int lastId;
 
-        public ChatResponse(List<String> messages, int lastId)
+        public ChatResponse(List<String> messages, List<String> usernames, int lastId)
         {
             this.messages = messages;
+            this.usernames = usernames;
             this.lastId = lastId;
         }
         public List<String> getMessages() { return this.messages; }
         public int getLastId() { return this.lastId; }
-
+        public List<String> getUsernames() { return this.usernames; }
     }
 }
