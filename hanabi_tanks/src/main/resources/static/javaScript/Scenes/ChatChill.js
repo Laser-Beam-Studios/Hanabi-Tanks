@@ -13,7 +13,12 @@ class ChatChill extends Phaser.Scene
         this.chatBoxDomElement;
         this.inputMessage;
         this.chatOpen = false;
+        this.username;
+    }
 
+    init(data)
+    {
+        this.username = data.username;
     }
 
     preload()
@@ -49,7 +54,7 @@ class ChatChill extends Phaser.Scene
         setInterval(this.UpdateChat, 2000, this);
     }
 
-    SendMessage()
+    SendMessage(username)
     {
         const message = this.chatBoxDomElement.getChildByName("message").value;
         var THIS = this;
@@ -57,7 +62,8 @@ class ChatChill extends Phaser.Scene
         //  Any message
         if (message.value !== "")
         {
-            $.post(CHAT_BASE_URL, { message: message }, (data, status) =>
+            console.log(username);
+            $.post(CHAT_BASE_URL, { message: message, username: username }, (data, status) =>
             {
                 $("#message").val("");
                 this.UpdateChat(THIS);
@@ -73,9 +79,13 @@ class ChatChill extends Phaser.Scene
         {
             console.log("The get returns: " + data.lastId);
             if (data.messages && data.messages.length > 0 && THIS.lastMessageId <= data.lastId) {
-                data.messages.forEach(msg => {
-                    THIS.messages.append("<div class='message'>" + `${msg}` + "</div>");
-                });
+                //data.messages.forEach(msg => {
+                //    THIS.messages.append("<div class='message'>" + `${msg}` + "</div>");
+                //});
+                for (var i = 0; i < data.messages.length; i++)
+                {
+                    THIS.messages.append("<div class='message'>[" + `${data.usernames[i]}` + "] " + `${data.messages[i]}` + "</div>");
+                }
                 THIS.messages.scrollTop(THIS.messages.prop("scrollHeight"));
                 THIS.lastMessageId = data.lastId + 1;    // The + 1 it's for the server api, it returns the actual index of the message that it's now display in the chatBox so the next time i get the nexts
             }
@@ -112,7 +122,7 @@ class ChatChill extends Phaser.Scene
             case Phaser.Input.Keyboard.KeyCodes.ENTER:
                 if (this.chatOpen) 
                 {
-                    this.SendMessage();
+                    this.SendMessage(this.username);
                     this.chatBoxDomElement.alpha = 0.4;
                 }
                 else
