@@ -3,7 +3,7 @@
     {
         "PlayButton": "Jugar",
         "OptionsButton": "Opciones",
-        "CreditsButton": "Créditos"
+        "CreditsButton": "Creditos"
     },
     "Options":
     {
@@ -11,14 +11,14 @@
         "AudioTitle": "Sonido",
         "MasterOption": "General",
         "SFXOption": "SFX",
-        "MusicOption": "Música",
+        "MusicOption": "Musica",
         "ControlsTitle": "Controles",
         "UpOption": "Arriba",
         "DownOption": "Abajo",
         "RightOption": "Derecha",
         "LeftOption": "Izquierda",
         "ShootOption": "Disparar",
-        "BackButton": "Atrás",
+        "BackButton": "Atras",
         "P1Column": "J1",
         "P2Column": "J2"
     }
