@@ -78,7 +78,7 @@ class MainMenu extends Phaser.Scene
         if (!LanguageManager.getInstance().hasData())
         {
             this.load.pack("localization_en", "/assets/localization/english.json");
-            this.load.pack("localization_es", "/assets/localization/español.json")
+            this.load.pack("localization_es", "/assets/localization/espanol.json")
         }
         //this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
