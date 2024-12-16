@@ -36,8 +36,8 @@ class Level1 extends Level
         super.create();
     }
 
-    update() 
+    update(time, delta) 
     {
-        super.update();
+        super.update(time, delta);
     }
 }

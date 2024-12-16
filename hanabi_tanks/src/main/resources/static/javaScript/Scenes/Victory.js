@@ -1,5 +1,54 @@
 class Victory extends Phaser.Scene
 {
+    textsScale =
+    {
+        "BackButton": 0.32,
+        "PlayerText": 0.8,
+        "HistoryText": 0.8
+    }
+    
+    texts = 
+    {
+        "BackButton":
+        { 
+            pos: { x: 0.17, y: 0.94 },
+            center: { x: 0, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["BackButton"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        },
+        "PlayerText":
+        { 
+            pos: { x: 0.2, y: 0.35 },
+            center: { x: 0, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["PlayerText"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        },
+        "HistoryText":
+        { 
+            pos: { x: 0.3, y: 0.8 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["HistoryText"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        }
+    }
     constructor() 
     {
         super({ key: 'Victory' });
@@ -26,22 +75,44 @@ class Victory extends Phaser.Scene
     {
         WebFont.load({
             custom: {
-              families: ['FontChild'], 
-              urls: ['../../css/styles.css']
+                families: ['FontChild'], 
+                urls: ['../../css/styles.css']
             },
             active: () => {
-              console.log("Font Loaded");
+                console.log("Font Loaded");
+                this.textsGroup = {};
+                Object.keys(this.texts).forEach((key) =>
+                {
+                    this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Credits", key), this.texts[key].style);
+                    this.textsGroup[key].setOrigin(this.texts[key].center.x, this.texts[key].center.y);
+                    this.textsGroup[key].rotation = this.texts[key].rotation;
+                    //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
+                });
+                LanguageManager.getInstance().onLanguageChanged("Victory", () =>
+                {
+                    Object.keys(this.textsGroup).forEach((key) =>
+                    {
+                        this.textsGroup[key].text = LanguageManager.getInstance().getText("Victory", key);
+                    });
+                });
+    
+                this.events.once("shutdown", () =>
+                {
+                    LanguageManager.getInstance().desubscribe("Victory");
+                });
             }
-          });
+        });
           
         AudioManager.Instance.SetActiveScene(this, false);
 
         const victory = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "VictoryBackground");
         Scaler.ScaleToGameH(victory);
 
-        const back = this.add.image(WINDOW.WIDHT/6, (WINDOW.HEIGHT * 14)/15, "BackButton");
-        Scaler.ScaleToGameW(back, 0.32);
-        back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back))
+        const back = this.add.image(this.texts["BackButton"].pos.x * WINDOW.WIDHT, this.texts["BackButton"].pos.y * WINDOW.HEIGHT, "BackButton")
+        Scaler.ScaleToGameW(back, this.textsScale["BackButton"]);
+        back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back));
+        back.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        back.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
         
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
         
@@ -81,6 +152,18 @@ class Victory extends Phaser.Scene
             return;
         let powerUp4 = this.add.sprite(WINDOW.WIDHT * 0.48546, WINDOW.HEIGHT * 0.54949, "PowerUps", powerUps[3]);
         Scaler.ScaleToGameH(powerUp4, 0.12043*2.8);
+    }
+
+    OnPointerEnter()
+    {
+        console.log("Pointer Enter");
+        AudioManager.Instance.PlayOneShoot("EnterButton", "SFX");
+    }
+
+    OnPointerExit()
+    {
+        console.log("Pointer Exit");
+        AudioManager.Instance.PlayOneShoot("ExitButton", "SFX");
     }
 
     OnKeyPressed(key)

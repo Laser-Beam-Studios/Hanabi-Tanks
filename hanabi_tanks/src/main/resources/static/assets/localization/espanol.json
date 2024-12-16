@@ -20,15 +20,29 @@
         "RightOption": "Derecha",
         "LeftOption": "Izquierda",
         "ShootOption": "Disparar",
-        "BackButton": "Atras",
+        "BackButton": "Volver",
         "P1Column": "J1",
         "P2Column": "J2"
     },
     "User":
     {
-        "BackButton": "Atras",
+        "BackButton": "Volver",
         "UserText": "Nombre: ",
         "Victories": "Victorias: ",
         "Title": "Cuenta"
+    },
+    "Credits":
+    {
+        "BackButton": "Volver"
+    },
+    "Tutorial":
+    {
+        "BackButton": "Volver"
+    },
+    "Pause":
+    {
+        "BackButton": "Volver",
+        "OptionsButton": "Opciones",
+        "MainMenuButton": "Menu Principal"
     }
 }

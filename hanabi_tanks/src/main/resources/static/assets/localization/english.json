@@ -30,5 +30,19 @@
         "UserText": "Username: ",
         "Victories": "Victories: ",
         "Title": "Account"
+    },
+    "Credits":
+    {
+        "BackButton": "Back"
+    },
+    "Tutorial":
+    {
+        "BackButton": "Back"
+    },
+    "Pause":
+    {
+        "BackButton": "Back",
+        "OptionsButton": "Options",
+        "MainMenuButton": "Main Menu"
     }
 }

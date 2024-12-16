@@ -100,6 +100,7 @@ class MainMenu extends Phaser.Scene
         {
             this.load.pack("localization_en", "../assets/localization/english.json");
             this.load.pack("localization_es", "../assets/localization/espanol.json")
+            this.load.pack("localization_eu", "../assets/localization/euskera.json")
         }
         this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
@@ -131,9 +132,11 @@ class MainMenu extends Phaser.Scene
                 {
                     const enData = this.cache.json.get("localization_en");      
                     const esData = this.cache.json.get("localization_es");
+                    const euData = this.cache.json.get("localization_eu");
                     
                     LanguageManager.getInstance().loadLanguage("english", enData);
                     LanguageManager.getInstance().loadLanguage("español", esData);
+                    LanguageManager.getInstance().loadLanguage("euskera", euData);
             
                     this.textsGroup = {};
                     // Ejemplo de crear textos
