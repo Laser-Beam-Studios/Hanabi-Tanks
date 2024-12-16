@@ -76,7 +76,7 @@ class Login extends Phaser.Scene
     
                 //  Have they entered anything?
                 if (inputUsername.value !== '' || inputPassword.value !== '')
-                {    
+                {
                     $.ajax(
                     {
                         type: "PUT",
@@ -92,7 +92,6 @@ class Login extends Phaser.Scene
                                 scene.launch("ChatChill", { username: inputUsername });
                             }
                         },
-                        dataType: "json"
                     });
                 }
             }
