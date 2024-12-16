@@ -28,6 +28,7 @@
     {
         "BackButton": "Atras",
         "UserText": "Nombre: ",
-        "Victories": "Victorias: "
+        "Victories": "Victorias: ",
+        "Title": "Cuenta"
     }
 }

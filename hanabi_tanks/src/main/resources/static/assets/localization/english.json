@@ -28,6 +28,7 @@
     {
         "BackButton": "Back",
         "UserText": "Username: ",
-        "Victories": "Victories: "
+        "Victories": "Victories: ",
+        "Title": "Account"
     }
 }

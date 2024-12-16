@@ -4,7 +4,8 @@ class UserScene extends Phaser.Scene
     {
         "BackButton": 0.32,
         "UserText": 0.7,
-        "Victories": 0.7
+        "Victories": 0.7,
+        "Title": 1.0
     }
 
     texts =
@@ -42,6 +43,18 @@ class UserScene extends Phaser.Scene
             {
                 fontFamily: font,
                 fontSize: String(WINDOW.HEIGHT * this.textsScale["Victories"] / textDivider) + "px",
+                color: blackColor
+            } 
+       },
+       "Title":
+       {
+            pos: { x: 0.25, y: 0.15 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(-4),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["Title"] / textDivider) + "px",
                 color: blackColor
             } 
        }
