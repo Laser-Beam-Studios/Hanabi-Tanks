@@ -35,12 +35,13 @@ public class ChatController
     }
 
     @GetMapping("")
-    public ChatResponse getMethodName(@RequestParam(defaultValue = "0") int since) 
+    public ChatResponse getMethodName(@RequestParam(defaultValue = "0") int since, @RequestParam String username) 
     {
         var readLock = this.lock.readLock();
         readLock.lock();
         try
         {
+            this.userService.setLastSeenByUsername(username);
             List<String> messagesToReturn = new ArrayList<>();
             List<String> usernames = new ArrayList<>();
             int lastId = since;
@@ -71,6 +72,8 @@ public class ChatController
         try
         {
             if (!this.userService.getAllUsernames().contains(username)) return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+            this.userService.setLastSeenByUsername(username);
 
             if (this.messages.add(new ChatMessage(message.trim(), username, this.lastId.incrementAndGet())))
             {

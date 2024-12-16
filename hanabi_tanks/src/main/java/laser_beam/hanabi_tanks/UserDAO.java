@@ -120,8 +120,11 @@ public class UserDAO
             // Construct the file path dynamically based on the username
             String filePath = this.usersPath + "/" + username + ".json";
             File file = new File(filePath);
+
+            UserDTO userDTO = new UserDTO(this.objectMapper.readValue(file, User.class));
+            userDTO.setLastSeen(System.currentTimeMillis());
             // Read the file and return it has a UserDTO
-            return Optional.of(new UserDTO(this.objectMapper.readValue(file, User.class)));
+            return Optional.of(userDTO);
         } 
         catch (IOException e) 
         {
@@ -136,13 +139,28 @@ public class UserDAO
 
     public int getUsersConnected(int maxTimeSinceLastSeen)
     {
-        int connected = 0;
-        Collection<User> temp = this.users.values();
-        for (User user : temp)
+        var readLock = this.lock.readLock();
+        readLock.lock();
+        try
         {
-            if (user.getLastSeen() <= maxTimeSinceLastSeen) connected++;
+            int connected = 0;
+            Collection<User> temp = this.users.values();
+            for (User user : temp)
+            {
+                if (user.getLastSeen() >= System.currentTimeMillis() -  maxTimeSinceLastSeen * 1000) connected++;
+            }
+            return connected;
         }
-        return connected;
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return -1;
+        }
+        finally
+        {
+            readLock.unlock();
+        }
+        
     }
 
     // Method to update the User in the JSON file
@@ -155,6 +173,8 @@ public class UserDAO
             // Construct the file path dynamically based on the username
             String filePath = this.usersPath + "/" + updatedUser.getUsername() + ".json";
             File file = new File(filePath);
+
+            updatedUser.setLastSeen(System.currentTimeMillis(), updatedUser.getPassword());
 
             // Write in the hash table if not exist yet, if exist just modify his values
             this.users.put(updatedUser.getUsername(), updatedUser);
@@ -183,6 +203,7 @@ public class UserDAO
             String filePath = this.usersPath + "/" + username + ".json";
             File file = new File(filePath);
 
+            userDTO.setLastSeen(System.currentTimeMillis());
             // modify the user
             this.users.put(userDTO.getUsername(), new User(userDTO, this.getUserPassword(username)));
             System.out.println(this.users.size());
@@ -258,7 +279,43 @@ public class UserDAO
 
     public boolean loginUser(String username, String password)
     {
-        if (password.equals(getUserPassword(username))) return true;
+        if (password.equals(getUserPassword(username)))
+        {
+            setLastSeenByUsername(username);
+            return true;
+        } 
         else return false;
+    }
+
+    public long setLastSeenByUsername(String username)
+    {
+        var writeLock = this.lock.writeLock();
+        writeLock.lock();
+        try
+        {
+            UserDTO userDTO = getUserDTOByName(username).get();
+
+            String filePath = this.usersPath + "/" + username + ".json";
+            File file = new File(filePath);
+    
+            long time = System.currentTimeMillis();
+
+            userDTO.setLastSeen(time);
+            // modify the user
+            this.users.put(userDTO.getUsername(), new User(userDTO, this.getUserPassword(username)));
+            System.out.println(this.users.size());
+            // Create the new User object for modify the json, if it's the same username
+            objectMapper.writeValue(file, this.users.get(userDTO.getUsername()));
+            return time;
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+            return -1; // Error occurred while deleting the file
+        }
+        finally
+        {
+            writeLock.unlock();
+        }
     }
 }
