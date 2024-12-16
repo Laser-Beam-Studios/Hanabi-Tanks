@@ -36,7 +36,7 @@ class Login extends Phaser.Scene
                 const inputPassword = register.getChildByName("password").value;
 
                 //  Have they entered anything?
-                if (inputUsername.value !== '' || inputPassword.value !== '')
+                if (inputUsername.value !== '' && inputPassword.value !== '')
                 {    
                     const body = JSON.stringify({
                         username: inputUsername,
@@ -79,7 +79,7 @@ class Login extends Phaser.Scene
                 const inputPassword = login.getChildByName("password").value;
     
                 //  Have they entered anything?
-                if (inputUsername.value !== '' || inputPassword.value !== '')
+                if (inputUsername.value !== '' && inputPassword.value !== '')
                 {
                     $.ajax(
                     {

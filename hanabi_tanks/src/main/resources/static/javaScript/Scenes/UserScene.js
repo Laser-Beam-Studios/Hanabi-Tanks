@@ -63,6 +63,8 @@ class UserScene extends Phaser.Scene
     constructor() 
     {
         super({ key: 'UserScene' });
+
+        this.username;
     }
 
     preload() 
@@ -74,6 +76,8 @@ class UserScene extends Phaser.Scene
         }
 
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
+
+        this.load.image("TrashImage", "../assets/UI/Buttons/volume.png");
     }
 
     create() 
@@ -110,18 +114,18 @@ class UserScene extends Phaser.Scene
                         });
                     });
 
-                    var Username = THIS.scene.get("ChatChill").username;
+                    THIS.username = THIS.scene.get("ChatChill").username;
                     var userNameText = THIS.textsGroup["UserText"];
                     var Victories = this.textsGroup["Victories"];
 
-                    $.get(USERS_BASE_URL + "/" + Username, { }, (data, status) =>
+                    $.get(USERS_BASE_URL + "/" + THIS.username, { }, (data, status) =>
                     {
                         if (status == "success")
                         {
                             console.log("User: " + data.username + " has won " + Victories + " times");
                             
                             Victories.setText(Victories._text + data.numberOfVictories);
-                            userNameText.setText(userNameText._text + Username);
+                            userNameText.setText(userNameText._text + THIS.username);
                         }
                     });
 
@@ -144,6 +148,12 @@ class UserScene extends Phaser.Scene
         back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back));
         back.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         back.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+
+        const trash = this.add.image(WINDOW.WIDHT * 0.8, WINDOW.HEIGHT * 0.5, "TrashImage");
+        Scaler.ScaleToGameW(trash, 0.32);
+        trash.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, trash));
+        trash.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        trash.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
@@ -186,6 +196,23 @@ class UserScene extends Phaser.Scene
             case "BackButton":
                 this.scene.stop("UserScene");
                 this.scene.start("MainMenu");
+                break;
+            case "TrashImage":
+                var THIS = this;
+                $.ajax(
+                {
+                    type: "DELETE",
+                    url: USERS_BASE_URL + "/" + THIS.username,
+                    success: () => 
+                    { 
+                        console.log("User Deleted");
+                        clearInterval(THIS.scene.get("ChatChill").UpdateChatIntervalID);
+                        clearInterval(THIS.scene.get("ChatChill").UpdateUsersIntervalID);
+                        THIS.scene.stop("UserScene");
+                        THIS.scene.stop("ChatChill");
+                        THIS.scene.start("Login");
+                    },
+                });
                 break;
             default:
                 console.log("ERROR_IN_CLICK_BUTTON: UNKNOWN_BUTTON_KEY: " + button.texture.key);
