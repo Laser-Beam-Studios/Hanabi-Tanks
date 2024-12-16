@@ -79,9 +79,6 @@ class ChatChill extends Phaser.Scene
         {
             console.log("The get returns: " + data.lastId);
             if (data.messages && data.messages.length > 0 && THIS.lastMessageId <= data.lastId) {
-                //data.messages.forEach(msg => {
-                //    THIS.messages.append("<div class='message'>" + `${msg}` + "</div>");
-                //});
                 for (var i = 0; i < data.messages.length; i++)
                 {
                     THIS.messages.append("<div class='message'>[" + `${data.usernames[i]}` + "] " + `${data.messages[i]}` + "</div>");
