@@ -1,6 +1,7 @@
 package laser_beam.hanabi_tanks;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,11 @@ public class UserController
     public ResponseEntity<?> modifyUser(@PathVariable String username, @RequestBody UserDTO userDTO) 
     {
         return (this.userService.modifyUser(username, userDTO))? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/")
+    public ResponseEntity<?> loginUser(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) 
+    {
+        return (this.userService.loginUser(username, password))? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 }
