@@ -29,7 +29,7 @@ const config = {
             gravity: { y: 0 }
         }
     },
-    scene: [Login, UserScene, MainMenu, Credits, Victory, PowerUp, Level1, Level2, Level3, Level4, Level5, Level6, SecretLevel, ChatChill, Pause, Options]
+    scene: [Login, UserScene, MainMenu, Tutorial, Credits, Victory, PowerUp, Level1, Level2, Level3, Level4, Level5, Level6, SecretLevel, ChatChill, Pause, Options]
 };
 
 const audioManager = new AudioManager();

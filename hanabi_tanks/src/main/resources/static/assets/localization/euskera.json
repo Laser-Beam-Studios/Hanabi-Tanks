@@ -1,0 +1,45 @@
+{
+    "MainMenu":
+    {
+        "PlayButton": "Jolastu",
+        "OptionsButton": "Aukerak",
+        "CreditsButton": "Kredituak",
+        "TutorialButton": "Tutoretza",
+        "UserButton": "Kontua"
+    },
+    "Options":
+    {
+        "OptionsTitle": "Aukerak",
+        "AudioTitle": "Soinua",
+        "MasterOption": "Orokorra",
+        "SFXOption": "SFX",
+        "MusicOption": "Musika",
+        "ControlsTitle": "Kontrolak",
+        "UpOption": "Goian",
+        "DownOption": "Behean",
+        "RightOption": "Eskuin",
+        "LeftOption": "Ezkerra",
+        "ShootOption": "Tiroa",
+        "BackButton": "Itzuli",
+        "P1Column": "J1",
+        "P2Column": "J2"
+    },
+    "User":
+    {
+        "BackButton": "Itzuli"
+    },
+    "Credits":
+    {
+        "BackButton": "Itzuli"
+    },
+    "Tutorial":
+    {
+        "BackButton": "Itzuli"
+    },
+    "Pause":
+    {
+        "BackButton": "Itzuli",
+        "OptionsButton": "Aukerak",
+        "MainMenuButton": "Menu nagusia"
+    }
+}
