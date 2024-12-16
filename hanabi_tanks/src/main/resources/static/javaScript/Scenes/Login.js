@@ -7,7 +7,7 @@ class Login extends Phaser.Scene
 
     preload() 
     {
-        this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
+        this.load.image("TemplateBackground", "../assets/UI/Screens/template.png")
 
         this.load.html("LoginDom", "../html/Login.html");
         this.load.html("RegisterDom", "../html/Register.html");
@@ -15,7 +15,7 @@ class Login extends Phaser.Scene
 
     create() 
     {
-        const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "MainMenuBackground");
+        const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "TemplateBackground");
         Scaler.ScaleToGameH(Background);
 
         const register = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT/2).createFromCache("RegisterDom");
