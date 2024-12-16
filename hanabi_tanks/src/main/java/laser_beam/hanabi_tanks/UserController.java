@@ -62,9 +62,9 @@ public class UserController
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<?> modifyUser(@PathVariable String username, @RequestBody UserDTO userDTO) 
+    public ResponseEntity<?> IncrementVictories(@PathVariable String username) 
     {
-        return (this.userService.modifyUser(username, userDTO))? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return (this.userService.IncrementVictories(username))? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/")

@@ -28,6 +28,8 @@ GET http://localhost:8080/api/users/connected HTTP/1.1
 DELETE http://localhost:8080/api/users/Pepe HTTP/1.1
 DELETE http://localhost:8080/api/users/Juan HTTP/1.1
 DELETE http://localhost:8080/api/users/asd HTTP/1.1
+DELETE http://localhost:8080/api/users/a HTTP/1.1
+
 
 PUT http://localhost:8080/api/users/Pepe HTTP/1.1
 content-type: application/json
@@ -38,7 +40,7 @@ content-type: application/json
     "lastSeen": 5
 }
 
-PUT http://localhost:8080/api/users/?username=Pepe&password=asd HTTP/1.1
+PUT http://localhost:8080/api/users/a HTTP/1.1
 
 // Para el chat
 

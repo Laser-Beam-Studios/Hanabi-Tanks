@@ -193,7 +193,7 @@ public class UserDAO
         }
     }
 
-    public boolean modifyUser(String username, UserDTO userDTO)
+    public boolean IncrementVictories(String username)
     {
         var writeLock = this.lock.writeLock();
         writeLock.lock();
@@ -203,10 +203,17 @@ public class UserDAO
             String filePath = this.usersPath + "/" + username + ".json";
             File file = new File(filePath);
 
+            UserDTO userDTO = getUserDTOByName(username).get();
+
+            if (this.users.get(username) == null) 
+            {
+                return false; // File does not exist, return false
+            }
+
             userDTO.setLastSeen(System.currentTimeMillis());
+            userDTO.IncrementVictories();
             // modify the user
             this.users.put(userDTO.getUsername(), new User(userDTO, this.getUserPassword(username)));
-            System.out.println(this.users.size());
             // Create the new User object for modify the json, if it's the same username
             objectMapper.writeValue(file, this.users.get(userDTO.getUsername()));
             return true;

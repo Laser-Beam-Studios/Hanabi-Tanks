@@ -29,4 +29,5 @@ public class UserDTO
     public int getNumberOfVictories() { return this.numberOfVictories; }
 
     public void setLastSeen(long lastSeen) { this.lastSeen = lastSeen; }
+    public void IncrementVictories() { this.numberOfVictories++; }
 }

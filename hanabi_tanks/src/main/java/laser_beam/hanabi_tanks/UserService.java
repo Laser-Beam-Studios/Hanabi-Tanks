@@ -40,9 +40,9 @@ public class UserService
         return this.userDAO.deleteUser(username);
     }
 
-    public boolean modifyUser(String username, UserDTO userDTO)
+    public boolean IncrementVictories(String username)
     {
-        return this.userDAO.modifyUser(username, userDTO);
+        return this.userDAO.IncrementVictories(username);
     }
 
     public boolean loginUser(String username, String password)
