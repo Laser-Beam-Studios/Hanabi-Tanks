@@ -42,7 +42,8 @@ PUT http://localhost:8080/api/users/?username=Pepe&password=asd HTTP/1.1
 
 // Para el chat
 
-POST http://localhost:8080/api/chat?message=hola&username=Juan HTTP/1.1
+
+POST http://localhost:8080/api/chat?message=hola&username=Pepe HTTP/1.1
 POST http://localhost:8080/api/chat?message=hola mundo HTTP/1.1
 
 
