@@ -26,7 +26,10 @@
     },
     "User":
     {
-        "BackButton": "Back"
+        "BackButton": "Back",
+        "UserText": "Username: ",
+        "Victories": "Victories: ",
+        "Title": "Account"
     },
     "Credits":
     {

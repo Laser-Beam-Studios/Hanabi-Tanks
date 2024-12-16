@@ -55,8 +55,6 @@ class Login extends Phaser.Scene
                             if (status == "success")
                             {
                                 register.removeElement();
-                                //register.visible = false; 
-                                //register.active = false;
                                 login.visible = true; 
                                 login.active = true;
                             }
@@ -64,6 +62,12 @@ class Login extends Phaser.Scene
                         dataType: "json"
                     });
                 }
+            }
+            else if (event.target.name === "goToLogin")
+            {
+                register.removeElement();
+                login.visible = true; 
+                login.active = true;
             }
         });
 
