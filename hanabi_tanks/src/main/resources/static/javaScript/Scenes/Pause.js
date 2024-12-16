@@ -1,5 +1,52 @@
 class Pause extends Phaser.Scene
 {
+    textsScale = 
+    {
+        "BackButton": 0.32,
+        "OptionsButton": 0.32,
+        "MainMenuButton": 0.32,
+        
+    }
+
+    texts = {
+        "BackButton":
+        {
+            pos: { x: 0.17, y: 0.94 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["BackButton"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "OptionsButton":
+        {
+            pos: { x: 0.5, y: 0.5 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["OptionsButton"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "MainMenuButton":
+        {
+            pos: { x: 0.5, y: 0.7 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["MainMenuButton"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        }
+               
+    }
     constructor() 
     {
         super({ key: 'Pause' });
@@ -16,7 +63,7 @@ class Pause extends Phaser.Scene
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
         this.load.image("PauseBackground", "../assets/UI/Screens/bgPauseTranparent.png");
-        this.load.image("MainMenuButton", "../assets/UI/Buttons/mainMenu.png")
+        this.load.image("MainMenuButton", "../assets/UI/Buttons/mainMenu.png");
     }
 
     create() 
@@ -37,21 +84,21 @@ class Pause extends Phaser.Scene
         const background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "PauseBackground");
         Scaler.ScaleToGameW(background);
 
-        const back = this.add.image(WINDOW.WIDHT/6, (WINDOW.HEIGHT * 14)/15, "BackButton")
-        Scaler.ScaleToGameW(back, 0.32);
+        const back = this.add.image(this.texts["BackButton"].pos.x * WINDOW.WIDHT, this.texts["BackButton"].pos.y * WINDOW.HEIGHT, "BackButton");
+        Scaler.ScaleToGameW(back, this.textsScale["BackButton"]);
         back.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, back));
         back.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         back.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
-        const options = this.add.image((WINDOW.WIDHT) / 2, (WINDOW.HEIGHT) / 2, "OptionsButton");
-        Scaler.ScaleToGameW(options, 0.32);
+        const options = this.add.image(this.texts["OptionsButton"].pos.x * WINDOW.WIDHT, this.texts["OptionsButton"].pos.y * WINDOW.HEIGHT, "OptionsButton");
+        Scaler.ScaleToGameW(options, this.textsScale["OptionsButton"]);
         options.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, options));
         options.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         options.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
         
         
-        const mainMenu = this.add.image((WINDOW.WIDHT) / 2, (WINDOW.HEIGHT * 2) / 3, "MainMenuButton");
-        Scaler.ScaleToGameW(mainMenu, 0.32);
+        const mainMenu = this.add.image(this.texts["MainMenuButton"].pos.x * WINDOW.WIDHT, this.texts["MainMenuButton"].pos.y * WINDOW.HEIGHT, "MainMenuButton");
+        Scaler.ScaleToGameW(mainMenu, this.textsScale["MainMenuButton"]);
         mainMenu.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, mainMenu));
         mainMenu.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         mainMenu.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
