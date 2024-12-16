@@ -279,17 +279,18 @@ class Level extends Phaser.Scene
 
         this.gameTimer = 3000;
         this.gameTimerText = this.add.text(this.gameTimerConfig.pos.x * WINDOW.WIDHT, this.gameTimerConfig.pos.y * WINDOW.HEIGHT, "0:03", this.gameTimerConfig.style);
+        this.gameTimerText.setOrigin(this.gameTimerConfig.center.x, this.gameTimerConfig.center.y);
 
-        this.time.addEvent({
-            delay: 3000,
-            callback: () => {
-                this.canPlay = true;
-                this.gameTimer = 150000;
-                this.gameTimerText.text = "3:00";
-                this.gameTimerText.setOrigin(this.gameTimerConfig.center.x, this.gameTimerConfig.center.y);
-            },
-            callbackScope: this
-        });
+        // this.time.addEvent({
+        //     delay: 3000,
+        //     callback: () => {
+        //         this.canPlay = true;
+        //         this.gameTimer = 150000;
+        //         this.gameTimerText.text = "3:00";
+        //         this.gameTimerText.setOrigin(this.gameTimerConfig.center.x, this.gameTimerConfig.center.y);
+        //     },
+        //     callbackScope: this
+        // });
     }
 
     CheckMusic(scene)
@@ -453,19 +454,29 @@ class Level extends Phaser.Scene
         this.UpdateTanks();
 
         if (this.name != "PowerUp")
-            if (this.UpdateGameTimer(delta))
+            if (this.canPlay)
             {
-                var nextLevel = this.GetNextLevel();
-                this.scene.stop(this.name);
-                if(nextLevel == "Victory")
+                if (this.UpdateGameTimer(delta))
                 {
-                    this.scene.start("Victory", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
+                    var nextLevel = this.GetNextLevel();
+                    this.scene.stop(this.name);
+                    if(nextLevel == "Victory")
+                    {
+                        this.scene.start("Victory", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
+                    }
+                    else
+                    {
+                        this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
+                    }  
                 }
-                else
-                {
-                    this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
-                }  
             }
+            else
+            {
+                this.canPlay = true;
+                this.gameTimer = 150000;
+                this.gameTimerText.text = "3:00";               
+            }
+            
 
         if (this.name == "PowerUp")
             if (this.powerUpsGroup.children.size == 1)
