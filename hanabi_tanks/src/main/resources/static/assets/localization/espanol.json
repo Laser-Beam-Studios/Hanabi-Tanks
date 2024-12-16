@@ -26,6 +26,8 @@
     },
     "User":
     {
-        "BackButton": "Atras"
+        "BackButton": "Atras",
+        "UserText": "Nombre: ",
+        "Victories": "Victorias: "
     }
 }

@@ -2,7 +2,9 @@ class UserScene extends Phaser.Scene
 {
     textsScale = 
     {
-        "BackButton": 0.32
+        "BackButton": 0.32,
+        "UserText": 0.7,
+        "Victories": 0.7
     }
 
     texts =
@@ -16,7 +18,30 @@ class UserScene extends Phaser.Scene
             {
                 fontFamily: font,
                 fontSize: String(WINDOW.HEIGHT * this.textsScale["BackButton"] / textDivider) + "px",
-                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+       },
+       "UserText":
+       {
+            pos: { x: 0.25, y: 0.35 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["UserText"] / textDivider) + "px",
+                color: blackColor
+            } 
+       },
+       "Victories":
+       {
+            pos: { x: 0.25, y: 0.65 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["Victories"] / textDivider) + "px",
                 color: blackColor
             } 
        }
@@ -40,6 +65,7 @@ class UserScene extends Phaser.Scene
 
     create() 
     {
+        var THIS = this;
         WebFont.load({
             custom: {
                 families: ["FontChild"], 
@@ -69,6 +95,21 @@ class UserScene extends Phaser.Scene
                         {
                             this.textsGroup[key].text = LanguageManager.getInstance().getText("User", key);
                         });
+                    });
+
+                    var Username = THIS.scene.get("ChatChill").username;
+                    var userNameText = THIS.textsGroup["UserText"];
+                    var Victories = this.textsGroup["Victories"];
+
+                    $.get(USERS_BASE_URL + "/" + Username, { }, (data, status) =>
+                    {
+                        if (status == "success")
+                        {
+                            console.log("User: " + data.username + " has won " + Victories + " times");
+                            
+                            Victories.setText(Victories._text + data.numberOfVictories);
+                            userNameText.setText(userNameText._text + Username);
+                        }
                     });
 
                     this.events.once("shutdown", () =>
