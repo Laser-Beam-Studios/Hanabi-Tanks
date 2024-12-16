@@ -38,7 +38,7 @@ content-type: application/json
     "lastSeen": 5
 }
 
-PUT http://localhost:8080/api/users/?username=Juan&password=1234 HTTP/1.1
+PUT http://localhost:8080/api/users/?username=Pepe&password=asd HTTP/1.1
 
 // Para el chat
 
