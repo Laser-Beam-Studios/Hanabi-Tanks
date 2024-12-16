@@ -271,8 +271,7 @@ class Level extends Phaser.Scene
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
         this.input.keyboard.on("keyup", this.OnKeyReleased.bind(this));
-        this.events.on('resume', this.CheckMusic.bind(this, this));
-
+        
         if (this.name != "PowerUp")
         {
             this.canPlay = false;
