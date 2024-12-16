@@ -35,7 +35,7 @@ public class ChatController
     }
 
     @GetMapping("")
-    public ChatResponse getMethodName(@RequestParam(defaultValue = "0") int since, @RequestParam String username) 
+    public ChatResponse getMessages(@RequestParam(defaultValue = "0") int since, @RequestParam String username) 
     {
         var readLock = this.lock.readLock();
         readLock.lock();
@@ -65,7 +65,7 @@ public class ChatController
 
     @PostMapping("")
     @ResponseBody
-    public ResponseEntity<?> postMethodName(@RequestParam(name = "message") String message, @RequestParam(name = "username") String username) 
+    public ResponseEntity<?> sendMessage(@RequestParam(name = "message") String message, @RequestParam(name = "username") String username) 
     {
         var writeLock = this.lock.writeLock();
         writeLock.lock();
