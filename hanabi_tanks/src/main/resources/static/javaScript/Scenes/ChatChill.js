@@ -16,6 +16,9 @@ class ChatChill extends Phaser.Scene
         this.inputMessage;
         this.chatOpen = false;
         this.username;
+
+        this.UpdateChatIntervalID;
+        this.UpdateUsersIntervalID;
     }
 
     init(data)
@@ -70,8 +73,8 @@ class ChatChill extends Phaser.Scene
         this.inputMessage = $("#message");
         this.messages = $("#messages");
 
-        setInterval(this.UpdateChat, 2000, this);
-        setInterval(this.UpdateUsersConnected, 2000, this);
+        this.UpdateChatIntervalID = setInterval(this.UpdateChat, 2000, this);
+        this.UpdateUsersIntervalID = setInterval(this.UpdateUsersConnected, 2000, this);
 
         this.UpdateChat(this);  // For fecth the messages at the start
         this.UpdateUsersConnected(this) // The same reason but with the logos of conneted or disconnected
