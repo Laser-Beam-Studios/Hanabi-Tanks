@@ -19,38 +19,63 @@ class MainMenu extends Phaser.Scene
     {
         "PlayButton": 0.32,
         "OptionsButton": 0.32,
-        "CreditsButton": 0.32
+        "CreditsButton": 0.32,
+        "TutorialButton": 0.32,
+        "UserButton": 0.32
     }
 
     texts =
     {
         "PlayButton": 
         { 
-            pos: { x: 0.82, y: 0.75 },
+            pos: { x: 0.82, y: 0.71 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
-                fontSize: String(WINDOW.HEIGHT * this.textsScale["PlayButton"] / textDivider) + "px",
-                //fontStyle: styleOptions.fontStyle.bold,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["PlayButton"] / textDivider) + "px",                
                 color: blackColor
             } 
        },
        "OptionsButton": 
        { 
-            pos: { x: 0.82, y: 0.85 },
+            pos: { x: 0.82, y: 0.77 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
-                fontSize: String(WINDOW.HEIGHT * this.textsScale["OptionsButton"] / textDivider) + "px",
-                //fontStyle: styleOptions.fontStyle.bold,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["OptionsButton"] / textDivider) + "px",                
                 color: blackColor
             } 
         },
         "CreditsButton": 
+        { 
+            pos: { x: 0.82, y: 0.83 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["CreditsButton"] / textDivider) + "px",               
+                color: blackColor
+            } 
+        },
+        "TutorialButton": 
+        { 
+            pos: { x: 0.82, y: 0.89 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialButton"] / textDivider) + "px",                
+                color: blackColor
+                //fontStyle: styleOptions.fontStyle.bold,
+            } 
+        },
+        "UserButton": 
         { 
             pos: { x: 0.82, y: 0.95 },
             center: { x: 0.5, y: 0.5 },
@@ -58,8 +83,7 @@ class MainMenu extends Phaser.Scene
             style: 
             {
                 fontFamily: font,
-                fontSize: String(WINDOW.HEIGHT * this.textsScale["CreditsButton"] / textDivider) + "px",
-                //fontStyle: styleOptions.fontStyle.bold,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["UserButton"] / textDivider) + "px",                
                 color: blackColor
             } 
         }
@@ -77,12 +101,15 @@ class MainMenu extends Phaser.Scene
             this.load.pack("localization_en", "../assets/localization/english.json");
             this.load.pack("localization_es", "../assets/localization/espanol.json")
         }
-        //this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
+        this.load.image("MainMenuBackground", "../assets/UI/Screens/mainMenu.png")
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
+        // The images are all templates of different colors
         this.load.image("PlayButton", "../assets/UI/Buttons/play.png");
         this.load.image("OptionsButton", "../assets/UI/Buttons/options.png");
         this.load.image("CreditsButton", "../assets/UI/Buttons/credits.png");
+        this.load.image("TutorialButton", "../assets/UI/Buttons/tutorial.png");
+        this.load.image("UserButton", "../assets/UI/Buttons/account.png");
         this.load.image("BackButton", "../assets/UI/Buttons/back.png"); // This is load here for used in the other menu scenes
         
 
@@ -155,7 +182,19 @@ class MainMenu extends Phaser.Scene
         Scaler.ScaleToGameW(options, this.textsScale["CreditsButton"]);
         options.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, options));
         options.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
-        options.setInteractive().on("pointerout", this.OnPointerExit.bind(this))
+        options.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+
+        const tutorial = this.add.image(this.texts["TutorialButton"].pos.x * WINDOW.WIDHT, this.texts["TutorialButton"].pos.y * WINDOW.HEIGHT, "TutorialButton");
+        Scaler.ScaleToGameW(tutorial, this.textsScale["TutorialButton"]);
+        tutorial.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, tutorial));
+        tutorial.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        tutorial.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+
+        const userBut = this.add.image(this.texts["UserButton"].pos.x * WINDOW.WIDHT, this.texts["UserButton"].pos.y * WINDOW.HEIGHT, "UserButton");
+        Scaler.ScaleToGameW(userBut, this.textsScale["UserButton"]);
+        userBut.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, userBut));
+        userBut.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        userBut.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
     }
 
     OnPointerEnter()
@@ -188,6 +227,14 @@ class MainMenu extends Phaser.Scene
             case "OptionsButton":
                 this.scene.pause("MainMenu");
                 this.scene.launch("Options", { scene: "MainMenu"});
+                break;
+            case "TutorialButton":
+                this.scene.stop("MainMenu");
+                this.scene.start("Tutorial");
+                break;
+            case "UserButton":
+                this.scene.stop("MainMenu");
+                this.scene.start("UserScene");
                 break;
             default:
                 console.log("ERROR_IN_CLICK_BUTTON: UNKNOWN_BUTTON_KEY: " + button.texture.key);
