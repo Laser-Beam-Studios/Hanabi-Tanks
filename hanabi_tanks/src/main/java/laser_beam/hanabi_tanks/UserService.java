@@ -49,4 +49,9 @@ public class UserService
     {
         return this.userDAO.loginUser(username, password);
     }
+
+    public void setLastSeenByUsername(String username)
+    {
+        this.userDAO.setLastSeenByUsername(username);
+    }
 }
