@@ -47,4 +47,4 @@ POST http://localhost:8080/api/chat?message=hola&username=Juan HTTP/1.1
 POST http://localhost:8080/api/chat?message=hola mundo HTTP/1.1
 
 
-GET http://localhost:8080/api/chat?since=0 HTTP/1.1
+GET http://localhost:8080/api/chat?since=0&username=Pepe HTTP/1.1

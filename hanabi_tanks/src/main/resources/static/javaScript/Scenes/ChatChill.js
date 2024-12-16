@@ -75,7 +75,7 @@ class ChatChill extends Phaser.Scene
     {
         console.log("UpdateChat: " + THIS.lastMessageId);
 
-        $.get(CHAT_BASE_URL, { since: THIS.lastMessageId }, (data) =>
+        $.get(CHAT_BASE_URL, { since: THIS.lastMessageId, username: THIS.username }, (data) =>
         {
             console.log("The get returns: " + data.lastId);
             if (data.messages && data.messages.length > 0 && THIS.lastMessageId <= data.lastId) {
