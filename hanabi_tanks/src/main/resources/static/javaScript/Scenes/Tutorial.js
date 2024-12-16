@@ -2,7 +2,10 @@ class Tutorial extends Phaser.Scene
 {
     textsScale =
     {
-        "BackButton": 0.32
+        "BackButton": 0.32,
+        "TutorialTitle": 0.85,
+        "TutorialText": 0.25,
+        "Title": 0.32        
     }
     
     texts = 
@@ -15,8 +18,151 @@ class Tutorial extends Phaser.Scene
             style: 
             {
                 fontFamily: font,
-                fontSize: String(WINDOW.HEIGHT * this.textsScale["BackButton"] / textDivider) + "px",
-                //fontStyle: styleOptions.fontStyle.bold,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["BackButton"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "TutorialTitle":
+        { 
+            pos: { x: 0.25, y: 0.15 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(-4),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialTitle"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "HowToPlay":
+        { 
+            pos: { x: 0.5, y: 0.25 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["Title"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "HowToPlayText":
+        { 
+            pos: { x: 0.5, y: 0.3 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialText"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "HowToPlayText2":
+        { 
+            pos: { x: 0.5, y: 0.35 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialText"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "PowerUpTitle":
+        { 
+            pos: { x: 0.5, y: 0.4 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["Title"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "PowerUp1":
+        { 
+            pos: { x: 0.5, y: 0.45 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialText"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "PowerUp2":
+        { 
+            pos: { x: 0.5, y: 0.5 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialText"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "PowerUp3":
+        { 
+            pos: { x: 0.5, y: 0.55 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialText"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "PowerUp3_2":
+        { 
+            pos: { x: 0.5, y: 0.6 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialText"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "PowerUp4":
+        { 
+            pos: { x: 0.5, y: 0.65 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialText"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "PowerUp4_2":
+        { 
+            pos: { x: 0.5, y: 0.7 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialText"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "PowerUp5":
+        { 
+            pos: { x: 0.5, y: 0.75 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialText"] / textDivider) + "px",                
                 color: blackColor
             } 
         }
@@ -37,7 +183,8 @@ class Tutorial extends Phaser.Scene
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
         this.load.image("TutorialBackground", "../assets/UI/Screens/template.png");
-        this.load.image("MainMenuButton", "../assets/UI/Buttons/mainMenu.png")
+        this.load.image("MainMenuButton", "../assets/UI/Buttons/mainMenu.png");
+        this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 128, frameHeight: 128 });
     }
 
     create() 
@@ -52,10 +199,9 @@ class Tutorial extends Phaser.Scene
                 this.textsGroup = {};
                 Object.keys(this.texts).forEach((key) =>
                 {
-                    this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Credits", key), this.texts[key].style);
+                    this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Tutorial", key), this.texts[key].style);
                     this.textsGroup[key].setOrigin(this.texts[key].center.x, this.texts[key].center.y);
-                    this.textsGroup[key].rotation = this.texts[key].rotation;
-                    //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
+                    this.textsGroup[key].rotation = this.texts[key].rotation;                    
                 });
                 LanguageManager.getInstance().onLanguageChanged("Tutorial", () =>
                 {

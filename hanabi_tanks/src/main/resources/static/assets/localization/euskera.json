@@ -26,7 +26,10 @@
     },
     "User":
     {
-        "BackButton": "Itzuli"
+        "BackButton": "Itzuli",
+        "UserText": "Erabiltzailea: ",
+        "Victories": "Garaipenak: ",
+        "Title": "Kontua"
     },
     "Credits":
     {
@@ -34,7 +37,19 @@
     },
     "Tutorial":
     {
-        "BackButton": "Itzuli"
+        "BackButton": "Itzuli",
+        "TutorialTitle": "Tutoretza",
+        "HowToPlay": "Nola jokatu",
+        "HowToPlayText": "Arcade tankerako joko bat, non 2 jokalarik duelu egin behar duten. 3 txanda irabazten dituen lehen jokalariak irabazten du partida.",
+        "HowToPlayText2": "Txanda artean, jokalariek beren tankerako ausazko hobekuntza desberdinak aukeratu ahal izango dituzte.",
+        "PowerUpTitle": "HOBEKUNTZA:",
+        "PowerUp1": "Kartoi ona: tankearen osasuna puntu 1 handitzen du.",
+        "PowerUp2": "Elastic Cork Bullets: Balek berriro errebotatzen dute, baina kadentzia txikiagoa dute.",
+        "PowerUp3": "Kortxozko Bala gogorrak: Balek 1 puntu gehiago eragiten dute, baina ezin dira kortxozko bal elastikoekin lotu.",
+        "PowerUp3_2": "Paperezko hormak kolpe batez apurtzen dituzte.",
+        "PowerUp4": "Sagardo Kortxoko Balak: Balak askoz azkarragoak dira, baina kadentzia txikiagoa dute.",
+        "PowerUp4_2":"Paperezko hormetatik igarotzen dira.",
+        "PowerUp5": "Kortxoa: suaren abiadura handitzen du, baina ezin da sagardo kortxoko balekin konbinatu."
     },
     "Pause":
     {

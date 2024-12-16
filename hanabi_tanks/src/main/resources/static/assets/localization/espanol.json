@@ -37,7 +37,19 @@
     },
     "Tutorial":
     {
-        "BackButton": "Volver"
+        "BackButton": "Volver",
+        "TutorialTitle": "Tutorial",
+        "HowToPlay": "Cómo jugar",
+        "HowToPlayText": "Un juego arcade de tanques en donde 2 jugadores deben batirse en duelo. El primer jugador que gane 3 rondas gana la partida.",
+        "HowToPlayText2": "Entre rondas, los jugadores podrán elegir distintas mejoras aleatorias para su tanque.",
+        "PowerUpTitle": "MEJORAS:",
+        "PowerUp1": "Cartón del bueno: Aumenta la vida del tanque en 1 punto",
+        "PowerUp2": "Balas de corcho elástico: Las balas rebotan una vez más, pero tienen menos cadencia.",
+        "PowerUp3": "Balas de corcho duro: Las balas infligen 1 punto de daño extra, pero no se pueden juntar con balas de corcho elástico.",
+        "PowerUp3_2": "Rompen las paredes de papel de un golpe.",
+        "PowerUp4": "Balas de corcho de sidra: Las balas son mucho más rápidas, pero tienen menos cadencia.",
+        "PowerUp4_2": "Atraviesan las paredes de papel.",
+        "PowerUp5": "Sacacorchos: Aumenta la cadencia de disparo, pero no se puede combinar con balas de corcho de sidra."
     },
     "Pause":
     {
