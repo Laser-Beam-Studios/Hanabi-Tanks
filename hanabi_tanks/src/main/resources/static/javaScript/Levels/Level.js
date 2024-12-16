@@ -192,6 +192,8 @@ class Level extends Phaser.Scene
             this.player2.RestartHealth();
             this.player1.forward = { x: 1, y: 0 };
             this.player2.forward = { x: -1, y: 0 };
+            this.player1.actualSpeed = 0;
+            this.player2.actualSpeed = 0;
             
             if (this.name == "PowerUp")
             {
@@ -277,20 +279,26 @@ class Level extends Phaser.Scene
         this.input.keyboard.on("keyup", this.OnKeyReleased.bind(this));
         this.events.on('resume', this.CheckMusic.bind(this, this));
 
-        this.gameTimer = 3000;
-        this.gameTimerText = this.add.text(this.gameTimerConfig.pos.x * WINDOW.WIDHT, this.gameTimerConfig.pos.y * WINDOW.HEIGHT, "0:03", this.gameTimerConfig.style);
-        this.gameTimerText.setOrigin(this.gameTimerConfig.center.x, this.gameTimerConfig.center.y);
-
-        // this.time.addEvent({
-        //     delay: 3000,
-        //     callback: () => {
-        //         this.canPlay = true;
-        //         this.gameTimer = 150000;
-        //         this.gameTimerText.text = "3:00";
-        //         this.gameTimerText.setOrigin(this.gameTimerConfig.center.x, this.gameTimerConfig.center.y);
-        //     },
-        //     callbackScope: this
-        // });
+        if (this.name != "PowerUp")
+        {
+            this.canPlay = false;
+            this.gameTimer = 3000;
+            this.gameTimerText = this.add.text(this.gameTimerConfig.pos.x * WINDOW.WIDHT, this.gameTimerConfig.pos.y * WINDOW.HEIGHT, "0:03", this.gameTimerConfig.style);
+            this.gameTimerText.setOrigin(this.gameTimerConfig.center.x, this.gameTimerConfig.center.y);
+            
+            this.time.addEvent({
+                delay: 3000,
+                callback: () => {
+                    this.canPlay = true;
+                    this.gameTimer = 180000;
+                    this.gameTimerText.text = "3:00";
+                    this.gameTimerText.setOrigin(this.gameTimerConfig.center.x, this.gameTimerConfig.center.y);
+                },
+                callbackScope: this
+            });
+        }
+        else
+            this.canPlay = true;
     }
 
     CheckMusic(scene)
@@ -448,15 +456,13 @@ class Level extends Phaser.Scene
 
     update(time, delta) 
     {
-        console.log("time: " + time + ", delta: " + delta);
         this.CheckTankRotations();
 
         this.UpdateTanks();
 
         if (this.name != "PowerUp")
-            if (this.canPlay)
-            {
-                if (this.UpdateGameTimer(delta))
+            if (this.UpdateGameTimer(delta))                    
+                if (this.canPlay)
                 {
                     var nextLevel = this.GetNextLevel();
                     this.scene.stop(this.name);
@@ -467,16 +473,8 @@ class Level extends Phaser.Scene
                     else
                     {
                         this.scene.start("PowerUp", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: nextLevel});
-                    }  
-                }
-            }
-            else
-            {
-                this.canPlay = true;
-                this.gameTimer = 150000;
-                this.gameTimerText.text = "3:00";               
-            }
-            
+                    } 
+                }            
 
         if (this.name == "PowerUp")
             if (this.powerUpsGroup.children.size == 1)
@@ -494,11 +492,20 @@ class Level extends Phaser.Scene
             return true;
         //console.log(this.gameTimer);
         let seconds = Math.ceil(this.gameTimer);
-        let minutes = Math.ceil(seconds / 60);
+        let minutes = Math.floor(seconds / 60000);
         //console.log(minutes + " minutes");
-        seconds -= minutes * 60;
+        seconds -= minutes * 60000;
+        seconds = Math.ceil(seconds / 1000);
+        console.log(seconds);
+        let secondsText = String(seconds);
+        if (seconds == 60)
+        {
+            minutes++;
+            secondsText = "00";
+        }
+
         //console.log(seconds + " seconds");
-        this.gameTimerText.text = String(minutes) + ":" + String(seconds);
+        this.gameTimerText.text = String(minutes) + ":" + secondsText;
         return false;
     }
 
