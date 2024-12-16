@@ -44,4 +44,9 @@ public class UserService
     {
         return this.userDAO.modifyUser(username, userDTO);
     }
+
+    public boolean loginUser(String username, String password)
+    {
+        return this.userDAO.loginUser(username, password);
+    }
 }

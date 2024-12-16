@@ -255,4 +255,10 @@ public class UserDAO
             writeLock.unlock();
         }
     }
+
+    public boolean loginUser(String username, String password)
+    {
+        if (password.equals(getUserPassword(username))) return true;
+        else return false;
+    }
 }
