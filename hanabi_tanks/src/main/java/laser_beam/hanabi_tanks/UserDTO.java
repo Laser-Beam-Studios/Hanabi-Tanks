@@ -27,4 +27,6 @@ public class UserDTO
     public String getUsername() { return this.username; }
     public long getLastSeen() { return this.lastSeen; }
     public int getNumberOfVictories() { return this.numberOfVictories; }
+
+    public void setLastSeen(long lastSeen) { this.lastSeen = lastSeen; }
 }

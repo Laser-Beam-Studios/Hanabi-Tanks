@@ -177,8 +177,6 @@ class Level extends Phaser.Scene
         // The tiles are images of 64 x 64 pixels
         this.scaleOfTile = this.sizeOfTile / 64;
 
-        this.musicController;
-        this.songsParts = ["Tanks_Party_A", "Tanks_Party_B", "Tanks_Party_C", "Tanks_Party_D", "Tanks_Party_E"];
         this.levelsNames = ["Level1", "Level2", "Level3", "Level4", "Level5", "Level6"];
         this.bouncesSounds = ["WallBounce", "WallBounce2"];
     }
@@ -262,12 +260,8 @@ class Level extends Phaser.Scene
             }
           });
 
-        AudioManager.Instance.SetActiveScene(this);
+        AudioManager.Instance.SetActiveScene(this, false);
         AudioManager.Instance.PlayOneShoot("VictorySound", "SFX");
-        
-        this.musicController = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music");
-        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, "Tanks_Part_A"));
-        this.musicController.Play();
 
         this.InitWorldSprites();
         this.InitTankSprites();
@@ -301,15 +295,6 @@ class Level extends Phaser.Scene
             this.canPlay = true;
     }
 
-    CheckMusic(scene)
-    {
-        if (!scene.musicController.IsPlaying())
-        {
-            scene.musicController = AudioManager.Instance.CreateInstance("Tanks_Party_A", "Music");
-            scene.musicController.SetCallBack("complete", scene.OnMusicPartEnds.bind(scene, "Tanks_Part_A"));
-            scene.musicController.Play();
-        }
-    }
 
     InitPowerUps()
     {
@@ -338,35 +323,18 @@ class Level extends Phaser.Scene
             this.secretButton.add(button);
         }
     }
-  
-    OnMusicPartEnds(last)
-    {
-        var lastIdx;
-        for (var i = 0; i < this.songsParts.length; i++)
-        {
-            if(this.songsParts[i] == last) 
-            {
-                lastIdx = i;
-                break;
-            }
-        }
-
-        var randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
-        while(randomPartIdx == lastIdx)
-        {
-            randomPartIdx = Math.floor(Math.random() * this.songsParts.length);
-        }
-        
-        this.musicController = AudioManager.Instance.CreateInstance(this.songsParts[randomPartIdx], "Music");
-        this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, this.songsParts[randomPartIdx]));
-        this.musicController.Play();
-    }
 
     OnKeyPressed(key)
     {
         if (!this.canPlay)
             return;
 
+        if (this.scene.get("ChatChill").chatOpen) 
+        {
+            console.log("Chat open so don't move");
+            return;
+        }
+      
         switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
@@ -420,6 +388,12 @@ class Level extends Phaser.Scene
         if (!this.canPlay)
             return;
 
+        if (this.scene.get("ChatChill").chatOpen) 
+        {
+            console.log("Chat open so don't move");
+            return;
+        }
+      
         switch (key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.W:

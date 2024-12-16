@@ -1,6 +1,7 @@
 package laser_beam.hanabi_tanks;
 
 import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,6 +13,11 @@ public class UserService
     public UserService(UserDAO userDAO)
     {
         this.userDAO = userDAO;
+    }
+
+    public List<String> getAllUsernames()
+    {
+        return this.userDAO.getAllUsernames();
     }
 
     public Optional<UserDTO> getUserDTO(String username)
@@ -37,5 +43,15 @@ public class UserService
     public boolean modifyUser(String username, UserDTO userDTO)
     {
         return this.userDAO.modifyUser(username, userDTO);
+    }
+
+    public boolean loginUser(String username, String password)
+    {
+        return this.userDAO.loginUser(username, password);
+    }
+
+    public void setLastSeenByUsername(String username)
+    {
+        this.userDAO.setLastSeenByUsername(username);
     }
 }

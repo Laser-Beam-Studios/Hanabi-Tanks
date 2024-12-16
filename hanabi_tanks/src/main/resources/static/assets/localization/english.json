@@ -3,7 +3,9 @@
     {
         "PlayButton": "Play",
         "OptionsButton": "Options",
-        "CreditsButton": "Credits"
+        "CreditsButton": "Credits",
+        "TutorialButton": "Tutorial",
+        "UserButton": "Account"
     },
     "Options":
     {
@@ -21,5 +23,9 @@
         "BackButton": "Back",
         "P1Column": "P1",
         "P2Column": "P2"
+    },
+    "User":
+    {
+        "BackButton": "Back"
     }
 }
