@@ -152,6 +152,19 @@ class Victory extends Phaser.Scene
             return;
         let powerUp4 = this.add.sprite(WINDOW.WIDHT * 0.48546, WINDOW.HEIGHT * 0.54949, "PowerUps", powerUps[3]);
         Scaler.ScaleToGameH(powerUp4, 0.12043*2.8);
+
+        // Increment the number of victories
+        var THIS = this;
+        $.ajax(
+        {
+            type: "PUT",
+            url: USERS_BASE_URL + "/" + THIS.scene.get("ChatChill").username,
+            data: { },
+            success: () => 
+            { 
+                console.log("Number Of Victories of user: " + THIS.scene.get("ChatChill").username + " Increment");
+            },
+        });
     }
 
     OnPointerEnter()
