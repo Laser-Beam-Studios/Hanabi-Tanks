@@ -96,7 +96,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp1":
         { 
-            pos: { x: 0.5, y: 0.50 },
+            pos: { x: 0.5, y: 0.75 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -108,7 +108,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp2":
         { 
-            pos: { x: 0.5, y: 0.55 },
+            pos: { x: 0.5, y: 0.5 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -120,7 +120,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp3":
         { 
-            pos: { x: 0.5, y: 0.60 },
+            pos: { x: 0.5, y: 0.55 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -132,7 +132,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp3_2":
         { 
-            pos: { x: 0.5, y: 0.65 },
+            pos: { x: 0.5, y: 0.6 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -144,7 +144,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp4":
         { 
-            pos: { x: 0.5, y: 0.70 },
+            pos: { x: 0.5, y: 0.65 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -156,7 +156,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp4_2":
         { 
-            pos: { x: 0.5, y: 0.75 },
+            pos: { x: 0.5, y: 0.7 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -196,7 +196,7 @@ class Tutorial extends Phaser.Scene
 
         this.load.image("TutorialBackground", "../assets/UI/Screens/template.png");
         this.load.image("MainMenuButton", "../assets/UI/Buttons/mainMenu.png");
-        this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 128, frameHeight: 128 });
+        this.load.image("PowerUps", "../assets/PowerUpSpriteSheet.png");
     }
 
     create() 
@@ -234,6 +234,9 @@ class Tutorial extends Phaser.Scene
 
         const background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "TutorialBackground");
         Scaler.ScaleToGameW(background);
+
+        const powerups = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT*0.87, "PowerUps");
+        Scaler.ScaleToGameW(powerups, 0.45);
 
         const back = this.add.image(this.texts["BackButton"].pos.x * WINDOW.WIDHT, this.texts["BackButton"].pos.y * WINDOW.HEIGHT, "BackButton");
         Scaler.ScaleToGameW(back, this.textsScale["BackButton"]);
