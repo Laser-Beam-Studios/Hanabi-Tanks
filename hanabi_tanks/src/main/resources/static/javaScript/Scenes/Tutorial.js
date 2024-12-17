@@ -5,7 +5,7 @@ class Tutorial extends Phaser.Scene
         "BackButton": 0.32,
         "TutorialTitle": 0.85,
         "TutorialText": 0.25,
-        "Title": 0.32        
+        "ParagraphTitle": 0.32        
     }
     
     texts = 
@@ -42,7 +42,7 @@ class Tutorial extends Phaser.Scene
             style: 
             {
                 fontFamily: font,
-                fontSize: String(WINDOW.HEIGHT * this.textsScale["Title"] / textDivider) + "px",                
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["ParagraphTitle"] / textDivider) + "px",                
                 color: blackColor
             } 
         },
@@ -70,21 +70,33 @@ class Tutorial extends Phaser.Scene
                 color: blackColor
             } 
         },
-        "PowerUpTitle":
+        "HowToPlayText3":
         { 
-            pos: { x: 0.5, y: 0.4 },
+            pos: { x: 0.5, y: 0.40 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
-                fontSize: String(WINDOW.HEIGHT * this.textsScale["Title"] / textDivider) + "px",                
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["TutorialText"] / textDivider) + "px",                
+                color: blackColor
+            } 
+        },
+        "PowerUpTitle":
+        { 
+            pos: { x: 0.5, y: 0.45 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["ParagraphTitle"] / textDivider) + "px",                
                 color: blackColor
             } 
         },
         "PowerUp1":
         { 
-            pos: { x: 0.5, y: 0.45 },
+            pos: { x: 0.5, y: 0.50 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -96,7 +108,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp2":
         { 
-            pos: { x: 0.5, y: 0.5 },
+            pos: { x: 0.5, y: 0.55 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -108,7 +120,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp3":
         { 
-            pos: { x: 0.5, y: 0.55 },
+            pos: { x: 0.5, y: 0.60 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -120,7 +132,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp3_2":
         { 
-            pos: { x: 0.5, y: 0.6 },
+            pos: { x: 0.5, y: 0.65 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -132,7 +144,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp4":
         { 
-            pos: { x: 0.5, y: 0.65 },
+            pos: { x: 0.5, y: 0.70 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -144,7 +156,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp4_2":
         { 
-            pos: { x: 0.5, y: 0.7 },
+            pos: { x: 0.5, y: 0.75 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -156,7 +168,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp5":
         { 
-            pos: { x: 0.5, y: 0.75 },
+            pos: { x: 0.5, y: 0.80 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -217,7 +229,7 @@ class Tutorial extends Phaser.Scene
                 });
             }
         });
-          
+    
         AudioManager.Instance.SetActiveScene(this, false);
 
         const background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "TutorialBackground");

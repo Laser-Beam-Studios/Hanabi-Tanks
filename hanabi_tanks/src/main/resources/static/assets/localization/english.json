@@ -33,13 +33,18 @@
     },
     "Credits":
     {
-        "BackButton": "Back"
+        "BackButton": "Back",
+        "alvarjimText": "Álvaro Jiménez Lozano:  Translator. Software Developer.",
+        "makarovText": "Álvaro Martín Hita: Screenwriter. Software Developer.",
+        "pepiurText": "José Alejandro Sánchez Orozco: Graphic designer. Software developer.",
+        "hotdogText": "Iván García García: Audio engineer. Software developer.",
+        "CreditsTitle": "Credits"
     },
     "Tutorial":
     {
         "BackButton": "Back",
         "TutorialTitle": "Tutorial",
-        "HowToPlay": "How to play:",
+        "HowToPlay": "Game approach:",
         "HowToPlayText": "An arcade tank game where 2 players must duel. The first player to win 3 rounds wins the game.",
         "HowToPlayText2": "Between rounds, players will be able to choose different random upgrades for their tank.",
         "PowerUp1": "Good Cardboard: Increases tank health by 1 point.",
@@ -56,5 +61,13 @@
         "BackButton": "Back",
         "OptionsButton": "Options",
         "MainMenuButton": "Main Menu"
+    },
+    "Victory":
+    {
+        "BackButton": "Back",
+        "PlayerText": "Player",
+        "UpgradesText": "Upgrades History",
+        "VictoryText": "WINS"
     }
+
 }

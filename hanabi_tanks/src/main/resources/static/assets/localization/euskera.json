@@ -33,15 +33,21 @@
     },
     "Credits":
     {
-        "BackButton": "Itzuli"
+        "BackButton": "Itzuli",
+        "alvarjimText": "Álvaro Jiménez Lozano: Itzultzailea. Software garatzailea.",
+        "makarovText": "Álvaro Martín Hita: Gidoilaria. Software garatzailea.",
+        "pepiurText": "José Alejandro Sánchez Orozco: Artista Grafikoa. Software garatzailea.",
+        "hotdogText": "Iván García García: Soinu Artista. Software garatzailea.",
+        "CreditsTitle": "Kredituak"
     },
     "Tutorial":
     {
         "BackButton": "Itzuli",
         "TutorialTitle": "Tutoretza",
-        "HowToPlay": "Nola jokatu",
-        "HowToPlayText": "Arcade tankerako joko bat, non 2 jokalarik duelu egin behar duten. 3 txanda irabazten dituen lehen jokalariak irabazten du partida.",
-        "HowToPlayText2": "Txanda artean, jokalariek beren tankerako ausazko hobekuntza desberdinak aukeratu ahal izango dituzte.",
+        "HowToPlay": "Jokoaren planteamendua:",
+        "HowToPlayText": "Arcade tankerako joko bat, non 2 jokalarik duelu egin behar duten. 3 txanda irabazten dituen lehen jokalariak",
+        "HowToPlayText2": "irabazten du partida. Txanda artean, jokalariek beren tankerako ausazko hobekuntza",
+        "HowToPlayText3": "desberdinak aukeratu ahal izango dituzte.",
         "PowerUpTitle": "HOBEKUNTZA:",
         "PowerUp1": "Kartoi ona: tankearen osasuna puntu 1 handitzen du.",
         "PowerUp2": "Elastic Cork Bullets: Balek berriro errebotatzen dute, baina kadentzia txikiagoa dute.",
@@ -56,5 +62,12 @@
         "BackButton": "Itzuli",
         "OptionsButton": "Aukerak",
         "MainMenuButton": "Menu nagusia"
+    },
+    "Victory":
+    {
+        "BackButton": "Itzuli",
+        "PlayerText": "Jokalaria",
+        "UpgradesText": "Hobekuntzaren historia",
+        "VictoryText": "IRABAZI"
     }
 }
