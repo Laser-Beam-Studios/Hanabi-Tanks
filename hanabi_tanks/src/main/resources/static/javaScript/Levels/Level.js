@@ -213,7 +213,7 @@ class Level extends Phaser.Scene
                     randoms.push(candidate);
                 }
                 this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
-                if (Math.random() * 100 <= 1000)
+                if (Math.random() * 100 <= 5)
                     this.hasSecretButton = true;
             }
             else if (this.name == "SecretLevel")
