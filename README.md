@@ -223,7 +223,7 @@ En cuanto a estos se tiene pensado crear 6 niveles, que van a funcionar de la si
 Se ha creado también un nivel secreto en el que los jugadores podrán entrar durante la selección de power-ups. Hay una probabilidad muy baja de que aparezca el botón secreto. Este nivel está hecho de manera que, usando las mejoras escogidas anteriormente, el jugador que gane la ronda gana la partida, sin importar si estos van empate o alguno tiene ventaja. Ejemplo: si la partida va 2-0, se activa el botón secreto y gana la ronda el jugador 2, el jugador 2 ganará la partida.
 
 - **Nivel secreto:**
-![Nivel secreto][ver2-image10]
+![Nivel secreto][ver2-image7]
 
  
 ### [**Logros**](#índice)  
@@ -342,8 +342,8 @@ Modelos de paredes de papel y cartón.
 
 ## Versión 1.2
 Se ha creado una fuente de texto personalizada, por lo que los botones y las interfaces han sido cambiados. Los nuevos botones e interfaces quedan de la siguiente manera:
-![Button][ver2-image11]
-![Interface][ver2-image12]
+![Button][ver2-image16]
+![Interface][ver2-image17]
 
 Modelos de paredes de papel y cartón.  
 ### [**Herramientas utilizadas**](#índice)  
@@ -437,3 +437,5 @@ Software de traducción: Traductor de Google
 [ver2-image13]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/register.png
 [ver2-image14]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/login.png
 [ver2-image15]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/gameplay.png
+[ver2-image16]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/button.png
+[ver2-image17]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/menu.png
