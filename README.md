@@ -140,8 +140,10 @@ Interfaces del juego:
 ![Tutorial][ver2-image12] 
 **User:**  
 ![User][ver2-image8] 
+
 **Ejemplo de interfaz en español:**  
 ![uiEsp][ver2-image10] 
+
 **Ejemplo de interfaz en euskera:**  
 ![uiEus][ver2-image11] 
 
@@ -157,7 +159,8 @@ Interfaces del juego:
 ![States][ver2-image6]
 Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menú de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menú de pausa y si accediste desde el menú principal devuelve al menú principal.
 
-### [**API REST](#índice)
+### [**API REST**](#índice)
+
 ## Versión 1.2
 Para la realización de la API REST se ha utilizado SpringBoot, se han empleado al menos en una petición cada uno de los métodos principales de http (GET, PUT, POST, DELETE).
 	
