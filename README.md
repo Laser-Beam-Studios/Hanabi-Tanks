@@ -414,15 +414,17 @@ Software de traducción: Traductor de Google
 [image24]: hanabi_tanks/src/main/resources/static/assets/TilesSpriteSheet.png
 
 
-[ver2-image1]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/mainmenu.png 
-[ver2-image2]: 
-[ver2-image3]: 
-[ver2-image4]: 
-[ver2-image5]: 
-[ver2-image6]: 
-[ver2-image7]: 
-[ver2-image8]: 
-[ver2-image9]: 
-[ver2-image10]: 
-[ver2-image11]: 
-[ver2-image12]: 
+[ver2-image1]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/mainmenu.png 
+[ver2-image2]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/options.png  
+[ver2-image3]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/pause.png
+[ver2-image4]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/win.png
+[ver2-image5]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/credits.png
+[ver2-image6]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/estados.png
+[ver2-image7]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/secretLevel.png
+[ver2-image8]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/user
+[ver2-image9]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/umlApi
+[ver2-image10]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/uiEsp
+[ver2-image11]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/uiEus
+[ver2-image12]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/tutorial
+[ver2-image13]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/register
+[ver2-image14]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/login
