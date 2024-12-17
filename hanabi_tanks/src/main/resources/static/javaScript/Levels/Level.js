@@ -227,7 +227,7 @@ class Level extends Phaser.Scene
     {
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
-        this.load.image("SecretButton", "../assets/secret.png");
+        this.load.image("SecretButton", "../assets/secretLevel.png");
 
         // load the spriteSheet and 
         this.load.spritesheet("World", "../assets/TilesSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
