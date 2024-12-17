@@ -136,7 +136,14 @@ Interfaces del juego:
 ![WinScreen][ver2-image4]  
 **Credits:**  
 ![Credits][ver2-image5]  
-
+**Tutorial:**  
+![Tutorial][ver2-image12] 
+**User:**  
+![User][ver2-image8] 
+**Ejemplo de interfaz en español:**  
+![uiEsp][ver2-image10] 
+**Ejemplo de interfaz en euskera:**  
+![uiEus][ver2-image11] 
 
 ### [**Estados**](#índice)  
 
