@@ -1,15 +1,14 @@
-# **GDD Hanabi Tanks** *Versión 1.1*
+# **GDD Hanabi Tanks** *Versión 1.2*
 ## Por Laser Beam Studios
 
-## Sin cambios entre versión 1.0 y 1.1   
 ### Descripción
 
 Grupo de desarrolladores universitarios con la intención de crear juegos simples y divertidos para jugar con tus amigos, estén donde estén.
 
  **Equipo**:   
-* Álvaro Jiménez Lozano: Desarrollador de software.   
-* Iván García García: Artista de Sonido, Desarrollador de Software.  
-* Álvaro Martín Hita: Desarrollador de Software.  
+* Álvaro Jiménez Lozano: Desarrollador de software. Traductor.   
+* Iván García García: Artista de Sonido, Desarrollador de Software. Desarrollador principal de API REST.  
+* Álvaro Martín Hita: Guionista. Desarrollador de Software. Desarrollador del sistema de traducción.  
 * José Alejandro Sánchez Orozco: Artista Gráfico, Desarrollador de software.  
 
 **Correos y nicknames de GitHub**  
@@ -26,7 +25,8 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 - [Guion](#guion)  
 - [Gameplay](#gameplay)  
 - [Interfaces](#interfaces)  
-- [Estados](#estados)  
+- [Estados](#estados)
+- [API REST](#apirest)  
 - [Niveles](#niveles)  
 - [Logros](#logros)  
 - [Audio](#audio)  
@@ -35,6 +35,7 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 
 ### [Información General](#índice)
 
+## Versión 1.0
 - **Resumen**: Un juego arcade de tanques en donde 2 jugadores deben batirse en duelo. El primer jugador que gane 3 rondas gana la partida. Entre rondas, los jugadores podrán elegir distintas mejoras aleatorias para su tanque. El escenario cambiará entre rondas para que la acción no sea tan monótona.
 
 - **Género**: Arcade, shooter, VS, PVP
@@ -47,11 +48,20 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 
 - **Inspiración**: diep.io, Wii play (tanks)
 
+## Versión 1.2
+- **Idiomas**: Han sido añadidos dos idiomas para el videojuego: español y euskera, aparte del inglés que ya estaba. Cabe destacar que, como Laser-Beam Studios no conoce el vasco, se ha usado el traductor de Google como herramienta de traducción.
+
+- **Cuenta**: Se ha incluido un sistema de registro e inicio de sesión para poder mantener información del jugador tras las partidas. Actualmente, el sistema de login no tiene utilidad más allá de mantener el número de partidas ganadas y como identificador en el chat. En un futuro, este sistema tendrá más usos.
+
+- **Chat**: Se ha implementado un chat de texto en donde los jugadores pueden mandar mensajes para comunicarse con la otra persona conectada al servidor.
+
+
 ### [**Guion**](#índice)  
+## No hay cambios entre versiones
 Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado él mismo unas maquetas de tanques y escenarios a base de cortar y pintar cartones. El niño juega en su cuarto ilusionado, y lo que se ve en el juego es la visión e imaginación del niño cuando juega.
 
 ### [**Gameplay**](#índice)
-
+## No hay cambios entre versiones
 - **Cámara cenital**: La cámara se mantiene en una vista superior para que los jugadores puedan ver en todo momento el terreno y la locación tanto de su tanque como el del jugador rival.
 
 - **Mecánicas del tanque**:   
@@ -93,14 +103,8 @@ Prototipos de las posibles interfaces:
 ![WinScreen][Ver0-image5]  
 **Credits:**  
 ![Credits][Ver0-image6]  
-### [**Estados**](#índice)  
-![States][Ver0-image7]
-
-Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menú de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menú de pausa y si accediste desde el menú principal devuelve al menú principal.
-
 
 ## Versión 1.1   
-
 Interfaces del juego:  
 **Main Menu:**  
 ![MainMenu][image1]  
@@ -114,13 +118,49 @@ Interfaces del juego:
 ![WinScreen][image5]  
 **Credits:**  
 ![Credits][image6]  
+
+## Versión 1.2
+Interfaces del juego:
+**Register/Login Screen:**
+![MainMenu][ver2-image1]
+**Main Menu:**  
+![MainMenu][ver2-image2]  
+**Options:**  
+![OptionsMenu][ver2-image3]  
+**Gameplay:**  
+![Gameplay][ver2-image4]  
+**Pause:**  
+![PauseMenu][ver2-image5]  
+**WinScreen:**  
+![WinScreen][ver2-image6]  
+**Credits:**  
+![Credits][ver2-image7]  
+
+
 ### [**Estados**](#índice)  
+
+## Versión 1.0
+![States][Ver0-image7]
+
+## Versión 1.1
 ![States][image7]
 
+## Versión 1.2
+![States][ver2-image8]
 Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menú de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menú de pausa y si accediste desde el menú principal devuelve al menú principal.
 
-## Versión 1.0   
+### [**API REST](#índice)
+## Versión 1.2
+Para la realización de la API REST se ha utilizado SpringBoot, se han empleado al menos en una petición cada uno de los métodos principales de http (GET, PUT, POST, DELETE).
+	
+Por otro lado, las funcionalidades de red implementadas son una gestión de usuarios y un chat en línea.
+
+UML de la API
+
+![API][ver2-image9]
+  
 ### [**Niveles**](#índice)    
+## Versión 1.0 
 Los niveles dispondrán de paredes de madera (no rompibles) y paredes de papel (rompibles). Están diseñados para que cruzar del lado en el que aparece el otro jugador sea complicado al ser una zona abierta, y esto es importante ya que no serán simétricos ni por tanto sus lados tendrán las mismas coberturas.
 
 En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la siguiente forma y ser jugados en orden:
@@ -145,17 +185,16 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
 
 ## Versión 1.1   
 
-Los niveles dispondrán de paredes de madera (no rompibles) y paredes de papel (rompibles). Están diseñados para que cruzar del lado en el que aparece el otro jugador sea complicado al ser una zona abierta, y esto es importante ya que no serán simétricos ni por tanto sus lados tendrán las mismas coberturas.
+Los niveles dispondrán de paredes de madera (no rompibles) y paredes de papel (rompibles). Están diseñados para que cruzar del lado en el que aparece el otro jugador sea complicado al ser una zona abierta, y esto es importante ya que no serán simétricos ni por tanto sus lados tendrán las mismas coberturas. El mundo creado para los niveles cambia dependiendo del resultado de las rondas anteriores. Por defecto, el mundo creado es 17x13 tiles, cada tile tiene 64 píxeles. Que un nivel tenga “Mundo inverso” quiere decir que se modifica dependiendo del jugador que gane la ronda.
 
-En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la siguiente forma y ser jugados en orden:
+En cuanto a estos se tiene pensado crear 6 niveles, que van a funcionar de la siguiente forma y ser jugados en orden:
 
-- Nivel 1: Es un nivel que no ofrece ninguna desventaja o ventaja a los jugadores.  
-- Nivel 2: Es un nivel que ofrece una pequeña desventaja a un jugador.  
-- Nivel 3: Es un nivel que ofrece una desventaja a ambos jugadores por lo tanto están en igualdad de condiciones.  
-- Nivel 4: Es un nivel que ofrece una desventaja a un jugador.  
-- Nivel 5: Es un nivel que ofrece una desventaja masiva a ambos jugadores, se tiene pensado hacer que sea con cierto grado de aleatoriedad en las coberturas centrales para que sea caótico.
-
-#### **Ejemplos de niveles**  
+- Nivel 1: 0-0, empate, equilibrio, no tiene mundo inverso. Tres barreras duras para cada jugador. Escenario 17x13.  
+- Nivel 2: 1-0, ligera desventaja para el jugador ganador. Tres barreras cada jugador. El jugador ganador cuenta con 1 pared de papel. Escenario 17x13.
+- Nivel 3: 1-1, empate, equilibrio, no tiene mundo inverso. Dos paredes duras y una de papel. Trinchera en medio. Escenario 15x11.
+- Nivel 4: 2-0, mucha desventaja para el jugador ganador. Tres paredes duras para el perdedor, una pared de papel para el ganador. Escenario 17x13.
+- Nivel 5: 2-1, ligera desventaja para el jugador ganador. Dos barreras por jugador, 1 pared de papel para ganador. Escenario 15x11.
+- Nivel 6: 2-2, empate, caos extremo, no tiene mundo inverso. Una cruz de paredes de papel. Escenario 13x9.
 
 - **Nivel 1:**  
 ![Nivel_1][image8]  
@@ -172,15 +211,20 @@ En cuanto a estos se tiene pensado crear 5 niveles, que van a funcionar de la si
 - **Power ups**  
 ![Power Ups][image14]
 
-## Sin cambios entre versión 1.0 y 1.1   
+## Versión 1.2
+Se ha creado también un nivel secreto en el que los jugadores podrán entrar durante la selección de power-ups. Hay una probabilidad muy baja de que aparezca el botón secreto. Este nivel está hecho de manera que, usando las mejoras escogidas anteriormente, el jugador que gane la ronda gana la partida, sin importar si estos van empate o alguno tiene ventaja. Ejemplo: si la partida va 2-0, se activa el botón secreto y gana la ronda el jugador 2, el jugador 2 ganará la partida.
+
+- **Nivel secreto:**
+![Nivel secreto][ver2-image10]
+
+ 
 ### [**Logros**](#índice)  
-	  
+## Sin cambios entre versiones  
 No se tiene pensado añadir sistema de logros.   
 
 
+### [**Audio**](#índice)  
 ## Versión 1.0   
-### [**Audio**](#índice)   
-
 - **Efectos de sonido**:   
   	Debido a la temática visual del juego, estos estarán relacionados con sonidos de cartones, maderas, papeles y corchos.  
     
@@ -206,9 +250,7 @@ No se tiene pensado añadir sistema de logros.
     
   De esta manera se logrará tener una música inmersiva al mundo ficticio del juego, mientras es una música suave, sin mucha relevancia. Un ejemplo de todo lo auditivo, ya que está inspirado en ello, sería el modo de tanques del Wii party.
 
-
 ## Versión 1.1   
-
 - **Efectos de sonido**:   
 
   Debido a la temática visual del juego, estos estarán relacionados con sonidos de cartones, maderas, papeles y corchos.
@@ -246,8 +288,8 @@ Su compás es 4/4 y tiene un ritmo y melodías alegres, está interpretado sobre
 - Part E [ParteE][song1-E]
 
 
-## Versión 1.0   
 ### [**Arte**](#índice)  
+## Versión 1.0   
 Al tratarse de juguetes creados por el niño, las referencias visuales que usamos son aquellos materiales que pueden tener a su alcance, siendo el cartón y el papel los principales:  
 Paredes madera  
 Paredes rompibles papel.  
@@ -290,8 +332,10 @@ Modelos de paredes de papel y cartón.
 - Tiles de juego:  
 ![TilesSpriteSheet][image24]  
 
-
-
+## Versión 1.2
+Se ha creado una fuente de texto personalizada, por lo que los botones y las interfaces han sido cambiados. Los nuevos botones e interfaces quedan de la siguiente manera:
+![Button][ver2-image11]
+![Interface][ver2-image12]
 
 Modelos de paredes de papel y cartón.  
 ### [**Herramientas utilizadas**](#índice)  
@@ -303,72 +347,82 @@ Software de gestión de versiones: GitHub desktop, Git Bash
 Software organizativo: Trello  
 Frameworks: Phaser 3  
 Software de presentaciones: Canva
+Software de traducción: Traductor de Google
 
 
-[Ver0-image1]: ImagenesJER/VerZero/mainmenu.png  
-[Ver0-image2]: ImagenesJER/VerZero/options.png  
-[Ver0-image3]: ImagenesJER/VerZero/gameplay.png  
-[Ver0-image4]: ImagenesJER/VerZero/pause.png  
-[Ver0-image5]: ImagenesJER/VerZero/win.png  
-[Ver0-image6]: ImagenesJER/VerZero/credits.png  
-[Ver0-image7]: ImagenesJER/VerZero/Navegacion_Hanabi_Tanks.png  
-[Ver0-image8]: ImagenesJER/VerZero/lv1.png  
-[Ver0-image9]: ImagenesJER/VerZero/lv2.png  
-[Ver0-image10]: ImagenesJER/VerZero/lv3.png  
-[Ver0-image11]: ImagenesJER/VerZero/lv4.png  
-[Ver0-image12]: ImagenesJER/VerZero/lv5.png  
-[Ver0-image13]: ImagenesJER/VerZero/BocetoTanques.png  
-[Ver0-image14]: ImagenesJER/VerZero/BocetoTanques2.png  
-[Ver0-image15]: ImagenesJER/VerZero/TanquesDeCarton.png  
-[Ver0-image16]: ImagenesJER/VerZero/Paredes.png  
+[Ver0-image1]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/mainmenu.png  
+[Ver0-image2]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/options.png  
+[Ver0-image3]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/gameplay.png  
+[Ver0-image4]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/pause.png  
+[Ver0-image5]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/win.png  
+[Ver0-image6]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/credits.png  
+[Ver0-image7]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/Navegacion_Hanabi_Tanks.png  
+[Ver0-image8]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/lv1.png  
+[Ver0-image9]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/lv2.png  
+[Ver0-image10]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/lv3.png  
+[Ver0-image11]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/lv4.png  
+[Ver0-image12]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/lv5.png  
+[Ver0-image13]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/BocetoTanques.png  
+[Ver0-image14]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/BocetoTanques2.png  
+[Ver0-image15]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/TanquesDeCarton.png  
+[Ver0-image16]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/Paredes.png  
+
+[audio1]: hanabi_tanks/src/main/resources/static/assets/Audio/SFX/Bullets/WallBounce.mp3
+[audio2]: hanabi_tanks/src/main/resources/static/assets/Audio/SFX/Bullets/WallBounce2.mp3
+[audio3]: hanabi_tanks/src/main/resources/static/assets/Audio/SFX/Bullets/DestroyBullet.mp3
+[audio4]: hanabi_tanks/src/main/resources/static/assets/Audio/SFX/Bullets/Shoot.mp3
+[audio5]: hanabi_tanks/src/main/resources/static/assets/Audio/SFX/Bullets/PaperDestroy.mp3
+
+[audio6]: hanabi_tanks/src/main/resources/static/assets/Audio/SFX/UI/EnterOverButton.mp3
+[audio7]: hanabi_tanks/src/main/resources/static/assets/Audio/SFX/UI/ExitOverButton.mp3
+[audio8]: hanabi_tanks/src/main/resources/static/assets/Audio/SFX/UI/ChangeMenu.mp3
+[audio9]: hanabi_tanks/src/main/resources/static/assets/Audio/SFX/Others/VictorySound.mp3
+
+[song1-A]: hanabi_tanks/src/main/resources/static/assets/Audio/Music/TanksParty_PART_A.mp3
+[song1-B]: hanabi_tanks/src/main/resources/static/assets/Audio/Music/TanksParty_PART_B.mp3
+[song1-C]: hanabi_tanks/src/main/resources/static/assets/Audio/Music/TanksParty_PART_C.mp3
+[song1-D]: hanabi_tanks/src/main/resources/static/assets/Audio/Music/TanksParty_PART_D.mp3
+[song1-E]: hanabi_tanks/src/main/resources/static/assets/Audio/Music/TanksParty_PART_E.mp3
+
+[image1]: hanabi_tanks/src/main/resources/static/ImagenesJER/MainMenu.png  
+[image2]: hanabi_tanks/src/main/resources/static/ImagenesJER/Options.png  
+[image3]: hanabi_tanks/src/main/resources/static/ImagenesJER/Level1.png  
+[image4]: hanabi_tanks/src/main/resources/static/ImagenesJER/Pause.png  
+[image5]: hanabi_tanks/src/main/resources/static/ImagenesJER/WinScreen.png  
+[image6]: hanabi_tanks/src/main/resources/static/ImagenesJER/Credits.png  
+
+[image7]: hanabi_tanks/src/main/resources/static/ImagenesJER/Navegacion_Hanabi_Tanks.png  
+
+[image8]: hanabi_tanks/src/main/resources/static/ImagenesJER/Level1.png  
+[image9]: hanabi_tanks/src/main/resources/static/ImagenesJER/Level2.png  
+[image10]: hanabi_tanks/src/main/resources/static/ImagenesJER/Level3.png  
+[image11]: hanabi_tanks/src/main/resources/static/ImagenesJER/Level4.png  
+[image12]: hanabi_tanks/src/main/resources/static/ImagenesJER/Level5.png  
+[image13]: hanabi_tanks/src/main/resources/static/ImagenesJER/Level6.png  
+[image14]: hanabi_tanks/src/main/resources/static/ImagenesJER/PowerUp.png  
+
+[image15]: hanabi_tanks/src/main/resources/static/ImagenesJER/TanksSpriteSheet.png  
+[image16]: hanabi_tanks/src/main/resources/static/ImagenesJER/BulletsSpriteSheet.png  
+[image17]: hanabi_tanks/src/main/resources/static/ImagenesJER/PowerUpsSpriteSheet.png
+
+[image18]: hanabi_tanks/src/main/resources/static/assets/UI/Buttons/back.png
+[image19]: hanabi_tanks/src/main/resources/static/assets/UI/Buttons/credits.png
+[image20]: hanabi_tanks/src/main/resources/static/assets/UI/Buttons/mainMenu.png
+[image21]: hanabi_tanks/src/main/resources/static/assets/UI/Buttons/options.png
+[image22]: hanabi_tanks/src/main/resources/static/assets/UI/Buttons/play.png
+[image23]: hanabi_tanks/src/main/resources/static/assets/UI/Buttons/volume.png
+[image24]: hanabi_tanks/src/main/resources/static/assets/TilesSpriteSheet.png
 
 
-
-[audio1]: assets/Audio/SFX/Bullets/WallBounce.mp3
-[audio2]: assets/Audio/SFX/Bullets/WallBounce2.mp3
-[audio3]: assets/Audio/SFX/Bullets/DestroyBullet.mp3
-[audio4]: assets/Audio/SFX/Bullets/Shoot.mp3
-[audio5]: assets/Audio/SFX/Bullets/PaperDestroy.mp3
-
-[audio6]: assets/Audio/SFX/UI/EnterOverButton.mp3
-[audio7]: assets/Audio/SFX/UI/ExitOverButton.mp3
-[audio8]: assets/Audio/SFX/UI/ChangeMenu.mp3
-[audio9]: assets/Audio/SFX/Others/VictorySound.mp3
-
-[song1-A]: assets/Audio/Music/TanksParty_PART_A.mp3
-[song1-B]: assets/Audio/Music/TanksParty_PART_B.mp3
-[song1-C]: assets/Audio/Music/TanksParty_PART_C.mp3
-[song1-D]: assets/Audio/Music/TanksParty_PART_D.mp3
-[song1-E]: assets/Audio/Music/TanksParty_PART_E.mp3
-
-[image1]: ImagenesJER/MainMenu.png  
-[image2]: ImagenesJER/Options.png  
-[image3]: ImagenesJER/Level1.png  
-[image4]: ImagenesJER/Pause.png  
-[image5]: ImagenesJER/WinScreen.png  
-[image6]: ImagenesJER/Credits.png  
-
-[image7]: ImagenesJER/Navegacion_Hanabi_Tanks.png  
-
-[image8]: ImagenesJER/Level1.png  
-[image9]: ImagenesJER/Level2.png  
-[image10]: ImagenesJER/Level3.png  
-[image11]: ImagenesJER/Level4.png  
-[image12]: ImagenesJER/Level5.png  
-[image13]: ImagenesJER/Level6.png  
-[image14]: ImagenesJER/PowerUp.png  
-
-[image15]: ImagenesJER/TanksSpriteSheet.png  
-[image16]: ImagenesJER/BulletsSpriteSheet.png  
-[image17]: ImagenesJER/PowerUpsSpriteSheet.png
-
-[image18]: assets/UI/Buttons/back.png
-[image19]: assets/UI/Buttons/credits.png
-[image20]: assets/UI/Buttons/mainMenu.png
-[image21]: assets/UI/Buttons/options.png
-[image22]: assets/UI/Buttons/play.png
-[image23]: assets/UI/Buttons/volume.png
-[image24]: assets/TilesSpriteSheet.png
-
-
-
+[ver2-image1]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerZero/mainmenu.png 
+[ver2-image2]: 
+[ver2-image3]: 
+[ver2-image4]: 
+[ver2-image5]: 
+[ver2-image6]: 
+[ver2-image7]: 
+[ver2-image8]: 
+[ver2-image9]: 
+[ver2-image10]: 
+[ver2-image11]: 
+[ver2-image12]: 
