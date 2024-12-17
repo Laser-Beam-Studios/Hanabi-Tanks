@@ -61,6 +61,19 @@ class Credits extends Phaser.Scene
                 color: blackColor
             } 
         },
+        "pepiurText2":
+        { 
+            pos: { x: 0.5, y: 0.65 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["creatorsText"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        },
         "hotdogText":
         { 
             pos: { x: 0.5, y: 0.75 },

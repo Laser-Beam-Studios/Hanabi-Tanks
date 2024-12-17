@@ -36,7 +36,8 @@
         "BackButton": "Volver",
         "alvarjimText": "Álvaro Jiménez Lozano: Traductor. Desarrollador de software.",
         "makarovText": "Álvaro Martín Hita: Guionista. Desarrollador de software.",
-        "pepiurText": "José Alejandro Sánchez Orozco: Artista Gráfico. Desarrollador de software.",
+        "pepiurText": "José Alejandro Sánchez Orozco: Artista Gráfico.",
+        "pepiurText2": "Desarrollador de software.",
         "hotdogText": "Iván García García: Artista de Sonido. Desarrollador de software.",
         "CreditsTitle": "Créditos"
     },
