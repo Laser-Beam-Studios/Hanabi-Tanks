@@ -61,7 +61,7 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado él mismo unas maquetas de tanques y escenarios a base de cortar y pintar cartones. El niño juega en su cuarto ilusionado, y lo que se ve en el juego es la visión e imaginación del niño cuando juega.
 
 ### [**Gameplay**](#índice)
-## No hay cambios entre versiones
+## Versión 1.0
 - **Cámara cenital**: La cámara se mantiene en una vista superior para que los jugadores puedan ver en todo momento el terreno y la locación tanto de su tanque como el del jugador rival.
 
 - **Mecánicas del tanque**:   
@@ -88,8 +88,12 @@ Todo lo que se ve en el juego es la imaginación de un niño, el cual ha creado 
 
 - **¿Cómo funciona el juego?**: Los jugadores comienzan una partida al mejor de 5 rondas con un tanque predefinido. Cuando una ronda acaba, los jugadores reciben mejoras para su tanque antes de empezar la siguiente ronda. El jugador que gana la ronda recibe una desventaja en su terreno para hacer el juego más divertido y equilibrado. En caso de que los jugadores se encuentren 2-2 en el marcador, no existirán desventajas para ninguno de los jugadores. El juego acaba cuando uno de los jugadores consigue acabar con el tanque enemigo 3 veces, es decir, cuando gana 3 rondas.
 
-## Versión 1.0   
+## Versión 1.2
+- **Controles**: El jugador podrá mover el tanque con las teclas ‘W’, ‘S’, ‘A’ y ‘D’, podrá disparar con la tecla “Espacio” o la tecla “R” cuando se trate de juego en línea. En caso de multijugador, el jugador 1  podrá mover el tanque con las teclas ‘W’, ‘S’, ‘A’ y ‘D’, podrá disparar con la tecla ‘R’ y el jugador 2 podrá mover el tanque con las teclas ‘I’, ‘K’, ‘J’ y ‘L’, podrá disparar con la tecla ‘P’.
+
 ### [**Interfaces**](#índice)   
+
+## Versión 1.0   
 Prototipos de las posibles interfaces:  
 **Main Menu:**  
 ![MainMenu][Ver0-image1]  
@@ -344,12 +348,13 @@ Modelos de paredes de papel y cartón.
 - Tiles de juego:  
 ![TilesSpriteSheet][image24]  
 
+Modelos de paredes de papel y cartón. 
+
 ## Versión 1.2
 Se ha creado una fuente de texto personalizada, por lo que los botones y las interfaces han sido cambiados. Los nuevos botones e interfaces quedan de la siguiente manera:
 ![Button][ver2-image16]
 ![Interface][ver2-image17]
 
-Modelos de paredes de papel y cartón.  
 ### [**Herramientas utilizadas**](#índice)  
 
 Software de dibujo: Clip Studio Paint  
