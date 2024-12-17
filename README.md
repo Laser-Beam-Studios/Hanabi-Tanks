@@ -26,7 +26,7 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 - [Gameplay](#gameplay)  
 - [Interfaces](#interfaces)  
 - [Estados](#estados)
-- [API REST](#apirest)  
+- [API REST](#api-rest)
 - [Niveles](#niveles)  
 - [Logros](#logros)  
 - [Audio](#audio)  
@@ -138,6 +138,7 @@ Interfaces del juego:
 ![Credits][ver2-image5]  
 **Tutorial:**  
 ![Tutorial][ver2-image12] 
+
 **User:**  
 ![User][ver2-image8] 
 
@@ -159,7 +160,7 @@ Interfaces del juego:
 ![States][ver2-image6]
 Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menú de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menú de pausa y si accediste desde el menú principal devuelve al menú principal.
 
-### [**API REST**](#índice)
+### [**API REST**](#índice) 
 
 ## Versión 1.2
 Para la realización de la API REST se ha utilizado SpringBoot, se han empleado al menos en una petición cada uno de los métodos principales de http (GET, PUT, POST, DELETE).
@@ -357,7 +358,7 @@ Software de edición de código: Visual Studio Code, Sublime Text, Visual Studio
 Software de gestión de versiones: GitHub desktop, Git Bash  
 Software organizativo: Trello  
 Frameworks: Phaser 3  
-Software de presentaciones: Canva
+Software de presentaciones: Canva   
 Software de traducción: Traductor de Google
 
 
