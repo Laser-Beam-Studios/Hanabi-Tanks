@@ -77,7 +77,7 @@ class UserScene extends Phaser.Scene
 
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
-        this.load.image("TrashImage", "../assets/UI/Buttons/volume.png");
+        this.load.image("TrashImage", "../assets/trash.png");
     }
 
     create() 
