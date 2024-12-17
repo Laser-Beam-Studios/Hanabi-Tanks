@@ -4,7 +4,7 @@ class Tutorial extends Phaser.Scene
     {
         "BackButton": 0.32,
         "TutorialTitle": 0.85,
-        "TutorialText": 0.25,
+        "TutorialText": 0.2,
         "ParagraphTitle": 0.32        
     }
     
@@ -96,7 +96,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp1":
         { 
-            pos: { x: 0.5, y: 0.50 },
+            pos: { x: 0.5, y: 0.75 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -108,7 +108,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp2":
         { 
-            pos: { x: 0.5, y: 0.55 },
+            pos: { x: 0.5, y: 0.50 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -120,7 +120,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp3":
         { 
-            pos: { x: 0.5, y: 0.60 },
+            pos: { x: 0.5, y: 0.55 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -132,7 +132,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp3_2":
         { 
-            pos: { x: 0.5, y: 0.65 },
+            pos: { x: 0.5, y: 0.60 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -144,7 +144,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp4":
         { 
-            pos: { x: 0.5, y: 0.70 },
+            pos: { x: 0.5, y: 0.65 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -156,7 +156,7 @@ class Tutorial extends Phaser.Scene
         },
         "PowerUp4_2":
         { 
-            pos: { x: 0.5, y: 0.75 },
+            pos: { x: 0.5, y: 0.70 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
