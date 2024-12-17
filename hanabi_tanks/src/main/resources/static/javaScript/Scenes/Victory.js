@@ -3,8 +3,9 @@ class Victory extends Phaser.Scene
     textsScale =
     {
         "BackButton": 0.32,
-        "PlayerText": 0.8,
-        "HistoryText": 0.8
+        "PlayerText": 0.6,
+        "UpgradesText": 0.6,
+        "VictoryText": 0.6
     }
     
     texts = 
@@ -12,7 +13,7 @@ class Victory extends Phaser.Scene
         "BackButton":
         { 
             pos: { x: 0.17, y: 0.94 },
-            center: { x: 0, y: 0.5 },
+            center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
             {
@@ -24,30 +25,43 @@ class Victory extends Phaser.Scene
         },
         "PlayerText":
         { 
-            pos: { x: 0.2, y: 0.35 },
-            center: { x: 0, y: 0.5 },
-            rotation: Phaser.Math.DegToRad(0),
-            style: 
-            {
-                fontFamily: font,
-                fontSize: String(WINDOW.HEIGHT * this.textsScale["PlayerText"] / textDivider) + "px",
-                //fontStyle: styleOptions.fontStyle.bold,
-                color: blackColor
-            } 
-        },
-        "HistoryText":
-        { 
-            pos: { x: 0.3, y: 0.8 },
+            pos: { x: 0.78, y: 0.25 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
-                fontSize: String(WINDOW.HEIGHT * this.textsScale["HistoryText"] / textDivider) + "px",
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["PlayerText"] / textDivider) + "px",
+                
+                color: blackColor
+            } 
+        },
+        "UpgradesText":
+        { 
+            pos: { x: 0.35, y: 0.75 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["UpgradesText"] / textDivider) + "px",
+                
+                color: blackColor
+            } 
+        },
+        "VictoryText":
+        { 
+            pos: { x: 0.78, y: 0.55 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["VictoryText"] / textDivider) + "px",
                 //fontStyle: styleOptions.fontStyle.bold,
                 color: blackColor
             } 
-        }
+        },
     }
     constructor() 
     {
@@ -83,7 +97,7 @@ class Victory extends Phaser.Scene
                 this.textsGroup = {};
                 Object.keys(this.texts).forEach((key) =>
                 {
-                    this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Credits", key), this.texts[key].style);
+                    this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Victory", key), this.texts[key].style);
                     this.textsGroup[key].setOrigin(this.texts[key].center.x, this.texts[key].center.y);
                     this.textsGroup[key].rotation = this.texts[key].rotation;
                     //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)

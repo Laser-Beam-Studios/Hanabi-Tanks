@@ -70,11 +70,34 @@ class Pause extends Phaser.Scene
     {
         WebFont.load({
             custom: {
-              families: ['FontChild'], 
-              urls: ['../../css/styles.css']
+                families: ['FontChild'], 
+                urls: ['../../css/styles.css']
             },
-            active: () => {
-              console.log("Font Loaded");
+            active: () => 
+            {
+                console.log("Font Loaded");
+
+                this.textsGroup = {};
+                // Ejemplo de crear textos
+                Object.keys(this.texts).forEach((key) =>
+                {
+                    this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Pause", key), this.texts[key].style);
+                    this.textsGroup[key].setOrigin(this.texts[key].center.x, this.texts[key].center.y);
+                    this.textsGroup[key].rotation = this.texts[key].rotation;
+                    //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
+                });
+                LanguageManager.getInstance().onLanguageChanged("Pause", () =>
+                {
+                    Object.keys(this.textsGroup).forEach((key) =>
+                    {
+                        this.textsGroup[key].text = LanguageManager.getInstance().getText("Pause", key);
+                    });
+                });
+
+                this.events.once("shutdown", () =>
+                {
+                    LanguageManager.getInstance().desubscribe("Pause");
+                });
             }
           });
           

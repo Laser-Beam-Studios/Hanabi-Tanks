@@ -2,7 +2,9 @@ class Credits extends Phaser.Scene
 {
     textsScale =
     {
-        "BackButton": 0.32
+        "BackButton": 0.32,
+        "creatorsText": 0.35,
+        "CreditsTitle": 0.85
     }
     
     texts = 
@@ -19,7 +21,72 @@ class Credits extends Phaser.Scene
                 //fontStyle: styleOptions.fontStyle.bold,
                 color: blackColor
             } 
-        }
+        },
+        "alvarjimText":
+        { 
+            pos: { x: 0.5, y: 0.3 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["creatorsText"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        },
+        "makarovText":
+        { 
+            pos: { x: 0.5, y: 0.45 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["creatorsText"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        },
+        "pepiurText":
+        { 
+            pos: { x: 0.5, y: 0.6 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["creatorsText"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        },
+        "hotdogText":
+        { 
+            pos: { x: 0.5, y: 0.75 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["creatorsText"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        },
+        "CreditsTitle":
+        { 
+            pos: { x: 0.25, y: 0.15 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(-4),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["CreditsTitle"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        },
     }
     constructor() 
     {
@@ -30,7 +97,7 @@ class Credits extends Phaser.Scene
     {
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
-        this.load.image("CreditsScreen", "../assets/UI/Screens/Creditos.png");
+        this.load.image("CreditsBackground", "../assets/UI/Screens/template.png");
     }
 
     create() 
@@ -67,8 +134,8 @@ class Credits extends Phaser.Scene
           
         AudioManager.Instance.SetActiveScene(this, false);        
 
-        const credits = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "CreditsScreen");        
-        Scaler.ScaleToGameH(credits, 0.85);
+        const credits = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "CreditsBackground");        
+        Scaler.ScaleToGameW(credits);
 
         const back = this.add.image(this.texts["BackButton"].pos.x * WINDOW.WIDHT, this.texts["BackButton"].pos.y * WINDOW.HEIGHT, "BackButton");
         Scaler.ScaleToGameW(back, this.textsScale["BackButton"]);
