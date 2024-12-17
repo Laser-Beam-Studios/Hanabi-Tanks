@@ -122,19 +122,20 @@ Interfaces del juego:
 ## Versión 1.2
 Interfaces del juego:
 **Register/Login Screen:**
-![MainMenu][ver2-image1]
+![Register][ver2-image13]
+![Login][ver2-image14]
 **Main Menu:**  
-![MainMenu][ver2-image2]  
+![MainMenu][ver2-image1]  
 **Options:**  
-![OptionsMenu][ver2-image3]  
+![OptionsMenu][ver2-image2]  
 **Gameplay:**  
-![Gameplay][ver2-image4]  
+![Gameplay][ver2-image15]  
 **Pause:**  
-![PauseMenu][ver2-image5]  
+![PauseMenu][ver2-image3]  
 **WinScreen:**  
-![WinScreen][ver2-image6]  
+![WinScreen][ver2-image4]  
 **Credits:**  
-![Credits][ver2-image7]  
+![Credits][ver2-image5]  
 
 
 ### [**Estados**](#índice)  
@@ -146,7 +147,7 @@ Interfaces del juego:
 ![States][image7]
 
 ## Versión 1.2
-![States][ver2-image8]
+![States][ver2-image6]
 Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menú de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menú de pausa y si accediste desde el menú principal devuelve al menú principal.
 
 ### [**API REST](#índice)
@@ -428,3 +429,4 @@ Software de traducción: Traductor de Google
 [ver2-image12]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/tutorial
 [ver2-image13]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/register
 [ver2-image14]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/login
+[ver2-image15]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/gameplay
