@@ -196,7 +196,7 @@ class Tutorial extends Phaser.Scene
 
         this.load.image("TutorialBackground", "../assets/UI/Screens/template.png");
         this.load.image("MainMenuButton", "../assets/UI/Buttons/mainMenu.png");
-        this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 128, frameHeight: 128 });
+        this.load.image("PowerUps", "../assets/PowerUpSpriteSheet.png");
     }
 
     create() 
@@ -234,6 +234,9 @@ class Tutorial extends Phaser.Scene
 
         const background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "TutorialBackground");
         Scaler.ScaleToGameW(background);
+
+        const powerups = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT*0.87, "PowerUps");
+        Scaler.ScaleToGameW(powerups, 0.4);
 
         const back = this.add.image(this.texts["BackButton"].pos.x * WINDOW.WIDHT, this.texts["BackButton"].pos.y * WINDOW.HEIGHT, "BackButton");
         Scaler.ScaleToGameW(back, this.textsScale["BackButton"]);
