@@ -70,5 +70,13 @@
         "PlayerText": "Jokalaria",
         "UpgradesText": "Hobekuntzaren historia",
         "VictoryText": "IRABAZI"
+    },
+    "Mode":
+    {
+        "BackButton": "Back",
+        "LocalButton": "Jokatu lokalean",
+        "OnlineButton": "Jokatu online",
+        "ModeTitle": "Mode",
+        "modeText": "Aukeratu jolastu nahi duzun modua."
     }
 }

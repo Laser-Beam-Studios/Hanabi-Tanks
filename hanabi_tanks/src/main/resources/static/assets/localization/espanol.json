@@ -70,5 +70,13 @@
         "PlayerText": "Jugador",
         "UpgradesText": "Historial de mejoras",
         "VictoryText": "GANA"
+    },
+    "Mode":
+    {
+        "BackButton": "Volver",
+        "LocalButton": "Jugar en local.",
+        "OnlineButton": "Jugar en línea.",
+        "ModeTitle": "Modo",
+        "modeText": "Escoge el modo que quieres jugar."
     }
 }

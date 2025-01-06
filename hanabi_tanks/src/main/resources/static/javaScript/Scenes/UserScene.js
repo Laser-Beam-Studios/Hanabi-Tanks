@@ -91,11 +91,11 @@ class UserScene extends Phaser.Scene
             active: () => {
                 if (!LanguageManager.getInstance().hasData())
                 {
-                    const enData = this.cache.json.get("localization_en");      
-                    const esData = this.cache.json.get("localization_es");
+                    //const enData = this.cache.json.get("localization_en");      
+                    //const esData = this.cache.json.get("localization_es");
                     
-                    LanguageManager.getInstance().loadLanguage("english", enData);
-                    LanguageManager.getInstance().loadLanguage("español", esData);
+                    //LanguageManager.getInstance().loadLanguage("english", enData);
+                    //LanguageManager.getInstance().loadLanguage("español", esData);
             
                     this.textsGroup = {};
                     // Ejemplo de crear textos
