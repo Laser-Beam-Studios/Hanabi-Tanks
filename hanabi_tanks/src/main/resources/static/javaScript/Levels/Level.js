@@ -179,6 +179,9 @@ class Level extends Phaser.Scene
 
         this.levelsNames = ["Level1", "Level2", "Level3", "Level4", "Level5", "Level6"];
         this.bouncesSounds = ["WallBounce", "WallBounce2"];
+
+        this.livesP1Group;
+        this.livesP2Group;
     }
 
     init (data) {
@@ -231,11 +234,12 @@ class Level extends Phaser.Scene
 
         // load the spriteSheet and 
         this.load.spritesheet("World", "../assets/TilesSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
-        this.load.spritesheet("Tanks", "../assets/TanksSpriteSheet.png", { frameWidth: 256, frameHeight: 256 });
+        this.load.spritesheet("Tank1", "../assets/TanksSpriteSheet.png", { frameWidth: 256, frameHeight: 256 });
+        this.load.spritesheet("Tank2", "../assets/TanksSpriteSheet2.png", { frameWidth: 256, frameHeight: 256 });
         this.load.spritesheet("Bullets", "../assets/BulletSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet("PowerUps", "../assets/PowerUpSpriteSheet.png", { frameWidth: 128, frameHeight: 128 });
-        this.load.image("lives_P1", "../assets/UI/Health/health1.png");
-        this.load.image("lives_P2", "../assets/UI/Health/health2.png");
+        this.load.image("livesP1", "../assets/UI/Health/health1.png");
+        this.load.image("livesP2", "../assets/UI/Health/health2.png");
 
         // SFX
         this.load.audio("DestroyBullet", "../assets/Audio/SFX/Bullets/DestroyBullet.mp3");
@@ -265,12 +269,14 @@ class Level extends Phaser.Scene
 
         this.InitWorldSprites();
         this.InitTankSprites();
+        this.InitLivesSprites();
         if (this.name == "PowerUp")
             this.InitPowerUps();
         this.InitColliders();
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
         this.input.keyboard.on("keyup", this.OnKeyReleased.bind(this));
+
         
         if (this.name != "PowerUp")
         {
@@ -430,7 +436,6 @@ class Level extends Phaser.Scene
     update(time, delta) 
     {
         this.CheckTankRotations();
-
         this.UpdateTanks();
 
         if (this.name != "PowerUp")
@@ -469,17 +474,17 @@ class Level extends Phaser.Scene
         //console.log(minutes + " minutes");
         seconds -= minutes * 60000;
         seconds = Math.ceil(seconds / 1000);
-        console.log(seconds);
+        //console.log(seconds);
         let secondsText = String(seconds);
         if (seconds == 60)
         {
             minutes++;
             secondsText = "00";
         }
-
         //console.log(seconds + " seconds");
         this.gameTimerText.text = String(minutes) + ":" + secondsText;
         return false;
+
     }
 
     CheckTankRotations()
@@ -684,17 +689,17 @@ class Level extends Phaser.Scene
         this.playersGroup = this.physics.add.group();
         if (this.player1 == null || this.name == "Level1")
         {
-            this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
-            this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", TankSprites.defaultCardBoard);
+            this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tank1", TankSprites.defaultCardBoard);
+            this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tank2", TankSprites.defaultCardBoard);
             this.player1.tank = new Tank();
             this.player2.tank = new Tank();
         }
         else
         {
             let p1 = this.player1, p2 = this.player2;
-            this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", p1.sprite);
+            this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tank1", p1.sprite);
             this.player1.tank = p1;
-            this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tanks", p2.sprite);
+            this.player2 = this.physics.add.sprite(posX2 + this.offset.x, posY + this.offset.y, "Tank2", p2.sprite);
             this.player2.tank = p2;
             //this.player2.setDepth(this.player2.depth + (this.n * this.m * 2));
             //this.player1 = this.physics.add.sprite(posX1 + this.offset.x, posY + this.offset.y, "Tanks", this.player1Tank.sprite);
@@ -710,6 +715,25 @@ class Level extends Phaser.Scene
         this.player2.tank.forward.x = -1;
     }
 
+    InitLivesSprites()
+    {
+        this.livesP1Group= this.add.group()
+        this.livesP2Group= this.add.group()
+        
+        this.posP1 = { x: 1, y: 0.05 };
+        this.posP2 = { x: 15, y: 0.05 };
+        for(let i = 0; i< this.player1.tank.maxHealth;i++){
+            let live = this.add.image(this.posP1.x * this.sizeOfTile + this.offset.x + 60*i, this.posP1.y * this.sizeOfTile + this.offset.y, "livesP2");
+            Scaler.ScaleToGameW(live, 0.05);
+            this.livesP1Group.add(live);
+        }
+        for(let i = 0; i< this.player2.tank.maxHealth;i++){
+            let live = this.add.image(this.posP2.x * this.sizeOfTile + this.offset.x*1/2 + -60*i, this.posP2.y * this.sizeOfTile + this.offset.y, "livesP1");
+            Scaler.ScaleToGameW(live, 0.05);
+            this.livesP2Group.add(live);
+        }
+    }
+
     InitColliders()
     {
         this.bulletsGroup = this.physics.add.group();
@@ -719,11 +743,13 @@ class Level extends Phaser.Scene
         this.physics.add.collider(this.playersGroup, this.bulletsGroup, (player, bullet) => 
         {
             this.TakeDamage(player, bullet);
+            this.UpdateLives(player);
             this.DestroyBullet(bullet, this.BounceBullet(bullet, player));
         });
         this.physics.add.collider(this.siderBulletsGroup, this.playersGroup, (bullet, player) =>
         {
             this.TakeDamage(player, bullet);
+            this.UpdateLives(player);
             this.DestroyBullet(bullet, this.BounceBullet(bullet, player));
         })
         this.physics.add.collider(this.siderBulletsGroup, this.levelWalls, (bullet, obstacle) =>
@@ -936,6 +962,29 @@ class Level extends Phaser.Scene
         }
 
         player.tank.health--;
+    }
+
+    UpdateLives(player)
+    {
+        console.log(this.livesP1Group);
+        console.log(this.livesP2Group);
+        if(this.player1 == player){
+            this.livesP1Group.destroy(true,true);
+            this.livesP1Group= this.add.group()
+            for(let i = 0; i< this.player1.tank.health;i++){
+                let live = this.add.image(this.posP1.x * this.sizeOfTile + this.offset.x + 60*i, this.posP1.y * this.sizeOfTile + this.offset.y, "livesP2");
+                Scaler.ScaleToGameW(live, 0.05);
+                this.livesP1Group.add(live);
+            }
+        }else{
+            this.livesP2Group.destroy(true,true);
+            this.livesP2Group= this.add.group()
+            for(let i = 0; i< this.player2.tank.health;i++){
+                let live = this.add.image(this.posP2.x * this.sizeOfTile + this.offset.x*1/2 + -60*i, this.posP2.y * this.sizeOfTile + this.offset.y, "livesP1");
+                Scaler.ScaleToGameW(live, 0.05);
+                this.livesP2Group.add(live);
+            }
+        }
     }
 
     GetNextLevel()
