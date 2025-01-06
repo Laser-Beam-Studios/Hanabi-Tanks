@@ -69,6 +69,14 @@
         "PlayerText": "Player",
         "UpgradesText": "Upgrades History",
         "VictoryText": "WINS"
+    },
+    "Mode":
+    {
+        "BackButton": "Back",
+        "LocalButton": "Play Offline",
+        "OnlineButton": "Play Online",
+        "ModeTitle": "Mode",
+        "modeText": "Choose the mode you want to play."
     }
 
 }

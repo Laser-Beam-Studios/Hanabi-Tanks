@@ -221,7 +221,7 @@ class MainMenu extends Phaser.Scene
         {
             case "PlayButton":
                 this.scene.stop("MainMenu");
-                this.scene.start("Level1");
+                this.scene.start("Mode");
                 break;
             case "CreditsButton":
                 this.scene.stop("MainMenu");
