@@ -6,7 +6,8 @@ class Mode extends Phaser.Scene
         "ModeTitle": 0.85,
         "BackButton": 0.32,
         "LocalButton": 0.32,
-        "OnlineButton": 0.32
+        "CreateLobby": 0.32,
+        "JoinLobby": 0.32,
     }
     
     texts = 
@@ -63,7 +64,7 @@ class Mode extends Phaser.Scene
                 color: blackColor
             } 
         },
-        "OnlineButton":
+        "CreateLobby":
         { 
             pos: { x: 0.7, y: 0.5 },
             center: { x: 0.5, y: 0.5 },
@@ -71,11 +72,24 @@ class Mode extends Phaser.Scene
             style: 
             {
                 fontFamily: font,
-                fontSize: String(WINDOW.HEIGHT * this.textsScale["OnlineButton"] / textDivider) + "px",
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["CreateLobby"] / textDivider) + "px",
                 //fontStyle: styleOptions.fontStyle.bold,
                 color: blackColor
             } 
-        }       
+        },
+        "JoinLobby":
+        { 
+            pos: { x: 0.5, y: 0.8 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["JoinLobby"] / textDivider) + "px",
+                //fontStyle: styleOptions.fontStyle.bold,
+                color: blackColor
+            } 
+        }     
     }
     constructor() 
     {
@@ -87,8 +101,10 @@ class Mode extends Phaser.Scene
         this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
 
         this.load.image("ModeBackground", "../assets/UI/Screens/template.png");
-        this.load.image("OnlineButton", "../assets/UI/Buttons/back.png");
+        this.load.image("CreateLobby", "../assets/UI/Buttons/back.png");
         this.load.image("LocalButton", "../assets/UI/Buttons/back.png");
+
+        this.load.html("InputCode", "../html/inputCode.html");
     }
 
     create() 
@@ -140,11 +156,55 @@ class Mode extends Phaser.Scene
         local.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         local.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
-        const online = this.add.image(this.texts["OnlineButton"].pos.x * WINDOW.WIDHT, this.texts["OnlineButton"].pos.y * WINDOW.HEIGHT, "OnlineButton");
-        Scaler.ScaleToGameW(online, this.textsScale["OnlineButton"]);
+        const online = this.add.image(this.texts["CreateLobby"].pos.x * WINDOW.WIDHT, this.texts["CreateLobby"].pos.y * WINDOW.HEIGHT, "CreateLobby");
+        Scaler.ScaleToGameW(online, this.textsScale["CreateLobby"]);
         online.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, online));
         online.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         online.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+
+        const join = this.add.image(this.texts["JoinLobby"].pos.x * WINDOW.WIDHT, this.texts["JoinLobby"].pos.y * WINDOW.HEIGHT, "JoinLobby");
+        Scaler.ScaleToGameW(online, this.textsScale["JoinLobby"]);
+        online.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, join));
+        online.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        online.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+
+        const inputCode = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT/2).createFromCache("LoginDom");
+        inputCode.addListener("click");
+
+        CommsManager.getInstance().addOrderCallback(Orders.CreatedLobby, false, (additionalInfo) =>
+        {            
+            AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
+            console.log(additionalInfo);
+            InterSceneDictionary.getInstance().add("lobbyCode", additionalInfo);
+            InterSceneDictionary.getInstance().update("host", true);
+            this.scene.stop("Mode");
+            this.scene.start("Lobby");
+        });
+
+        CommsManager.getInstance().addOrderCallback(Orders.JoinLobby, true, () =>
+        {
+            return this.code;
+        })
+
+        CommsManager.getInstance().addOrderCallback(Orders.JoinedLobby, false, (additionalInfo) =>
+        {
+            AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
+            console.log(additionalInfo);
+            InterSceneDictionary.getInstance().update("lobbyCode", additionalInfo);
+            InterSceneDictionary.getInstance().update("host", false);
+            this.scene.stop("Mode");
+            this.scene.start("Lobby");
+        });
+
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnected, false, () =>
+        {
+            AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
+            console.log(additionalInfo);
+            InterSceneDictionary.getInstance().update("lobbyCode", null);
+            InterSceneDictionary.getInstance().update("host", false);
+            this.scene.stop(this.key);
+            this.scene.start("MainMenu");
+        });
         
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
     }
@@ -192,11 +252,19 @@ class Mode extends Phaser.Scene
                 this.scene.stop("Mode");
                 this.scene.start("Level1");
                 break;
-            case "OnlineButton":
-                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
-                this.scene.stop("Mode");
-                this.scene.start("MainMenu");
-                break;    
+            case "CreateLobby":
+                CommsManager.getInstance().send(Orders.CreateLobby);
+                break; 
+            case "JoinLobby":
+                const code = inputCode.getChildByName("inputCode").value.value;
+
+                if (code) 
+                {       
+                    this.code = code;        
+                    CommsManager.getInstance().send(Orders.JoinLobby);
+                }
+                break;
+                
             default:
                 console.log("ERROR_IN_CLICK_BUTTON: UNKNOWN_BUTTON_KEY: " + button.texture.key);
                 break;

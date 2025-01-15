@@ -54,6 +54,7 @@ class Login extends Phaser.Scene
                         { 
                             if (status == "success")
                             {
+                                InterSceneDictionary.getInstance().add("nick", inputUsername);
                                 register.removeElement();
                                 login.visible = true; 
                                 login.active = true;

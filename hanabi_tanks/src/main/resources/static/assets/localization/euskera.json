@@ -75,7 +75,8 @@
     {
         "BackButton": "Back",
         "LocalButton": "Jokatu lokalean",
-        "OnlineButton": "Jokatu online",
+        "OnlineButton": "Gela bat sortu",
+        "JoinLobby": "Gela batean sartu",
         "ModeTitle": "Mode",
         "modeText": "Aukeratu jolastu nahi duzun modua."
     }
