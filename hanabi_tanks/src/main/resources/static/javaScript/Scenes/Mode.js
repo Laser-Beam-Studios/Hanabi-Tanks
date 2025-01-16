@@ -103,6 +103,8 @@ class Mode extends Phaser.Scene
         this.load.image("ModeBackground", "../assets/UI/Screens/template.png");
         this.load.image("CreateLobby", "../assets/UI/Buttons/back.png");
         this.load.image("LocalButton", "../assets/UI/Buttons/back.png");
+        this.load.image("JoinLobby", "../assets/UI/Buttons/back.png");
+
 
         this.load.html("InputCode", "../html/inputCode.html");
     }
@@ -163,12 +165,12 @@ class Mode extends Phaser.Scene
         online.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
         const join = this.add.image(this.texts["JoinLobby"].pos.x * WINDOW.WIDHT, this.texts["JoinLobby"].pos.y * WINDOW.HEIGHT, "JoinLobby");
-        Scaler.ScaleToGameW(online, this.textsScale["JoinLobby"]);
+        Scaler.ScaleToGameW(join, this.textsScale["JoinLobby"]);
         online.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, join));
         online.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         online.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
-        const inputCode = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT/2).createFromCache("LoginDom");
+        const inputCode = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT/2).createFromCache("InputCode");
         inputCode.addListener("click");
 
         CommsManager.getInstance().addOrderCallback(Orders.CreatedLobby, false, (additionalInfo) =>

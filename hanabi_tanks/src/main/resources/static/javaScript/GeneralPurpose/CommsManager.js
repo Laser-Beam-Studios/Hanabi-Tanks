@@ -14,7 +14,7 @@ class CommsManager
     constructor()
     {
         this.orderActionPairs = {};
-        this.connection = new WebSocket(COMMS_URL.slice(4, COMMS_URL.length));
+        this.connection = new WebSocket(COMMS_URL.slice(4, COMMS_URL.length - 1)[1] + "api/comms");
         this.connection.onopen = function () 
         {
             console.log("Connected");
@@ -42,8 +42,12 @@ class CommsManager
 
     addOrderCallback(order, sending, callback, update = false)
     {
+        if (!this.orderActionPairs[order])
+            this.orderActionPairs[order] = {};
+        
         if (!update && this.orderActionPairs[order][sending])
             return;
+
         this.orderActionPairs[order][sending] = callback;
     }
 

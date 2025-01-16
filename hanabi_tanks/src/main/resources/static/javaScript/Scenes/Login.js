@@ -7,7 +7,7 @@ class Login extends Phaser.Scene
 
     preload() 
     {
-        this.load.image("TemplateBackground", "../assets/UI/Screens/template.png")
+        this.load.image("TemplateBackground", "../assets/UI/Screens/template.png");
 
         this.load.html("LoginDom", "../html/Login.html");
         this.load.html("RegisterDom", "../html/Register.html");
