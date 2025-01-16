@@ -32,11 +32,11 @@ public class HanabiTanksApplication implements WebSocketConfigurer
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry)
 	{
-		registry.addHandler(creaTWebSocketHandler(), "/comms").setAllowedOrigins("*");
+		registry.addHandler(createWebSocketHandler(), "/api/comms").setAllowedOrigins("*");
 	}
 
 	@Bean
-	private HTWebSocketHandler creaTWebSocketHandler()
+	public HTWebSocketHandler createWebSocketHandler()
 	{
 		return new HTWebSocketHandler();
 	}

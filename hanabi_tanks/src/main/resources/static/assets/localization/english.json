@@ -74,7 +74,8 @@
     {
         "BackButton": "Back",
         "LocalButton": "Play Offline",
-        "OnlineButton": "Play Online",
+        "CreateLobby": "Create a lobby",
+        "JoinLobby": "Join to lobby",
         "ModeTitle": "Mode",
         "modeText": "Choose the mode you want to play."
     }
