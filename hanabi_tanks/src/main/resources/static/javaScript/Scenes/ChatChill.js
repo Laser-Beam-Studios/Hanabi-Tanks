@@ -1,5 +1,27 @@
 class ChatChill extends Phaser.Scene
 {
+    textsScale = 
+    {
+        "NumberOfUsers": 0.32
+    }
+
+    texts =
+    {
+        "NumberOfUsers": 
+        { 
+            pos: { x: 0.5, y: 0.98 },
+            center: { x: 0.5, y: 0.5 },
+            rotation: Phaser.Math.DegToRad(0),
+            style: 
+            {
+                fontFamily: font,
+                fontSize: String(WINDOW.HEIGHT * this.textsScale["NumberOfUsers"] / textDivider) + "px",
+                color: blackColor
+            } 
+       }
+    }
+
+
     constructor() 
     {
         super({ key: 'ChatChill' });
@@ -19,6 +41,9 @@ class ChatChill extends Phaser.Scene
 
         this.UpdateChatIntervalID;
         this.UpdateUsersIntervalID;
+
+        this.numberOfUsersText;
+        this.numberOfUsersTextConst;
     }
 
     init(data)
@@ -44,6 +69,52 @@ class ChatChill extends Phaser.Scene
 
     create()
     {
+        let THIS = this;
+
+        WebFont.load({
+            custom: {
+                families: ["FontChild"], 
+                urls: ["../../css/styles.css"]
+            },
+            active: () => {
+                if (!LanguageManager.getInstance().hasData())
+                {
+                    //const enData = this.cache.json.get("localization_en");      
+                    //const esData = this.cache.json.get("localization_es");
+                    
+                    //LanguageManager.getInstance().loadLanguage("english", enData);
+                    //LanguageManager.getInstance().loadLanguage("español", esData);
+            
+                    this.textsGroup = {};
+                    // Ejemplo de crear textos
+                    Object.keys(this.texts).forEach((key) =>
+                    {
+                        this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("ChatChill", key), this.texts[key].style);
+                        this.textsGroup[key].setOrigin(this.texts[key].center.x, this.texts[key].center.y);
+                        this.textsGroup[key].rotation = this.texts[key].rotation;
+                        //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
+                    });
+                    LanguageManager.getInstance().onLanguageChanged("ChatChill", () =>
+                    {
+                        Object.keys(this.textsGroup).forEach((key) =>
+                        {
+                            this.textsGroup[key].text = LanguageManager.getInstance().getText("ChatChill", key);
+                        });
+                    });
+
+                    THIS.numberOfUsersText = this.textsGroup["NumberOfUsers"];
+                    THIS.numberOfUsersTextConst = THIS.numberOfUsersText._text.repeat(1);
+
+
+                    this.events.once("shutdown", () =>
+                        {
+                            LanguageManager.getInstance().desubscribe("User");
+                        });
+                    }
+                }
+            });
+
+
         // AUDIO
         AudioManager.Instance.SetActiveScene(this);
 
@@ -52,9 +123,9 @@ class ChatChill extends Phaser.Scene
         this.musicController.SetCallBack("complete", this.OnMusicPartEnds.bind(this, "Tanks_Party_A"));
 
         // UI
-        this.connected = this.add.image((WINDOW.WIDHT * 13)/32, WINDOW.HEIGHT * 0.97, "Connected");
+        this.connected = this.add.image(WINDOW.WIDHT * 0.017, WINDOW.HEIGHT * 0.85, "Connected");
         Scaler.ScaleToGameW(this.connected, 0.04);
-        this.disconnected = this.add.image((WINDOW.WIDHT * 13)/32, WINDOW.HEIGHT * 0.97, "Disconnected");
+        this.disconnected = this.add.image(WINDOW.WIDHT * 0.017, WINDOW.HEIGHT * 0.85, "Disconnected");
         Scaler.ScaleToGameW(this.disconnected, 0.04);
 
         this.connected.visible = false;
@@ -132,6 +203,8 @@ class ChatChill extends Phaser.Scene
                 THIS.connected.visible = false;
                 THIS.disconnected.visible = true;
             }
+            THIS.numberOfUsersText.setText(THIS.numberOfUsersTextConst + connected);
+            console.log(THIS.numberOfUsersText._text);
         }).error(() =>
         {
             console.log("ERROR IN GET");
