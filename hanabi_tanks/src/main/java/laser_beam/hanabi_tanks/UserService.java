@@ -1,6 +1,7 @@
 package laser_beam.hanabi_tanks;
 
 import java.util.Optional;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ public class UserService
     public UserService(UserDAO userDAO)
     {
         this.userDAO = userDAO;
+    }
+
+    public ArrayList<UserDTO> getRanking(int sizeOfRanking)
+    {
+        return this.userDAO.getRanking(sizeOfRanking);
     }
 
     public List<String> getAllUsernames()

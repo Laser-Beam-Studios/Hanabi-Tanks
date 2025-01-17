@@ -81,6 +81,22 @@ public class UserDAO
         }
     }
 
+    public ArrayList<UserDTO> getRanking(int sizeOfRanking)
+    {
+        List<User> users = getAllUsersInDisk();
+
+        ArrayList<UserDTO> usersInTheRanking = new ArrayList<UserDTO>();
+
+        users.sort((user1, user2) -> user2.getNumberOfVictories() - user1.getNumberOfVictories());
+
+        for (int i = 0; i < sizeOfRanking && i < users.size(); i++)
+        {
+            usersInTheRanking.add(new UserDTO(users.get(i)));
+        }
+
+        return usersInTheRanking;
+    }
+
     public List<String> getAllUsernames()
     {
         var readlock = this.lock.readLock();
