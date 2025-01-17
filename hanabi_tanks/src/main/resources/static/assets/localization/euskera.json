@@ -83,5 +83,9 @@
     "Lobby":
     {
         "LobbyText": "Atondoa"
+    },
+    "ChatChill":
+    {
+        "NumberOfUsers": "Erabiltzaile Kopurua: "
     }
 }

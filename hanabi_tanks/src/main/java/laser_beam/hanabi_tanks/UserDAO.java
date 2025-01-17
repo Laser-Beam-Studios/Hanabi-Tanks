@@ -310,7 +310,6 @@ public class UserDAO
             userDTO.setLastSeen(time);
             // modify the user
             this.users.put(userDTO.getUsername(), new User(userDTO, this.getUserPassword(username)));
-            System.out.println(this.users.size());
             // Create the new User object for modify the json, if it's the same username
             objectMapper.writeValue(file, this.users.get(userDTO.getUsername()));
             return time;

@@ -83,5 +83,9 @@
     "Lobby":
     {
         "LobbyText": "Sala"
+    },
+    "ChatChill":
+    {
+        "NumberOfUsers": "Numero de usuarios: "
     }
 }
