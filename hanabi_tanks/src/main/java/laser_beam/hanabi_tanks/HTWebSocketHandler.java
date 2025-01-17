@@ -86,17 +86,10 @@ public class HTWebSocketHandler extends TextWebSocketHandler
         JsonNode node;
         switch ((node = (new ObjectMapper()).readTree(message.getPayload())).get("code").asInt())
         {
-            case 0 -> // Join Lobby
+            case 0 -> // Create Lobby
             {
-                String newLobby = node.get("additionalInfo").asText();
-                String oldLobby = sessions.put(session, newLobby);
-                lobbies.get(oldLobby).remove(session);
-                lobbies.get(newLobby).add(session);
-                session.sendMessage(new TextMessage((new ObjectMapper()).createObjectNode().put("code", joinedLobbyCode).put("additionalInfo", newLobby).asText()));
-            }
-
-            case 1 -> // Create Lobby
-            {
+                // try
+                // {                
                 boolean exists;
                 String lobbyCode;
                 do { 
@@ -104,15 +97,32 @@ public class HTWebSocketHandler extends TextWebSocketHandler
                     exists = lobbies.containsKey(lobbyCode);
                 } while (exists);
                 sessions.put(session, lobbyCode);
-                lobbies.put(lobbyCode, new HashSet<>()).add(session);
-                session.sendMessage(new TextMessage((new ObjectMapper()).createObjectNode().put("code", createdLobbyCode).put("additionalInfo", lobbyCode).asText()));
+                lobbies.put(lobbyCode, new HashSet<>());
+                lobbies.get(lobbyCode).add(session);
+                session.sendMessage(new TextMessage((new ObjectMapper()).createObjectNode().put("code", createdLobbyCode).put("additionalInfo", lobbyCode).toString()));
+                // }
+                // catch (Exception e)
+                // {
+                //     e.printStackTrace();
+                // } 
                 return;
             }
 
-            case 2 -> // Abandon Lobby
+            case 2 -> // Join Lobby
+            {
+                String newLobby = node.get("additionalInfo").asText();
+                String oldLobby = sessions.put(session, newLobby);
+                lobbies.get(oldLobby).remove(session);
+                lobbies.get(newLobby).add(session);
+                session.sendMessage(new TextMessage((new ObjectMapper()).createObjectNode().put("code", joinedLobbyCode).put("additionalInfo", lobbies.get(newLobby).size()).toString()));
+                break;
+            }            
+
+            case 4 -> // Abandon Lobby
             {
                 lobbies.get(sessions.remove(session)).remove(session);
-                session.sendMessage(new TextMessage((new ObjectMapper()).createObjectNode().put("code", abandonedLobbyCode).asText()));
+                session.sendMessage(new TextMessage((new ObjectMapper()).createObjectNode().put("code", abandonedLobbyCode).toString()));
+                break;
             }
         }
         

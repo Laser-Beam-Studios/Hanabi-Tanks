@@ -323,7 +323,6 @@ class Options extends Phaser.Scene
         MusicVolumeSlide.setInteractive().on("drag", (pointer, dragX, dragY) => { this.OnDragSlide(dragX, MusicVolumeSlide, "Music"); });
         this.input.setDraggable(MusicVolumeSlide, true);
 
-
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
 
         

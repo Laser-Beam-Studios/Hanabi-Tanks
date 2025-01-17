@@ -101,8 +101,9 @@ class Pause extends Phaser.Scene
             }
           });
           
-        AudioManager.Instance.SetActiveScene(this, false);
+        AudioManager.Instance.SetActiveScene(this, false);        
 
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, null);
 
         const background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "PauseBackground");
         Scaler.ScaleToGameW(background);
@@ -173,6 +174,7 @@ class Pause extends Phaser.Scene
                 this.scene.launch("Options", {scene: "Pause"});
                 break;
             case "MainMenuButton":
+                CommsManager.getInstance().send(Orders.Disconnect);
                 AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 this.scene.stop("Pause");
                 this.scene.stop(this.lastScene);

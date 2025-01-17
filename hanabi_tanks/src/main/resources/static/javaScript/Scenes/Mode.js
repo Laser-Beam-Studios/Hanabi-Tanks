@@ -166,19 +166,22 @@ class Mode extends Phaser.Scene
 
         const join = this.add.image(this.texts["JoinLobby"].pos.x * WINDOW.WIDHT, this.texts["JoinLobby"].pos.y * WINDOW.HEIGHT, "JoinLobby");
         Scaler.ScaleToGameW(join, this.textsScale["JoinLobby"]);
-        online.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, join));
-        online.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
-        online.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+        join.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, join));
+        join.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
+        join.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
-        const inputCode = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT/2).createFromCache("InputCode");
-        inputCode.addListener("click");
+        this.inputCode = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT/2).createFromCache("InputCode");
+        this.inputCode.addListener("click");
+
+        CommsManager.getInstance().addOrderCallback(Orders.CreateLobby, true, null);
 
         CommsManager.getInstance().addOrderCallback(Orders.CreatedLobby, false, (additionalInfo) =>
         {            
             AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
             console.log(additionalInfo);
-            InterSceneDictionary.getInstance().add("lobbyCode", additionalInfo);
+            InterSceneDictionary.getInstance().update("lobbyCode", additionalInfo);
             InterSceneDictionary.getInstance().update("host", true);
+            InterSceneDictionary.getInstance().update("numPlayers", 1);
             this.scene.stop("Mode");
             this.scene.start("Lobby");
         });
@@ -192,21 +195,21 @@ class Mode extends Phaser.Scene
         {
             AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
             console.log(additionalInfo);
-            InterSceneDictionary.getInstance().update("lobbyCode", additionalInfo);
+            InterSceneDictionary.getInstance().update("numPlayers", additionalInfo);
             InterSceneDictionary.getInstance().update("host", false);
             this.scene.stop("Mode");
             this.scene.start("Lobby");
         });
 
-        CommsManager.getInstance().addOrderCallback(Orders.Disconnected, false, () =>
-        {
-            AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
-            console.log(additionalInfo);
-            InterSceneDictionary.getInstance().update("lobbyCode", null);
-            InterSceneDictionary.getInstance().update("host", false);
-            this.scene.stop(this.key);
-            this.scene.start("MainMenu");
-        });
+        // CommsManager.getInstance().addOrderCallback(Orders.Disconnected, false, () =>
+        // {
+        //     AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
+        //     console.log(additionalInfo);
+        //     InterSceneDictionary.getInstance().update("lobbyCode", null);
+        //     InterSceneDictionary.getInstance().update("host", false);
+        //     this.scene.stop(this.key);
+        //     this.scene.start("MainMenu");
+        // });
         
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
     }
@@ -258,11 +261,12 @@ class Mode extends Phaser.Scene
                 CommsManager.getInstance().send(Orders.CreateLobby);
                 break; 
             case "JoinLobby":
-                const code = inputCode.getChildByName("inputCode").value.value;
+                const code = this.inputCode.getChildByName("lobbyCode").value.value;
 
                 if (code) 
                 {       
                     this.code = code;        
+                    InterSceneDictionary.getInstance().update("")
                     CommsManager.getInstance().send(Orders.JoinLobby);
                 }
                 break;
