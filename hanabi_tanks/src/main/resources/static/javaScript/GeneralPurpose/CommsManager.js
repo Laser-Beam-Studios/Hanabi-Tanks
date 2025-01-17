@@ -13,6 +13,7 @@ class CommsManager
 {
     constructor()
     {
+        let THIS = this;
         this.orderActionPairs = {};
         this.connection = new WebSocket(COMMS_URL.slice(4, COMMS_URL.length - 1)[1] + "api/comms");
         this.connection.onopen = function () 
@@ -20,16 +21,18 @@ class CommsManager
             console.log("Connected");
         }
 
-        this.onerror = function (e)
+        this.connection.onerror = function (e)
         {
             console.log(e);
         }
 
-        this.onmessage = function (msg)
+        this.connection.onmessage = function (msg)
         {
-            let message = JSON.parse(msg);
-            if (this.orderActionPairs[message.code][false])
-                this.orderActionPairs[message.code][false](additionalInfo);
+            let message = JSON.parse(msg.data);
+            console.log(message);
+            console.log(THIS.orderActionPairs)
+            if (THIS.orderActionPairs[message.code][false])
+                THIS.orderActionPairs[message.code][false](message.additionalInfo);
         }
     }
 
@@ -44,15 +47,16 @@ class CommsManager
     {
         if (!this.orderActionPairs[order])
             this.orderActionPairs[order] = {};
-        
+
         if (!update && this.orderActionPairs[order][sending])
             return;
 
         this.orderActionPairs[order][sending] = callback;
     }
 
-    sendOrder(order)
+    send(order)
     {
-        this.connection.send({ code: order, additionalInfo: this.orderActionPairs[order][true]?.()});
+        console.log(order);
+        this.connection.send(JSON.stringify({ code: order, additionalInfo: this.orderActionPairs[order]?.[true]?.()}));
     }
 }

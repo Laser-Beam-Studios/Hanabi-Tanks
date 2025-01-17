@@ -79,5 +79,9 @@
         "JoinLobby": "Gela batean sartu",
         "ModeTitle": "Mode",
         "modeText": "Aukeratu jolastu nahi duzun modua."
+    },
+    "Lobby":
+    {
+        "LobbyText": "Atondoa"
     }
 }

@@ -78,6 +78,9 @@
         "JoinLobby": "Join to lobby",
         "ModeTitle": "Mode",
         "modeText": "Choose the mode you want to play."
+    },
+    "Lobby":
+    {
+        "LobbyText": "Lobby"
     }
-
 }

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-HanabiTanksApplication<hanabi_tanks>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "laser_beam.hanabi_tanks.HanabiTanksApplication",
+            "projectName": "hanabi_tanks",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

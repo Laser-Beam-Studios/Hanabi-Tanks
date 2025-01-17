@@ -79,5 +79,9 @@
         "JoinLobby": "Uniser a una sala",
         "ModeTitle": "Modo",
         "modeText": "Escoge el modo que quieres jugar."
+    },
+    "Lobby":
+    {
+        "LobbyText": "Sala"
     }
 }
