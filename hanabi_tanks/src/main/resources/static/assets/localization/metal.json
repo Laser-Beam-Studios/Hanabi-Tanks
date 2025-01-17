@@ -1,0 +1,86 @@
+{
+    "MainMenu":
+    {
+        "PlayButton": "Bonk Blay",
+        "OptionsButton": "Bonktions",
+        "CreditsButton": "Bonk Bleople",
+        "TutorialButton": "Bonk Noob",
+        "UserButton": "BonkMe"
+    },
+    "Options":
+    {
+        "OptionsTitle": "Options",
+        "AudioTitle": "Audio",
+        "MasterOption": "Master",
+        "SFXOption": "SFX",
+        "MusicOption": "Music",
+        "ControlsTitle": "Controls",
+        "UpOption": "Up",
+        "DownOption": "Down",
+        "RightOption": "Right",
+        "LeftOption": "Left",
+        "ShootOption": "Shoot",
+        "BackButton": "Back",
+        "P1Column": "P1",
+        "P2Column": "P2"
+    },
+    "User":
+    {
+        "BackButton": "Back",
+        "UserText": "Username: ",
+        "Victories": "Victories: ",
+        "Title": "Account"
+    },
+    "Credits":
+    {
+        "BackButton": "Back",
+        "alvarjimText": "Álvaro Jiménez Lozano:  Translator. Software Developer.",
+        "makarovText": "Álvaro Martín Hita: Screenwriter. Software Developer.",
+        "pepiurText": "José Alejandro Sánchez Orozco: Graphic designer.",
+        "pepiurText2": "Software developer.",
+        "hotdogText": "Iván García García: Audio engineer. Software developer.",
+        "CreditsTitle": "Credits"
+    },
+    "Tutorial":
+    {
+        "BackButton": "Back",
+        "TutorialTitle": "Tutorial",
+        "HowToPlay": "Game approach:",
+        "HowToPlayText": "An arcade tank game where 2 players must duel. The first player to win 3 rounds wins the game.",
+        "HowToPlayText2": "Between rounds, players will be able to choose different random upgrades for their tank.",
+        "PowerUp1": "Good Cardboard: Increases tank health by 1 point.",
+        "PowerUpTitle": "POWER-UPS:",
+        "PowerUp2": "Elastic Cork Bullets: The bullets bounce once again, but have a lower cadence.",
+        "PowerUp3": "Hard Cork Bullets: Bullets deal 1 point of extra damage, but cannot be coupled with elastic cork bullets.",
+        "PowerUp3_2":"They break the paper walls with one shot.",
+        "PowerUp4": "Cider Cork Bullets: The bullets are much faster, but have less cadence.",
+        "PowerUp4_2": "They go through the paper walls.",
+        "PowerUp5": "Corkscrew: Increases rate of fire, but cannot be combined with cider cork bullets."
+    },
+    "Pause":
+    {
+        "BackButton": "Back",
+        "OptionsButton": "Options",
+        "MainMenuButton": "Main Menu"
+    },
+    "Victory":
+    {
+        "BackButton": "Back",
+        "PlayerText": "Player",
+        "UpgradesText": "Upgrades History",
+        "VictoryText": "WINS"
+    },
+    "Mode":
+    {
+        "BackButton": "Back",
+        "LocalButton": "Play Offline",
+        "CreateLobby": "Create a lobby",
+        "JoinLobby": "Join to lobby",
+        "ModeTitle": "Mode",
+        "modeText": "Choose the mode you want to play."
+    },
+    "Lobby":
+    {
+        "LobbyText": "Lobby"
+    }
+}
