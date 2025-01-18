@@ -108,7 +108,7 @@ class ChatChill extends Phaser.Scene
 
                     this.events.once("shutdown", () =>
                         {
-                            LanguageManager.getInstance().desubscribe("User");
+                            LanguageManager.getInstance().desubscribe("ChatChill");
                         });
                     }
                 }

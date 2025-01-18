@@ -5,7 +5,8 @@
         "OptionsButton": "Bonktions",
         "CreditsButton": "Bonk Bleople",
         "TutorialButton": "Bonk Noob",
-        "UserButton": "BonkMe"
+        "UserButton": "BonkMe",
+        "Ranking": "Bonkers"
     },
     "Options":
     {
@@ -82,5 +83,11 @@
     "Lobby":
     {
         "LobbyText": "Bonkbby"
+    },
+    "Ranking":
+    {
+        "BackButton": "Unbonk",
+        "Title": "Bonkers",
+        "playerTemplate": ""
     }
 }

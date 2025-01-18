@@ -5,7 +5,8 @@
         "OptionsButton": "Options",
         "CreditsButton": "Credits",
         "TutorialButton": "Tutorial",
-        "UserButton": "Account"
+        "UserButton": "Account",
+        "Ranking": "Ranking"
     },
     "Options":
     {
@@ -86,5 +87,11 @@
     "ChatChill":
     {
         "NumberOfUsers": "Number Of Users: "
+    },
+    "Ranking":
+    {
+        "BackButton": "Back",
+        "Title": "Ranking",
+        "playerTemplate": ""
     }
 }
