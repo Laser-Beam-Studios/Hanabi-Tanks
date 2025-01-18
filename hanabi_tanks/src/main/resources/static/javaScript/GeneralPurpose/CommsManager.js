@@ -6,7 +6,16 @@ const Orders =
     JoinedLobby: 3,
     Disconnect: 4,
     Disconnected: 5,
-    StartGame: 6
+    StartGame: 6,
+    MoveForward: 7,
+    Stop: 8,
+    MoveBackward: 9,
+    MoveAngleA: 10,
+    MoveAngleD: 11,
+    StopAngle: 12,
+    TankShoot: 13,
+    ChangeLevel: 14,
+    EndGame: 15
 }
 
 class CommsManager

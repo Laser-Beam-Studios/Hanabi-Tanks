@@ -296,8 +296,195 @@ class Level extends Phaser.Scene
                 callbackScope: this
             });
         }
-        else
+        else{
             this.canPlay = true;
+        }
+        if(InterSceneDictionary.getInstance().get("online"))
+        {
+            if (InterSceneDictionary.getInstance().get("host"))
+        {
+            const THIS = this;
+            //MoveForward
+            CommsManager.getInstance().addOrderCallback(Orders.MoveForward, true, () =>
+                {
+                    this.MoveTank(this.player1, true);
+                    return this.player1.tank.actualSpeed;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.MoveForward, false, (additionalInfo) =>
+                {
+                    this.player2.tank.actualSpeed = additionalInfo;
+                },true)
+
+            //MoveBackward
+            CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, true, () =>
+                {
+                    this.MoveTank(this.player1, false);
+                    return this.player1.tank.actualSpeed;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, false, (additionalInfo) =>
+                {
+                    this.player2.tank.actualSpeed = additionalInfo;
+                },true)
+
+            //STOP
+            CommsManager.getInstance().addOrderCallback(Orders.Stop, true, () =>
+                {
+                    this.player1.tank.actualSpeed = 0.0;
+                    return this.player1.tank.actualSpeed;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.Stop, false, (additionalInfo) =>
+                {
+                    this.player2.tank.actualSpeed = additionalInfo;
+                },true)
+
+            //MOVEANGLE
+            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, true, () =>
+                {
+                    this.player1Rotating = true;
+                    this.player1Rotate = -1
+                    console.log(this);
+                    let info = [this.player1Rotating, this.player1Rotate];
+                    return info;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, false, (additionalInfo) =>
+                {
+                    this.player2Rotating = additionalInfo[0];
+                    this.player2Rotate = additionalInfo[1];
+                    console.log(additionalInfo[1]);
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, true, () =>
+                {
+                    this.player1Rotating = true;
+                    this.player1Rotate = 1
+                    let info = [this.player1Rotating, this.player1Rotate];
+                    return info;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, false, (additionalInfo) =>
+                {
+                    this.player2Rotating = additionalInfo[0];
+                    this.player2Rotate = additionalInfo[1];
+                    console.log(additionalInfo[1]);
+                },true)
+
+
+            CommsManager.getInstance().addOrderCallback(Orders.StopAngle, true, () =>
+                {
+                    this.player1Rotating = false;
+                    this.player1Rotate = 0;
+                    let info = [this.player1Rotating, this.player1Rotate];
+                    return info;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.StopAngle, false, (additionalInfo) =>
+                {
+                    this.player2Rotating = additionalInfo[0];
+                    this.player2Rotate = additionalInfo[1];
+                },true)
+
+
+
+            CommsManager.getInstance().addOrderCallback(Orders.TankShoot, true, () =>
+                {
+                    this.Shoot(this.player1);
+                    return true;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.TankShoot, false, (additionalInfo) =>
+                {
+                    if(additionalInfo)
+                    {this.Shoot(this.player2);}
+                },true)
+
+        }
+        else
+        {
+            //MoveForward
+            CommsManager.getInstance().addOrderCallback(Orders.MoveForward, true, () =>
+                {
+                    this.MoveTank(this.player2, true);
+                    return this.player2.tank.actualSpeed;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.MoveForward, false, (additionalInfo) =>
+                {
+                    this.player1.tank.actualSpeed = additionalInfo;
+                },true)
+
+            //MoveBackward
+            CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, true, () =>
+                {
+                    this.MoveTank(this.player2, false);
+                    return this.player2.tank.actualSpeed;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, false, (additionalInfo) =>
+                {
+                    this.player1.tank.actualSpeed = additionalInfo;
+                },true)
+
+            //STOP
+            CommsManager.getInstance().addOrderCallback(Orders.Stop, true, () =>
+                {
+                    this.player2.tank.actualSpeed = 0.0;
+                    return this.player2.tank.actualSpeed;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.Stop, false, (additionalInfo) =>
+                {
+                    this.player1.tank.actualSpeed = additionalInfo;
+                },true)
+
+
+            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, true, () =>
+                {
+                    this.player2Rotating = true;
+                    this.player2Rotate = -1
+                    let info = [this.player2Rotating, this.player2Rotate];
+                    return info;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, false, (additionalInfo) =>
+                {
+                    this.player1Rotating = additionalInfo[0];
+                    this.player1Rotate = additionalInfo[1];
+                    console.log(additionalInfo[1]);
+                },true)
+
+            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, true, () =>
+                {
+                    this.player2Rotating = true;
+                    this.player2Rotate = 1
+                    let info = [this.player2Rotating, this.player2Rotate];
+                    return info;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, false, (additionalInfo) =>
+                {
+                    this.player1Rotating = additionalInfo[0];
+                    this.player1Rotate = additionalInfo[1];
+                    console.log(additionalInfo[1]);
+                },true)
+
+
+            CommsManager.getInstance().addOrderCallback(Orders.StopAngle, true, () =>
+                {
+                    this.player2Rotating = false;
+                    this.player2Rotate = 0;
+                    let info = [this.player2Rotating, this.player2Rotate];
+                    return info;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.StopAngle, false, (additionalInfo) =>
+                {
+                    this.player1Rotating = additionalInfo[0];
+                    this.player1Rotate = additionalInfo[1];
+                },true)
+
+            CommsManager.getInstance().addOrderCallback(Orders.TankShoot, true, () =>
+                {
+                    this.Shoot(this.player2);
+                    let confirm = true;
+                    return confirm;
+                },true)
+            CommsManager.getInstance().addOrderCallback(Orders.TankShoot, false, (additionalInfo) =>
+                {
+                    if(additionalInfo)
+                    {this.Shoot(this.player1);}
+                },true)
+
+        }}
     }
 
 
@@ -339,8 +526,8 @@ class Level extends Phaser.Scene
             console.log("Chat open so don't move");
             return;
         }
-      
-        switch(key.keyCode)
+        if(!InterSceneDictionary.getInstance().get("online"))
+        {switch(key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.ESC:
                 this.scene.pause(this.name);
@@ -348,11 +535,11 @@ class Level extends Phaser.Scene
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.W:
-                this.MoveTank(this.player1, true);
+               this.MoveTank(this.player1, true);
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.S:
-                this.MoveTank(this.player1, false);
+                this.MoveTank(this.player1, false);   
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.A:
@@ -385,6 +572,29 @@ class Level extends Phaser.Scene
 
             default:
                 break;
+        }}
+        else
+        {
+            switch(key.keyCode)
+            {case Phaser.Input.Keyboard.KeyCodes.W:
+               {
+                CommsManager.getInstance().send(Orders.MoveForward);}
+                break;
+
+            case Phaser.Input.Keyboard.KeyCodes.S:
+                {
+                    CommsManager.getInstance().send(Orders.MoveBackward);
+                }
+                break;
+
+            case Phaser.Input.Keyboard.KeyCodes.A:
+                {
+                CommsManager.getInstance().send(Orders.MoveAngleA);}
+                break;
+
+            case Phaser.Input.Keyboard.KeyCodes.D:
+                CommsManager.getInstance().send(Orders.MoveAngleD);
+                break;}
         }
     }
 
@@ -398,8 +608,8 @@ class Level extends Phaser.Scene
             console.log("Chat open so don't move");
             return;
         }
-      
-        switch (key.keyCode)
+        if(!InterSceneDictionary.getInstance().get("online"))
+        {switch (key.keyCode)
         {
             case Phaser.Input.Keyboard.KeyCodes.W:
             case Phaser.Input.Keyboard.KeyCodes.S:
@@ -430,6 +640,23 @@ class Level extends Phaser.Scene
             case Phaser.Input.Keyboard.KeyCodes.P:
                 this.Shoot(this.player2);
                 break;
+        }}
+        else
+        {
+            switch (key.keyCode)
+        {
+            case Phaser.Input.Keyboard.KeyCodes.W:
+            case Phaser.Input.Keyboard.KeyCodes.S:
+                CommsManager.getInstance().send(Orders.Stop);
+                break;
+            case Phaser.Input.Keyboard.KeyCodes.D:
+            case Phaser.Input.Keyboard.KeyCodes.A:
+                CommsManager.getInstance().send(Orders.StopAngle);
+                break;
+            case Phaser.Input.Keyboard.KeyCodes.R:
+                CommsManager.getInstance().send(Orders.TankShoot);
+                break;
+        }
         }
     }
 
