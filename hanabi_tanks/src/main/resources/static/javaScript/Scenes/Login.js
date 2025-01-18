@@ -66,7 +66,8 @@ class Login extends Phaser.Scene
             }
             else if (event.target.name === "goToLogin")
             {
-                register.removeElement();
+                register.visible = false;
+                register.active = false;
                 login.visible = true; 
                 login.active = true;
             }
@@ -74,7 +75,7 @@ class Login extends Phaser.Scene
 
         login.on("click", function(event)
         {
-            if (event.target.name === 'loginButton')
+            if (event.target.name === "loginButton")
             {
                 const inputUsername = login.getChildByName("username").value;
                 const inputPassword = login.getChildByName("password").value;
@@ -99,6 +100,13 @@ class Login extends Phaser.Scene
                         },
                     });
                 }
+            }
+            else if (event.target.name === "goToRegister")
+            {
+                register.visible = true;
+                register.active = true;
+                login.visible = false;
+                login.active = false;
             }
 
         });
