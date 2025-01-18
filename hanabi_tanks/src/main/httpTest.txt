@@ -55,4 +55,4 @@ GET http://localhost:8080/api/chat?since=0&username=Pepe HTTP/1.1
 
 
 
-GET http://localhost:8080/api/users/ranking?sizeOfRanking=10 HTTP/1.1
+GET http://localhost:8080/api/users/ranking?sizeOfRanking=3 HTTP/1.1
