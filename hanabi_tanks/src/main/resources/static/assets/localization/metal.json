@@ -9,78 +9,78 @@
     },
     "Options":
     {
-        "OptionsTitle": "Options",
-        "AudioTitle": "Audio",
-        "MasterOption": "Master",
-        "SFXOption": "SFX",
-        "MusicOption": "Music",
-        "ControlsTitle": "Controls",
-        "UpOption": "Up",
-        "DownOption": "Down",
-        "RightOption": "Right",
-        "LeftOption": "Left",
-        "ShootOption": "Shoot",
-        "BackButton": "Back",
-        "P1Column": "P1",
-        "P2Column": "P2"
+        "OptionsTitle": "Bonktions",
+        "AudioTitle": "Bonks",
+        "MasterOption": "Bonk-sama",
+        "SFXOption": "SBS",
+        "MusicOption": "Beat Bonk",
+        "ControlsTitle": "Key Bonks",
+        "UpOption": "Bonkup",
+        "DownOption": "Bonkown",
+        "RightOption": "Bonkcrab",
+        "LeftOption": "Bonkleven",
+        "ShootOption": "Big Bonk",
+        "BackButton": "Unbonk",
+        "P1Column": "Goonk",
+        "P2Column": "Baonk"
     },
     "User":
     {
-        "BackButton": "Back",
-        "UserText": "Username: ",
-        "Victories": "Victories: ",
-        "Title": "Account"
+        "BackButton": "Unbonk",
+        "UserText": "Bonkyou: ",
+        "Victories": "Bonkies: ",
+        "Title": "Bonkme"
     },
     "Credits":
     {
-        "BackButton": "Back",
-        "alvarjimText": "Álvaro Jiménez Lozano:  Translator. Software Developer.",
-        "makarovText": "Álvaro Martín Hita: Screenwriter. Software Developer.",
-        "pepiurText": "José Alejandro Sánchez Orozco: Graphic designer.",
-        "pepiurText2": "Software developer.",
-        "hotdogText": "Iván García García: Audio engineer. Software developer.",
-        "CreditsTitle": "Credits"
+        "BackButton": "Unbonk",
+        "alvarjimText": "Bonkvaro Bonkménez Lozbonk:  Bonkish Bonkxpert. Bonksware Bonker.",
+        "makarovText": "Bonkvaro Martbonk Blonk: Bonkriter. Bonksware Bonker.",
+        "pepiurText": "Benk Bonkandro Sánbez Obonko: Bonkphic Bonker.",
+        "pepiurText2": "Bonksware Bonker.",
+        "hotdogText": "Ibonk Bonkcía Bonkcía: Bonks Bonkxpert. Bonksware Bonker.",
+        "CreditsTitle": "Bonk Bleople"
     },
     "Tutorial":
     {
-        "BackButton": "Back",
-        "TutorialTitle": "Tutorial",
-        "HowToPlay": "Game approach:",
-        "HowToPlayText": "An arcade tank game where 2 players must duel. The first player to win 3 rounds wins the game.",
-        "HowToPlayText2": "Between rounds, players will be able to choose different random upgrades for their tank.",
-        "PowerUp1": "Good Cardboard: Increases tank health by 1 point.",
-        "PowerUpTitle": "POWER-UPS:",
-        "PowerUp2": "Elastic Cork Bullets: The bullets bounce once again, but have a lower cadence.",
-        "PowerUp3": "Hard Cork Bullets: Bullets deal 1 point of extra damage, but cannot be coupled with elastic cork bullets.",
-        "PowerUp3_2":"They break the paper walls with one shot.",
-        "PowerUp4": "Cider Cork Bullets: The bullets are much faster, but have less cadence.",
-        "PowerUp4_2": "They go through the paper walls.",
-        "PowerUp5": "Corkscrew: Increases rate of fire, but cannot be combined with cider cork bullets."
+        "BackButton": "Unbonk",
+        "TutorialTitle": "Bonk Noob",
+        "HowToPlay": "Bonk Bonking:",
+        "HowToPlayText": "A bonkade bank bonkplay where 2 bonkyers must bonk. The bonkone bonkyer to bonky 3 bonkounds bonkies the bonkplay.",
+        "HowToPlayText2": "Bonkween bonkounds, bonkyers will be bankble to bonktion banklike bankdom bonkbetters for their bank.",
+        "PowerUp1": "Goonk Bonkboard: Bonkstonks bank bonkhits by 1 boint.",
+        "PowerUpTitle": "BONKBETTERS:",
+        "PowerUp2": "Bonklastic Bork Bonkshots: The bonkshots bounkce once bankgain, bonkbad have a bonkown bonkdence.",
+        "PowerUp3": "Bahrd Bork Bonkshots: Bonkshots bonk 1 boint of bonktra bonkhurt, bonkbad bonknot be bonkpaired with bonklastic bork bonkshots.",
+        "PowerUp3_2":"They bronk the bankper bonklls with 1 binkt.",
+        "PowerUp4": "Binkder Bork Bonkshots: The Bonkshots are bonkmore bonkter, bonkbad have bonkown bonkdence.",
+        "PowerUp4_2": "They bonkve boughnk the bankper bonklls.",
+        "PowerUp5": "Borkscrew: Bonkstonks bonkdence, bonkbad bonknot be bonkpaired with binkder bork bonkshots."
     },
     "Pause":
     {
-        "BackButton": "Back",
-        "OptionsButton": "Options",
-        "MainMenuButton": "Main Menu"
+        "BackButton": "Unbonk",
+        "OptionsButton": "Bonktions",
+        "MainMenuButton": "Main Bonk-enu"
     },
     "Victory":
     {
-        "BackButton": "Back",
-        "PlayerText": "Player",
-        "UpgradesText": "Upgrades History",
-        "VictoryText": "WINS"
+        "BackButton": "Unbonk",
+        "PlayerText": "bonkyer",
+        "UpgradesText": "Bonkbetters Bonklore",
+        "VictoryText": "BONKIES"
     },
     "Mode":
     {
-        "BackButton": "Back",
-        "LocalButton": "Play Offline",
-        "CreateLobby": "Create a lobby",
-        "JoinLobby": "Join to lobby",
-        "ModeTitle": "Mode",
-        "modeText": "Choose the mode you want to play."
+        "BackButton": "Unbonk",
+        "LocalButton": "Blanky Bonkal",
+        "CreateLobby": "Bonkdo a bonkbby",
+        "JoinLobby": "Boink to bonkbby",
+        "ModeTitle": "Bode",
+        "modeText": "Bonktion the bode you bant to blanky."
     },
     "Lobby":
     {
-        "LobbyText": "Lobby"
+        "LobbyText": "Bonkbby"
     }
 }
