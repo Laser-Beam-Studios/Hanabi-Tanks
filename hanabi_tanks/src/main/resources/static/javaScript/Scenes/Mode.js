@@ -173,6 +173,8 @@ class Mode extends Phaser.Scene
         this.inputCode = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT/2).createFromCache("InputCode");
         this.inputCode.addListener("click");
 
+        InterSceneDictionary.getInstance().add("online", false);
+
         CommsManager.getInstance().addOrderCallback(Orders.CreateLobby, true, null);
 
         CommsManager.getInstance().addOrderCallback(Orders.CreatedLobby, false, (additionalInfo) =>
@@ -256,13 +258,14 @@ class Mode extends Phaser.Scene
                 AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 this.scene.stop("Mode");
                 this.scene.start("Level1");
+
                 break;
             case "CreateLobby":
                 CommsManager.getInstance().send(Orders.CreateLobby);
                 break; 
             case "JoinLobby":
-                const code = this.inputCode.getChildByName("lobbyCode").value.value;
-
+                const code = this.inputCode.getChildByName("lobbyCode").value;
+                console.log(code);
                 if (code) 
                 {       
                     this.code = code;        
