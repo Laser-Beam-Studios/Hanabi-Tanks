@@ -87,7 +87,8 @@
     },
     "ChatChill":
     {
-        "NumberOfUsers": "Erabiltzaile Kopurua: "
+        "NumberOfUsers": "Erabiltzaile Kopurua: ",
+        "NoConnected": "Lineaz Kanpo"
     },
     "Ranking":
     {

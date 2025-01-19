@@ -86,7 +86,8 @@
     },
     "ChatChill":
     {
-        "NumberOfUsers": "Number Of Users: "
+        "NumberOfUsers": "Number Of Users: ",
+        "NoConnected": "Without Conexion"
     },
     "Ranking":
     {

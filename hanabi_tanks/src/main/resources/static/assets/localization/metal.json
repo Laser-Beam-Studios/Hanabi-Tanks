@@ -86,7 +86,8 @@
     },
     "ChatChill":
     {
-        "NumberOfUsers": "Benkers bonketted: "
+        "NumberOfUsers": "Benkers bonketted: ",
+        "NoConnected": "Bonker banklone"
     },
     "Ranking":
     {
