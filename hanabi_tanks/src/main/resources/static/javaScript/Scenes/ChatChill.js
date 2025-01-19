@@ -69,6 +69,8 @@ class ChatChill extends Phaser.Scene
 
     preload()
     {
+        this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
+
         this.load.html("ChatDom", "../html/Chat.html");
 
         // Connected and disconnected UI
@@ -168,6 +170,11 @@ class ChatChill extends Phaser.Scene
 
         this.UpdateChat(this);  // For fecth the messages at the start
         this.UpdateUsersConnected(this) // The same reason but with the logos of conneted or disconnected
+
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+            {
+                return this.scene.key;
+            }, true)
     }
 
     SendMessage(username)

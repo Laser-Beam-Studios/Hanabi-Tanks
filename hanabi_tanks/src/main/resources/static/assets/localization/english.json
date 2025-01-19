@@ -82,7 +82,11 @@
     },
     "Lobby":
     {
-        "LobbyText": "Lobby"
+        "LobbyText": "Lobby",
+        "StartGame": "Start game",
+        "BackButton": "Back",
+        "CodeText": "Lobby code: ",
+        "NumPlayers": "Players in lobby: "
     },
     "ChatChill":
     {

@@ -213,6 +213,20 @@ class MainMenu extends Phaser.Scene
         userBut.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         userBut.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnected, false, (additionalInfo) =>
+            {
+                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
+                InterSceneDictionary.getInstance().update("lobbyCode", null);
+                InterSceneDictionary.getInstance().update("host", false);
+                this.scene.stop(additionalInfo);
+                this.scene.start("MainMenu");
+            });
+
+            CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+                {
+                    return this.scene.key;
+                }, true)
+
         const rankingButton = this.add.image(this.texts["Ranking"].pos.x * WINDOW.WIDHT, this.texts["Ranking"].pos.y * WINDOW.HEIGHT, "RankingButton");
         Scaler.ScaleToGameW(rankingButton, this.textsScale["Ranking"]);
         rankingButton.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, rankingButton));

@@ -6,36 +6,42 @@ const Orders =
     JoinedLobby: 3,
     Disconnect: 4,
     Disconnected: 5,
-    StartGame: 6,
-    MoveForward: 7,
-    Stop: 8,
-    MoveBackward: 9,
-    MoveAngleA: 10,
-    MoveAngleD: 11,
-    StopAngle: 12,
-    TankShoot: 13,
-    ChangeLevel: 14,
-    EndGame: 15
+    Host: 6,
+    StartGame: 7
+    MoveForward: 8,
+    Stop: 9,
+    MoveBackward: 10,
+    MoveAngleA: 11,
+    MoveAngleD: 12,
+    StopAngle: 13,
+    TankShoot: 14,
+    ChangeLevel: 15,
+    EndGame: 16
 }
 
 class CommsManager
 {
     constructor()
     {
-        let THIS = this;
         this.orderActionPairs = {};
+        this.connect();
+    }
+
+    connect()
+    {        
+        let THIS = this;
         this.connection = new WebSocket(COMMS_URL.slice(4, COMMS_URL.length - 1)[1] + "api/comms");
         this.connection.onopen = function () 
         {
             console.log("Connected");
         }
 
-        this.connection.onerror = function (e)
+        this.connection.onerror = (e) =>
         {
             console.log(e);
         }
 
-        this.connection.onmessage = function (msg)
+        this.connection.onmessage = (msg) =>
         {
             let message = JSON.parse(msg.data);
             console.log(message);
@@ -43,7 +49,13 @@ class CommsManager
             if (THIS.orderActionPairs[message.code][false])
                 THIS.orderActionPairs[message.code][false](message.additionalInfo);
         }
-    }
+
+        this.connection.onclose = () =>
+        {
+            console.error("Disconneecting");
+            THIS.orderActionPairs[Orders.Disconnected][false]();
+        }
+    } 
 
     static getInstance()
     {
@@ -54,6 +66,7 @@ class CommsManager
 
     addOrderCallback(order, sending, callback, update = false)
     {
+        console.log("adding");
         if (!this.orderActionPairs[order])
             this.orderActionPairs[order] = {};
 
@@ -65,7 +78,15 @@ class CommsManager
 
     send(order)
     {
+        try{
         console.log(order);
-        this.connection.send(JSON.stringify({ code: order, additionalInfo: this.orderActionPairs[order]?.[true]?.()}));
+        console.log(this.orderActionPairs);
+        let msg = { code: order, additionalInfo: this.orderActionPairs[order]?.[true]?.()};
+        console.log(msg);
+        this.connection.send(JSON.stringify(msg));
+        }
+        catch (e){
+            console.error(e);
+        }
     }
 }

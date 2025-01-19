@@ -28,6 +28,11 @@ class Login extends Phaser.Scene
 
         var scene = this.scene;
 
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+            {
+                return this.scene.key;
+            }, true)
+
         register.on("click", function(event)
         {
             if (event.target.name === 'registerButton')

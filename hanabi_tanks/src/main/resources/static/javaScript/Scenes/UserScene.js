@@ -157,6 +157,11 @@ class UserScene extends Phaser.Scene
 
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
+
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+            {
+                return this.scene.key;
+            }, true)
     }
 
     OnKeyPressed(key)
