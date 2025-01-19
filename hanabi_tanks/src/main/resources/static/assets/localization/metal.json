@@ -84,6 +84,10 @@
     {
         "LobbyText": "Bonkbby"
     },
+    "ChatChill":
+    {
+        "NumberOfUsers": "Benkers bonketted: "
+    },
     "Ranking":
     {
         "BackButton": "Unbonk",

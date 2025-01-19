@@ -16,8 +16,9 @@ class ChatChill extends Phaser.Scene
             {
                 fontFamily: font,
                 fontSize: String(WINDOW.HEIGHT * this.textsScale["NumberOfUsers"] / textDivider) + "px",
-                color: blackColor
-            } 
+                color: "#ffffff",
+                backgroundColor: "#a79a88"
+            }
        }
     }
 
@@ -100,6 +101,7 @@ class ChatChill extends Phaser.Scene
                         {
                             this.textsGroup[key].text = LanguageManager.getInstance().getText("ChatChill", key);
                         });
+                        THIS.numberOfUsersTextConst = THIS.numberOfUsersText._text.repeat(1);
                     });
 
                     THIS.numberOfUsersText = this.textsGroup["NumberOfUsers"];
@@ -145,7 +147,7 @@ class ChatChill extends Phaser.Scene
         this.messages = $("#messages");
 
         this.UpdateChatIntervalID = setInterval(this.UpdateChat, 2000, this);
-        this.UpdateUsersIntervalID = setInterval(this.UpdateUsersConnected, 2000, this);
+        this.UpdateUsersIntervalID = setInterval(this.UpdateUsersConnected, 1000, this);
 
         this.UpdateChat(this);  // For fecth the messages at the start
         this.UpdateUsersConnected(this) // The same reason but with the logos of conneted or disconnected

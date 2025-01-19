@@ -29,7 +29,7 @@ class MainMenu extends Phaser.Scene
     {
         "PlayButton": 
         { 
-            pos: { x: 0.82, y: 0.69 },
+            pos: { x: 0.82, y: 0.65 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -41,7 +41,7 @@ class MainMenu extends Phaser.Scene
        },
        "OptionsButton": 
        { 
-            pos: { x: 0.82, y: 0.75 },
+            pos: { x: 0.82, y: 0.71 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -53,7 +53,7 @@ class MainMenu extends Phaser.Scene
         },
         "CreditsButton": 
         { 
-            pos: { x: 0.82, y: 0.81 },
+            pos: { x: 0.82, y: 0.77 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -65,7 +65,7 @@ class MainMenu extends Phaser.Scene
         },
         "TutorialButton": 
         { 
-            pos: { x: 0.82, y: 0.87 },
+            pos: { x: 0.82, y: 0.83 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -78,7 +78,7 @@ class MainMenu extends Phaser.Scene
         },
         "UserButton": 
         { 
-            pos: { x: 0.82, y: 0.93 },
+            pos: { x: 0.82, y: 0.89 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -90,7 +90,7 @@ class MainMenu extends Phaser.Scene
         },
         "Ranking":
         {
-            pos: { x: 0.82, y: 0.99 },
+            pos: { x: 0.82, y: 0.95 },
             center: { x: 0.5, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
@@ -125,7 +125,7 @@ class MainMenu extends Phaser.Scene
         this.load.image("TutorialButton", "../assets/UI/Buttons/tutorial.png");
         this.load.image("UserButton", "../assets/UI/Buttons/account.png");
         this.load.image("BackButton", "../assets/UI/Buttons/back.png"); // This is load here for used in the other menu scenes
-        this.load.image("RankingButton", "../assets/UI/Buttons/back.png");
+        this.load.image("RankingButton", "../assets/UI/Buttons/options.png");
         
 
         // SFX
@@ -214,7 +214,7 @@ class MainMenu extends Phaser.Scene
         userBut.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
         const rankingButton = this.add.image(this.texts["Ranking"].pos.x * WINDOW.WIDHT, this.texts["Ranking"].pos.y * WINDOW.HEIGHT, "RankingButton");
-        Scaler.ScaleToGameW(userBut, this.textsScale["Ranking"]);
+        Scaler.ScaleToGameW(rankingButton, this.textsScale["Ranking"]);
         rankingButton.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, rankingButton));
         rankingButton.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         rankingButton.setInteractive().on("pointerout", this.OnPointerExit.bind(this));

@@ -3,7 +3,7 @@ class Ranking extends Phaser.Scene
     textsScale =
     {
         "BackButton": 0.32,
-        "Title": 0.32,
+        "Title": 0.4,
         "players": 0.32
     }
     texts = 
@@ -22,9 +22,9 @@ class Ranking extends Phaser.Scene
         },
         "Title":
         { 
-            pos: { x: 0.5, y: 0.06 },
+            pos: { x: 0.25, y: 0.15 },
             center: { x: 0.5, y: 0.5 },
-            rotation: Phaser.Math.DegToRad(0),
+            rotation: Phaser.Math.DegToRad(-6.5),
             style: 
             {
                 fontFamily: font,
@@ -34,8 +34,8 @@ class Ranking extends Phaser.Scene
         },
         "playerTemplate":
         { 
-            pos: { x: 0.4, y: 0.1 },
-            center: { x: 0.5, y: 0.5 },
+            pos: { x: 0.35, y: 0.25 },
+            center: { x: 0.0, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
             {
@@ -51,6 +51,7 @@ class Ranking extends Phaser.Scene
         super({ key: 'Ranking' });
         this.textsGroup = {};
         this.sizeOfRanking = 10;
+        this.rankingInterval;
     }
 
     preload() 
@@ -114,6 +115,8 @@ class Ranking extends Phaser.Scene
         back.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
+
+        this.rankingInterval = setInterval(this.LoadRanking, 2000, this);
     }
 
     OnPointerEnter()
@@ -153,19 +156,14 @@ class Ranking extends Phaser.Scene
             {
                 if (status == "success")
                 {
-                    console.log(data);
-                    console.log(data[0].username);
+                    console.log("Ranking updated");
                     for (var i = 0; i < THIS.sizeOfRanking; i++)
                     {
-                        //THIS.textsGroup[i.toString()].setText();
+                        if (i < data.length) THIS.textsGroup[i.toString()].setText((i + 1).toString() + ": " + data[i].username + " : " + data[i].numberOfVictories);
+                        else THIS.textsGroup[i.toString()].setText("");
                     }
                 }
             });
-    }
-
-    PrintRanking()
-    {
-
     }
 
     OnClickOnButton(button)
