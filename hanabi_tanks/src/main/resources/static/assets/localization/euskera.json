@@ -5,7 +5,8 @@
         "OptionsButton": "Aukerak",
         "CreditsButton": "Kredituak",
         "TutorialButton": "Tutoretza",
-        "UserButton": "Kontua"
+        "UserButton": "Kontua",
+        "Ranking": "Sailkapena"
     },
     "Options":
     {
@@ -73,7 +74,7 @@
     },
     "Mode":
     {
-        "BackButton": "Back",
+        "BackButton": "Itzuli",
         "LocalButton": "Jokatu lokalean",
         "OnlineButton": "Gela bat sortu",
         "JoinLobby": "Gela batean sartu",
@@ -87,5 +88,11 @@
     "ChatChill":
     {
         "NumberOfUsers": "Erabiltzaile Kopurua: "
+    },
+    "Ranking":
+    {
+        "BackButton": "Itzuli",
+        "Title": "Ranking",
+        "playerTemplate": ""
     }
 }
