@@ -85,7 +85,7 @@ class Lobby extends Phaser.Scene
         const lobby = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "TemplateBackground");        
         Scaler.ScaleToGameW(lobby);
         
-
+        InterSceneDictionary.getInstance().update("online", true);
 
         if (InterSceneDictionary.getInstance().get("host"))
         {
@@ -115,6 +115,14 @@ class Lobby extends Phaser.Scene
                 InterSceneDictionary.getInstance().update("numPlayers", this.numPlayersNumber);
                 this.numPlayers.text = String(this.numPlayersNumber);
             })
+            
+        }
+        else{
+            CommsManager.getInstance().addOrderCallback(Orders.StartGame,false,()=>
+            {
+                this.scene.stop("Lobby");
+                this.scene.start("Level1");
+            })
         }        
     }
 
@@ -140,7 +148,7 @@ class Lobby extends Phaser.Scene
                 AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 CommsManager.getInstance().send(Orders.StartGame);
                 this.scene.stop("Lobby");
-                this.scene.start("MainMenu");
+                this.scene.start("Level1");
                 break;
                 
             default:
