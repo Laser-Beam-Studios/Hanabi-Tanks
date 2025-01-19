@@ -164,6 +164,9 @@ Interfaces del juego:
 ![States][ver2-image6]
 Es importante destacar que el menú de opciones solo tiene un botón de back, y este sirve tanto para ir al menú principal como al menú de pausa, esto dependerá del estado del juego, si accediste al menú de opciones a través del menú de pausa, devuelve al menú de pausa y si accediste desde el menú principal devuelve al menú principal.
 
+## Versión 1.3
+![States][ver3-image6]
+
 ### [**API REST**](#índice) 
 
 ## Versión 1.2
@@ -448,3 +451,5 @@ Software de traducción: Traductor de Google
 [ver2-image15]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/gameplay.png
 [ver2-image16]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/button.png
 [ver2-image17]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/menu.png
+
+[ver3-image6]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerThree/estados.png
