@@ -32,7 +32,7 @@ public class UserController
     public UserController(UserService userService)
     {
         this.userService = userService;
-        this.maxTimeSinceLastSeen = 30; // is in seconds
+        this.maxTimeSinceLastSeen = 3; // is in seconds
     }
 
     @GetMapping("/ranking")
