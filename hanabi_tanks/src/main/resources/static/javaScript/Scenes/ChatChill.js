@@ -2,15 +2,16 @@ class ChatChill extends Phaser.Scene
 {
     textsScale = 
     {
-        "NumberOfUsers": 0.32
+        "NumberOfUsers": 0.32,
+        "NoConnected": 0.32
     }
 
     texts =
     {
         "NumberOfUsers": 
         { 
-            pos: { x: 0.5, y: 0.98 },
-            center: { x: 0.5, y: 0.5 },
+            pos: { x: 0.385, y: 0.98 },
+            center: { x: 0.0, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
             {
@@ -19,6 +20,19 @@ class ChatChill extends Phaser.Scene
                 color: "#ffffff",
                 backgroundColor: "#a79a88"
             }
+       },
+       "NoConnected":
+       {
+            pos: { x: 0.385, y: 0.98 },
+                center: { x: 0.0, y: 0.5 },
+                rotation: Phaser.Math.DegToRad(0),
+                style: 
+                {
+                    fontFamily: font,
+                    fontSize: String(WINDOW.HEIGHT * this.textsScale["NoConnected"] / textDivider) + "px",
+                    color: "#ffffff",
+                    backgroundColor: "#a79a88"
+                }
        }
     }
 
@@ -45,6 +59,7 @@ class ChatChill extends Phaser.Scene
 
         this.numberOfUsersText;
         this.numberOfUsersTextConst;
+        this.noConnectedText;
     }
 
     init(data)
@@ -106,7 +121,9 @@ class ChatChill extends Phaser.Scene
 
                     THIS.numberOfUsersText = this.textsGroup["NumberOfUsers"];
                     THIS.numberOfUsersTextConst = THIS.numberOfUsersText._text.repeat(1);
-
+                    THIS.noConnectedText = this.textsGroup["NoConnected"];
+                    THIS.noConnectedText.visible = false;
+                    THIS.noConnectedText.active = false;
 
                     this.events.once("shutdown", () =>
                         {
@@ -205,11 +222,19 @@ class ChatChill extends Phaser.Scene
                 THIS.connected.visible = false;
                 THIS.disconnected.visible = true;
             }
+            THIS.numberOfUsersText.visible = true;
+            THIS.numberOfUsersText.active = true;
+            THIS.noConnectedText.visible = false;
+            THIS.noConnectedText.active = false;
             THIS.numberOfUsersText.setText(THIS.numberOfUsersTextConst + connected);
-            console.log(THIS.numberOfUsersText._text);
         }).error(() =>
         {
             console.log("ERROR IN GET");
+            THIS.noConnectedText.visible = true;
+            THIS.noConnectedText.active = true;
+            THIS.numberOfUsersText.visible = false;
+            THIS.numberOfUsersText.active = false;
+
             THIS.connected.visible = false;
             THIS.disconnected.visible = true;
         });
