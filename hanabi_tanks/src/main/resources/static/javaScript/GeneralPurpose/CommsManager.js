@@ -7,7 +7,7 @@ const Orders =
     Disconnect: 4,
     Disconnected: 5,
     Host: 6,
-    StartGame: 7
+    StartGame: 7,
     MoveForward: 8,
     Stop: 9,
     MoveBackward: 10,
@@ -15,7 +15,7 @@ const Orders =
     MoveAngleD: 12,
     StopAngle: 13,
     TankShoot: 14,
-    ChangeLevel: 15,
+    ChangePowerUps: 15,
     EndGame: 16
 }
 
