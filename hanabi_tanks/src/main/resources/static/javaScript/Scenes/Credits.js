@@ -142,6 +142,11 @@ class Credits extends Phaser.Scene
                 {
                     LanguageManager.getInstance().desubscribe("Credits");
                 });
+
+                CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+                    {
+                        return this.scene.key;
+                    }, true)
             }
         });
           

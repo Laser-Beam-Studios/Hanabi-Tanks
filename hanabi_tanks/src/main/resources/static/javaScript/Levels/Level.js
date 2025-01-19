@@ -265,6 +265,11 @@ class Level extends Phaser.Scene
               console.log("Font Loaded");
             }
           });
+        
+          CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+            {
+                return this.name;
+            }, true)
 
         AudioManager.Instance.SetActiveScene(this, false);
         AudioManager.Instance.PlayOneShoot("VictorySound", "SFX");

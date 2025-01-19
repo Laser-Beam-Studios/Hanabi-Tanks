@@ -2,22 +2,37 @@ class ChatChill extends Phaser.Scene
 {
     textsScale = 
     {
-        "NumberOfUsers": 0.32
+        "NumberOfUsers": 0.32,
+        "NoConnected": 0.32
     }
 
     texts =
     {
         "NumberOfUsers": 
         { 
-            pos: { x: 0.5, y: 0.98 },
-            center: { x: 0.5, y: 0.5 },
+            pos: { x: 0.385, y: 0.98 },
+            center: { x: 0.0, y: 0.5 },
             rotation: Phaser.Math.DegToRad(0),
             style: 
             {
                 fontFamily: font,
                 fontSize: String(WINDOW.HEIGHT * this.textsScale["NumberOfUsers"] / textDivider) + "px",
-                color: blackColor
-            } 
+                color: "#ffffff",
+                backgroundColor: "#a79a88"
+            }
+       },
+       "NoConnected":
+       {
+            pos: { x: 0.385, y: 0.98 },
+                center: { x: 0.0, y: 0.5 },
+                rotation: Phaser.Math.DegToRad(0),
+                style: 
+                {
+                    fontFamily: font,
+                    fontSize: String(WINDOW.HEIGHT * this.textsScale["NoConnected"] / textDivider) + "px",
+                    color: "#ffffff",
+                    backgroundColor: "#a79a88"
+                }
        }
     }
 
@@ -44,6 +59,7 @@ class ChatChill extends Phaser.Scene
 
         this.numberOfUsersText;
         this.numberOfUsersTextConst;
+        this.noConnectedText;
     }
 
     init(data)
@@ -53,6 +69,8 @@ class ChatChill extends Phaser.Scene
 
     preload()
     {
+        this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
+
         this.load.html("ChatDom", "../html/Chat.html");
 
         // Connected and disconnected UI
@@ -100,15 +118,18 @@ class ChatChill extends Phaser.Scene
                         {
                             this.textsGroup[key].text = LanguageManager.getInstance().getText("ChatChill", key);
                         });
+                        THIS.numberOfUsersTextConst = THIS.numberOfUsersText._text.repeat(1);
                     });
 
                     THIS.numberOfUsersText = this.textsGroup["NumberOfUsers"];
                     THIS.numberOfUsersTextConst = THIS.numberOfUsersText._text.repeat(1);
-
+                    THIS.noConnectedText = this.textsGroup["NoConnected"];
+                    THIS.noConnectedText.visible = false;
+                    THIS.noConnectedText.active = false;
 
                     this.events.once("shutdown", () =>
                         {
-                            LanguageManager.getInstance().desubscribe("User");
+                            LanguageManager.getInstance().desubscribe("ChatChill");
                         });
                     }
                 }
@@ -145,10 +166,15 @@ class ChatChill extends Phaser.Scene
         this.messages = $("#messages");
 
         this.UpdateChatIntervalID = setInterval(this.UpdateChat, 2000, this);
-        this.UpdateUsersIntervalID = setInterval(this.UpdateUsersConnected, 2000, this);
+        this.UpdateUsersIntervalID = setInterval(this.UpdateUsersConnected, 1000, this);
 
         this.UpdateChat(this);  // For fecth the messages at the start
         this.UpdateUsersConnected(this) // The same reason but with the logos of conneted or disconnected
+
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+            {
+                return this.scene.key;
+            }, true)
     }
 
     SendMessage(username)
@@ -203,11 +229,19 @@ class ChatChill extends Phaser.Scene
                 THIS.connected.visible = false;
                 THIS.disconnected.visible = true;
             }
+            THIS.numberOfUsersText.visible = true;
+            THIS.numberOfUsersText.active = true;
+            THIS.noConnectedText.visible = false;
+            THIS.noConnectedText.active = false;
             THIS.numberOfUsersText.setText(THIS.numberOfUsersTextConst + connected);
-            console.log(THIS.numberOfUsersText._text);
         }).error(() =>
         {
             console.log("ERROR IN GET");
+            THIS.noConnectedText.visible = true;
+            THIS.noConnectedText.active = true;
+            THIS.numberOfUsersText.visible = false;
+            THIS.numberOfUsersText.active = false;
+
             THIS.connected.visible = false;
             THIS.disconnected.visible = true;
         });

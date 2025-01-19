@@ -202,18 +202,13 @@ class Mode extends Phaser.Scene
             this.scene.stop("Mode");
             this.scene.start("Lobby");
         });
-
-        // CommsManager.getInstance().addOrderCallback(Orders.Disconnected, false, () =>
-        // {
-        //     AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
-        //     console.log(additionalInfo);
-        //     InterSceneDictionary.getInstance().update("lobbyCode", null);
-        //     InterSceneDictionary.getInstance().update("host", false);
-        //     this.scene.stop(this.key);
-        //     this.scene.start("MainMenu");
-        // });
         
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
+
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+            {
+                return this.scene.key;
+            }, true)
     }
 
     OnPointerEnter()
@@ -269,7 +264,7 @@ class Mode extends Phaser.Scene
                 if (code) 
                 {       
                     this.code = code;        
-                    InterSceneDictionary.getInstance().update("")
+                    InterSceneDictionary.getInstance().update("lobbyCode", this.code);
                     CommsManager.getInstance().send(Orders.JoinLobby);
                 }
                 break;

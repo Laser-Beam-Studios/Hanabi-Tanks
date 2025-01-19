@@ -5,7 +5,8 @@
         "OptionsButton": "Options",
         "CreditsButton": "Credits",
         "TutorialButton": "Tutorial",
-        "UserButton": "Account"
+        "UserButton": "Account",
+        "Ranking": "Ranking"
     },
     "Options":
     {
@@ -81,10 +82,21 @@
     },
     "Lobby":
     {
-        "LobbyText": "Lobby"
+        "LobbyText": "Lobby",
+        "StartGame": "Start game",
+        "BackButton": "Back",
+        "CodeText": "Lobby code: ",
+        "NumPlayers": "Players in lobby: "
     },
     "ChatChill":
     {
-        "NumberOfUsers": "Number Of Users: "
+        "NumberOfUsers": "Number Of Users: ",
+        "NoConnected": "Without Conexion"
+    },
+    "Ranking":
+    {
+        "BackButton": "Back",
+        "Title": "Ranking",
+        "playerTemplate": ""
     }
 }
