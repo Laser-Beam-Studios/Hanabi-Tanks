@@ -198,6 +198,20 @@ class MainMenu extends Phaser.Scene
         userBut.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, userBut));
         userBut.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
         userBut.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
+
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnected, false, (additionalInfo) =>
+            {
+                AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
+                InterSceneDictionary.getInstance().update("lobbyCode", null);
+                InterSceneDictionary.getInstance().update("host", false);
+                this.scene.stop(additionalInfo);
+                this.scene.start("MainMenu");
+            });
+
+            CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+                {
+                    return this.scene.key;
+                }, true)
     }
 
     OnPointerEnter()

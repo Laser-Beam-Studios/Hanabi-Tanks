@@ -6,27 +6,33 @@ const Orders =
     JoinedLobby: 3,
     Disconnect: 4,
     Disconnected: 5,
-    StartGame: 6
+    Host: 6,
+    StartGame: 7
 }
 
 class CommsManager
 {
     constructor()
     {
-        let THIS = this;
         this.orderActionPairs = {};
+        this.connect();
+    }
+
+    connect()
+    {        
+        let THIS = this;
         this.connection = new WebSocket(COMMS_URL.slice(4, COMMS_URL.length - 1)[1] + "api/comms");
         this.connection.onopen = function () 
         {
             console.log("Connected");
         }
 
-        this.connection.onerror = function (e)
+        this.connection.onerror = (e) =>
         {
             console.log(e);
         }
 
-        this.connection.onmessage = function (msg)
+        this.connection.onmessage = (msg) =>
         {
             let message = JSON.parse(msg.data);
             console.log(message);
@@ -34,7 +40,13 @@ class CommsManager
             if (THIS.orderActionPairs[message.code][false])
                 THIS.orderActionPairs[message.code][false](message.additionalInfo);
         }
-    }
+
+        this.connection.onclose = () =>
+        {
+            console.error("Disconneecting");
+            THIS.orderActionPairs[Orders.Disconnected][false]();
+        }
+    } 
 
     static getInstance()
     {
@@ -45,6 +57,7 @@ class CommsManager
 
     addOrderCallback(order, sending, callback, update = false)
     {
+        console.log("adding");
         if (!this.orderActionPairs[order])
             this.orderActionPairs[order] = {};
 
@@ -56,7 +69,15 @@ class CommsManager
 
     send(order)
     {
+        try{
         console.log(order);
-        this.connection.send(JSON.stringify({ code: order, additionalInfo: this.orderActionPairs[order]?.[true]?.()}));
+        console.log(this.orderActionPairs);
+        let msg = { code: order, additionalInfo: this.orderActionPairs[order]?.[true]?.()};
+        console.log(msg);
+        this.connection.send(JSON.stringify(msg));
+        }
+        catch (e){
+            console.error(e);
+        }
     }
 }

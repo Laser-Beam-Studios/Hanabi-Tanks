@@ -245,6 +245,11 @@ class Tutorial extends Phaser.Scene
         back.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
+
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+            {
+                return this.scene.key;
+            }, true)
     }
 
     OnPointerEnter()

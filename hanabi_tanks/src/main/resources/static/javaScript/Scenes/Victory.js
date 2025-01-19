@@ -179,6 +179,11 @@ class Victory extends Phaser.Scene
                 console.log("Number Of Victories of user: " + THIS.scene.get("ChatChill").username + " Increment");
             },
         });
+
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+            {
+                return this.scene.key;
+            }, true)
     }
 
     OnPointerEnter()

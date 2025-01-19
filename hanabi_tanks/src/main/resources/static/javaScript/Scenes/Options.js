@@ -242,6 +242,7 @@ class Options extends Phaser.Scene
         this.load.image("englishButton", "/assets/UI/Buttons/enButton.png");
         this.load.image("españolButton", "/assets/UI/Buttons/esButton.png");
         this.load.image("euskeraButton", "/assets/UI/Buttons/euButton.png");
+        this.load.image("metalButton", "/assets/UI/Buttons/metalButton.png");
         this.load.image("OptionsBackground", "../assets/UI/Screens/opc.png");
         this.load.spritesheet("Letters", "../assets/LetterSpriteSheet.png", { frameWidth: 64, frameHeight: 64 });
         this.load.image("VolumeSlide", "../assets/UI/Buttons/volume.png")
@@ -346,6 +347,11 @@ class Options extends Phaser.Scene
         Scaler.ScaleToGameW(letterL, 0.026);
         let letterP = this.add.sprite((WINDOW.WIDHT*0.830), (WINDOW.HEIGHT * 0.685), "Letters",LettersSprites.p);
         Scaler.ScaleToGameW(letterP, 0.026);
+
+        CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
+            {
+                return this.scene.key;
+            }, true)
     }
 
     OnPointerEnter()
@@ -426,6 +432,11 @@ class Options extends Phaser.Scene
                 AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 LanguageManager.getInstance().changeLanguage("euskera");
                 break;
+
+            case "metalButton":
+            AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
+            LanguageManager.getInstance().changeLanguage("metal");
+            break;
 
             default:
                 console.log("ERROR_IN_CLICK_BUTTON: UNKNOWN_BUTTON_KEY: " + button.texture.key);
