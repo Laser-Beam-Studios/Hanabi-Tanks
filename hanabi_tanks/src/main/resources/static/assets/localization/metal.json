@@ -5,7 +5,8 @@
         "OptionsButton": "Bonktions",
         "CreditsButton": "Bonk Bleople",
         "TutorialButton": "Bonk Noob",
-        "UserButton": "BonkMe"
+        "UserButton": "BonkMe",
+        "Ranking": "Bonkers"
     },
     "Options":
     {
@@ -82,5 +83,16 @@
     "Lobby":
     {
         "LobbyText": "Bonkbby"
+    },
+    "ChatChill":
+    {
+        "NumberOfUsers": "Benkers bonketted: ",
+        "NoConnected": "Bonker banklone"
+    },
+    "Ranking":
+    {
+        "BackButton": "Unbonk",
+        "Title": "Bonkers",
+        "playerTemplate": ""
     }
 }

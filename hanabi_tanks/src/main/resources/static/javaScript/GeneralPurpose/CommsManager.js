@@ -8,6 +8,15 @@ const Orders =
     Disconnected: 5,
     Host: 6,
     StartGame: 7
+    MoveForward: 8,
+    Stop: 9,
+    MoveBackward: 10,
+    MoveAngleA: 11,
+    MoveAngleD: 12,
+    StopAngle: 13,
+    TankShoot: 14,
+    ChangeLevel: 15,
+    EndGame: 16
 }
 
 class CommsManager

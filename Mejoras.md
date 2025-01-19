@@ -13,6 +13,5 @@ Respecto a la Fase 2 de nuestro videojuego, se han implementado las siguientes m
 ## FASE 3 ##
 Respecto a la Fase 3 de nuestro videojuego, se han implementado las siguientes mejoras:
 - **Ranking**: Se ha añadido un ranking de jugadores que tendrán las victorias de cada uno.
-- **Cifrado de contraseñas**: Se ha implementado un cifrado de contraseñas para mayor seguridad en los usuarios.
 - **Número de usuarios**: Se ha añadido un texto que indica el número de usuarios conectados en el servidor en tiempo real.
 - **Desconexión**: Se ha añadido un mensaje de desconexión cuando los jugadores se desconectan del servidor.

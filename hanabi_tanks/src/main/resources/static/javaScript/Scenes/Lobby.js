@@ -180,15 +180,14 @@ class Lobby extends Phaser.Scene
 
         if (InterSceneDictionary.getInstance().get("host"))
         {
-            this.CreateHost();
-            
-
-            // CommsManager.getInstance().addOrderCallback(Orders.Disconnected, false, () =>
-            // {
-            //     AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
-            //     this.scene.stop("Lobby");
-            //     this.scene.start("MainMenu");
-            // })
+            this.CreateHost();            
+        }
+        else{
+            CommsManager.getInstance().addOrderCallback(Orders.StartGame,false,()=>
+            {
+                this.scene.stop("Lobby");
+                this.scene.start("Level1");
+            })
         }        
     }
 
@@ -243,7 +242,7 @@ class Lobby extends Phaser.Scene
                 AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
                 CommsManager.getInstance().send(Orders.StartGame);
                 this.scene.stop("Lobby");
-                this.scene.start("MainMenu");
+                this.scene.start("Level1");
                 break;
 
             case "BackButton":
