@@ -29,7 +29,7 @@ const WallType =
     upRight: 4,
     vertical: 11,
     horizontal: 12,
-    downLeft: 19,
+    downLeft: 19,   
     downRight: 20
 }
 
@@ -195,11 +195,11 @@ class Level extends Phaser.Scene
             this.player2.forward = { x: -1, y: 0 };
             this.player1.actualSpeed = 0;
             this.player2.actualSpeed = 0;
-            
             if (this.name == "PowerUp")
             {
                 this.nextScene = data.nextLevel;
-                let randoms = [];
+                if (!InterSceneDictionary.getInstance().get("online"))
+                {let randoms = [];
                 let candidate;
                 for (var i = 0; i < 3; i++)
                 {
@@ -215,15 +215,17 @@ class Level extends Phaser.Scene
                     }
                     randoms.push(candidate);
                 }
-                this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
-                if (Math.random() * 100 <= 5)
-                    this.hasSecretButton = true;
+                    this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
+                    if (Math.random() * 100 <= 5)
+                        {this.hasSecretButton = true;}}
+                    
             }
             else if (this.name == "SecretLevel")
             {
                 this.instaWin = true;
             }
         }
+        
     }
 
     preload() 
@@ -270,8 +272,25 @@ class Level extends Phaser.Scene
         this.InitWorldSprites();
         this.InitTankSprites();
         this.InitLivesSprites();
-        if (this.name == "PowerUp")
-            this.InitPowerUps();
+        if(InterSceneDictionary.getInstance().get("online"))
+            {
+                this.InitCallBacks();
+                if(this.name != "PowerUp" && this.name != "Victory")
+                    {
+                        this.powerUps;
+                        this.hasSecretButton
+                        InterSceneDictionary.getInstance().add("PowerUps",this.powerUps);
+                        InterSceneDictionary.getInstance().add("SecretLevel",this.hasSecretButton);
+                        if(InterSceneDictionary.getInstance().get("host"))
+                        {
+                            CommsManager.getInstance().send(Orders.ChangePowerUps);
+                        }
+                    }
+            }
+        
+        if (this.name == "PowerUp"){
+            this.InitPowerUps();}
+            
         this.InitColliders();
 
         this.input.keyboard.on("keydown", this.OnKeyPressed.bind(this));
@@ -299,192 +318,258 @@ class Level extends Phaser.Scene
         else{
             this.canPlay = true;
         }
-        if(InterSceneDictionary.getInstance().get("online"))
-        {
-            if (InterSceneDictionary.getInstance().get("host"))
-        {
-            const THIS = this;
-            //MoveForward
-            CommsManager.getInstance().addOrderCallback(Orders.MoveForward, true, () =>
-                {
-                    this.MoveTank(this.player1, true);
-                    return this.player1.tank.actualSpeed;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.MoveForward, false, (additionalInfo) =>
-                {
-                    this.player2.tank.actualSpeed = additionalInfo;
-                },true)
+        
+    }
 
-            //MoveBackward
-            CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, true, () =>
-                {
-                    this.MoveTank(this.player1, false);
-                    return this.player1.tank.actualSpeed;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, false, (additionalInfo) =>
-                {
-                    this.player2.tank.actualSpeed = additionalInfo;
-                },true)
-
-            //STOP
-            CommsManager.getInstance().addOrderCallback(Orders.Stop, true, () =>
-                {
-                    this.player1.tank.actualSpeed = 0.0;
-                    return this.player1.tank.actualSpeed;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.Stop, false, (additionalInfo) =>
-                {
-                    this.player2.tank.actualSpeed = additionalInfo;
-                },true)
-
-            //MOVEANGLE
-            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, true, () =>
-                {
-                    this.player1Rotating = true;
-                    this.player1Rotate = -1
-                    console.log(this);
-                    let info = [this.player1Rotating, this.player1Rotate];
-                    return info;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, false, (additionalInfo) =>
-                {
-                    this.player2Rotating = additionalInfo[0];
-                    this.player2Rotate = additionalInfo[1];
-                    console.log(additionalInfo[1]);
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, true, () =>
-                {
-                    this.player1Rotating = true;
-                    this.player1Rotate = 1
-                    let info = [this.player1Rotating, this.player1Rotate];
-                    return info;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, false, (additionalInfo) =>
-                {
-                    this.player2Rotating = additionalInfo[0];
-                    this.player2Rotate = additionalInfo[1];
-                    console.log(additionalInfo[1]);
-                },true)
-
-
-            CommsManager.getInstance().addOrderCallback(Orders.StopAngle, true, () =>
-                {
-                    this.player1Rotating = false;
-                    this.player1Rotate = 0;
-                    let info = [this.player1Rotating, this.player1Rotate];
-                    return info;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.StopAngle, false, (additionalInfo) =>
-                {
-                    this.player2Rotating = additionalInfo[0];
-                    this.player2Rotate = additionalInfo[1];
-                },true)
-
-
-
-            CommsManager.getInstance().addOrderCallback(Orders.TankShoot, true, () =>
-                {
-                    this.Shoot(this.player1);
-                    return true;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.TankShoot, false, (additionalInfo) =>
-                {
-                    if(additionalInfo)
-                    {this.Shoot(this.player2);}
-                },true)
-
-        }
-        else
-        {
-            //MoveForward
-            CommsManager.getInstance().addOrderCallback(Orders.MoveForward, true, () =>
-                {
-                    this.MoveTank(this.player2, true);
-                    return this.player2.tank.actualSpeed;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.MoveForward, false, (additionalInfo) =>
-                {
-                    this.player1.tank.actualSpeed = additionalInfo;
-                },true)
-
-            //MoveBackward
-            CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, true, () =>
-                {
-                    this.MoveTank(this.player2, false);
-                    return this.player2.tank.actualSpeed;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, false, (additionalInfo) =>
-                {
-                    this.player1.tank.actualSpeed = additionalInfo;
-                },true)
-
-            //STOP
-            CommsManager.getInstance().addOrderCallback(Orders.Stop, true, () =>
-                {
-                    this.player2.tank.actualSpeed = 0.0;
-                    return this.player2.tank.actualSpeed;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.Stop, false, (additionalInfo) =>
-                {
-                    this.player1.tank.actualSpeed = additionalInfo;
-                },true)
-
-
-            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, true, () =>
-                {
-                    this.player2Rotating = true;
-                    this.player2Rotate = -1
-                    let info = [this.player2Rotating, this.player2Rotate];
-                    return info;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, false, (additionalInfo) =>
-                {
-                    this.player1Rotating = additionalInfo[0];
-                    this.player1Rotate = additionalInfo[1];
-                    console.log(additionalInfo[1]);
-                },true)
-
-            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, true, () =>
-                {
-                    this.player2Rotating = true;
-                    this.player2Rotate = 1
-                    let info = [this.player2Rotating, this.player2Rotate];
-                    return info;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, false, (additionalInfo) =>
-                {
-                    this.player1Rotating = additionalInfo[0];
-                    this.player1Rotate = additionalInfo[1];
-                    console.log(additionalInfo[1]);
-                },true)
-
-
-            CommsManager.getInstance().addOrderCallback(Orders.StopAngle, true, () =>
-                {
-                    this.player2Rotating = false;
-                    this.player2Rotate = 0;
-                    let info = [this.player2Rotating, this.player2Rotate];
-                    return info;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.StopAngle, false, (additionalInfo) =>
-                {
-                    this.player1Rotating = additionalInfo[0];
-                    this.player1Rotate = additionalInfo[1];
-                },true)
-
-            CommsManager.getInstance().addOrderCallback(Orders.TankShoot, true, () =>
-                {
-                    this.Shoot(this.player2);
-                    let confirm = true;
-                    return confirm;
-                },true)
-            CommsManager.getInstance().addOrderCallback(Orders.TankShoot, false, (additionalInfo) =>
-                {
-                    if(additionalInfo)
-                    {this.Shoot(this.player1);}
-                },true)
-
-        }}
+    InitCallBacks()
+    {
+        if (InterSceneDictionary.getInstance().get("host"))
+            {
+                const THIS = this;
+                //MoveForward
+                CommsManager.getInstance().addOrderCallback(Orders.MoveForward, true, () =>
+                    {
+                        this.MoveTank(this.player1, true);
+                        let info = [this.player1.tank.actualSpeed, this.player1.x, this.player1.y]
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.MoveForward, false, (additionalInfo) =>
+                    {
+                        this.player2.tank.actualSpeed = additionalInfo[0];
+                        this.player2.x = additionalInfo[1];
+                        this.player2.y = additionalInfo[2];
+                    },true)
+    
+                //MoveBackward
+                CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, true, () =>
+                    {
+                        this.MoveTank(this.player1, false);
+                        let info = [this.player1.tank.actualSpeed, this.player1.x, this.player1.y]
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, false, (additionalInfo) =>
+                    {
+                        this.player2.tank.actualSpeed = additionalInfo[0];
+                        this.player2.x = additionalInfo[1];
+                        this.player2.y = additionalInfo[2];
+                    },true)
+    
+                //STOP
+                CommsManager.getInstance().addOrderCallback(Orders.Stop, true, () =>
+                    {
+                        this.player1.tank.actualSpeed = 0.0;
+                        let info = [this.player1.tank.actualSpeed, this.player1.x, this.player1.y]
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.Stop, false, (additionalInfo) =>
+                    {
+                        this.player2.tank.actualSpeed = additionalInfo[0];
+                        this.player2.x = additionalInfo[1];
+                        this.player2.y = additionalInfo[2];
+                    },true)
+    
+                //MOVEANGLE
+                CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, true, () =>
+                    {
+                        this.player1Rotating = true;
+                        this.player1Rotate = -1
+                        let info = [this.player1Rotating, this.player1Rotate];
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, false, (additionalInfo) =>
+                    {
+                        this.player2Rotating = additionalInfo[0];
+                        this.player2Rotate = additionalInfo[1];
+                        console.log(additionalInfo[1]);
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, true, () =>
+                    {
+                        this.player1Rotating = true;
+                        this.player1Rotate = 1
+                        let info = [this.player1Rotating, this.player1Rotate];
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, false, (additionalInfo) =>
+                    {
+                        this.player2Rotating = additionalInfo[0];
+                        this.player2Rotate = additionalInfo[1];
+                    },true)
+    
+    
+                CommsManager.getInstance().addOrderCallback(Orders.StopAngle, true, () =>
+                    {
+                        this.player1Rotating = false;
+                        this.player1Rotate = 0;
+                        let info = [this.player1Rotating, this.player1Rotate, this.player1.tank.forward, this.player1.x, this.player1.y];
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.StopAngle, false, (additionalInfo) =>
+                    {
+                        this.player2Rotating = additionalInfo[0];
+                        this.player2Rotate = additionalInfo[1];
+                        this.player2.tank.forward = additionalInfo[2];
+                        this.player2.x = additionalInfo[3];
+                        this.player2.y = additionalInfo[4];
+                    },true)
+    
+    
+    
+                CommsManager.getInstance().addOrderCallback(Orders.TankShoot, true, () =>
+                    {
+                        this.Shoot(this.player1);
+                        let info = [this.player1.tank.forward, this.player1.x, this.player1.y];
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.TankShoot, false, (additionalInfo) =>
+                    {
+                        this.player2.tank.forward = additionalInfo[0];
+                        this.player2.x = additionalInfo[1];
+                        this.player2.y = additionalInfo[2];
+                        this.Shoot(this.player2);
+                    },true)
+                    
+                    
+                CommsManager.getInstance().addOrderCallback(Orders.ChangePowerUps, true, () =>
+                    {   
+                        let randoms = [];
+                        let candidate;
+                        for (var i = 0; i < 3; i++)
+                            {
+                              let found = true;
+                              while (found)
+                              {
+                                  found = false;
+                                  candidate = Math.floor(Math.random() * 4);
+                                  randoms.forEach(element => {
+                                      if (element == candidate)
+                                          found = true
+                                  });
+                              }
+                              randoms.push(candidate);
+                            }
+                        this.powerUps = { l: randoms[0], m: randoms[1], r: randoms[2] };
+                        if (Math.random() * 100 <= 5)
+                            {this.hasSecretButton = true;}
+                        let info = [this.powerUps.l, this.powerUps.m,this.powerUps.r, this.hasSecretButton];
+                        InterSceneDictionary.getInstance().update("PowerUps",this.powerUps);
+                        InterSceneDictionary.getInstance().update("SecretLevel",this.hasSecretButton);
+                        return info; 
+                    },true)
+    
+            }
+            else
+            {
+                //MoveForward
+                CommsManager.getInstance().addOrderCallback(Orders.MoveForward, true, () =>
+                    {
+                        this.MoveTank(this.player2, true);
+                        let info = [this.player2.tank.actualSpeed, this.player2.x, this.player2.y]
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.MoveForward, false, (additionalInfo) =>
+                    {
+                        this.player1.tank.actualSpeed = additionalInfo[0];
+                        this.player1.x = additionalInfo[1];
+                        this.player1.y = additionalInfo[2];
+                    },true)
+    
+                //MoveBackward
+                CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, true, () =>
+                    {
+                        this.MoveTank(this.player2, false);
+                        let info = [this.player2.tank.actualSpeed, this.player2.x, this.player2.y]
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.MoveBackward, false, (additionalInfo) =>
+                    {
+                        this.player1.tank.actualSpeed = additionalInfo[0];
+                        this.player1.x = additionalInfo[1];
+                        this.player1.y = additionalInfo[2];
+                    },true)
+    
+                //STOP
+                CommsManager.getInstance().addOrderCallback(Orders.Stop, true, () =>
+                    {
+                        this.player2.tank.actualSpeed = 0.0;
+                        let info = [this.player2.tank.actualSpeed,this.player2.x, this.player2.y]
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.Stop, false, (additionalInfo) =>
+                    {
+                        this.player1.tank.actualSpeed = additionalInfo[0];
+                        this.player1.x = additionalInfo[1];
+                        this.player1.y = additionalInfo[2];
+                    },true)
+    
+    
+                CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, true, () =>
+                    {
+                        this.player2Rotating = true;
+                        this.player2Rotate = -1
+                        let info = [this.player2Rotating, this.player2Rotate];
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.MoveAngleA, false, (additionalInfo) =>
+                    {
+                        this.player1Rotating = additionalInfo[0];
+                        this.player1Rotate = additionalInfo[1];
+                    },true)
+    
+                CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, true, () =>
+                    {
+                        this.player2Rotating = true;
+                        this.player2Rotate = 1
+                        let info = [this.player2Rotating, this.player2Rotate];
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.MoveAngleD, false, (additionalInfo) =>
+                    {
+                        this.player1Rotating = additionalInfo[0];
+                        this.player1Rotate = additionalInfo[1];
+                        console.log(additionalInfo[1]);
+                    },true)
+    
+    
+                CommsManager.getInstance().addOrderCallback(Orders.StopAngle, true, () =>
+                    {
+                        this.player2Rotating = false;
+                        this.player2Rotate = 0;
+                        let info = [this.player2Rotating, this.player2Rotate, this.player2.tank.forward, this.player2.x, this.player2.y];
+                        return info;
+                    },true)
+                CommsManager.getInstance().addOrderCallback(Orders.StopAngle, false, (additionalInfo) =>
+                    {
+                        this.player1Rotating = additionalInfo[0];
+                        this.player1Rotate = additionalInfo[1];
+                        this.player1.tank.forward = additionalInfo[2];
+                        this.player1.x = additionalInfo[3];
+                        this.player1.y = additionalInfo[4];
+                    },true)
+    
+                    CommsManager.getInstance().addOrderCallback(Orders.TankShoot, true, () =>
+                        {
+                            this.Shoot(this.player2);
+                            let info = [this.player2.tank.forward, this.player2.x, this.player2.y];
+                            return info;
+                        },true)
+                    CommsManager.getInstance().addOrderCallback(Orders.TankShoot, false, (additionalInfo) =>
+                        {
+                            this.player1.tank.forward = additionalInfo[0];
+                            this.player1.x = additionalInfo[1];
+                            this.player1.y = additionalInfo[2];
+                            this.Shoot(this.player1);
+                        },true)
+    
+                CommsManager.getInstance().addOrderCallback(Orders.ChangePowerUps, false, (additionalInfo) =>
+                    {
+                        this.powerUps = { l: additionalInfo[0], m: additionalInfo[1], r: additionalInfo[2] };
+                        InterSceneDictionary.getInstance().update("PowerUps",this.powerUps);
+                        this.hasSecretButton = additionalInfo[3];
+                        InterSceneDictionary.getInstance().update("SecretLevel",this.hasSecretButton);
+                        console.log(this.powerUps);
+                    },true)   
+    
+            }
     }
 
 
@@ -493,6 +578,13 @@ class Level extends Phaser.Scene
         let posL = { x: Math.floor(this.n / 2) - 1, y: 2 };
         let posM = { x: Math.floor(this.n / 2), y: 2 };
         let posR = { x: Math.floor(this.n / 2) + 1, y: 2 };
+        if(InterSceneDictionary.getInstance().get("online"))
+        {
+                this.powerUps = InterSceneDictionary.getInstance().get("PowerUps");
+                this.hasSecretButton = InterSceneDictionary.getInstance().get("SecretLevel");
+                console.log(InterSceneDictionary.getInstance().get("PowerUps"));
+                console.log(InterSceneDictionary.getInstance().get("SecretLevel"));
+        }
         this.powerUpsGroup = this.physics.add.group();
         let powerUpL = this.add.image(posL.x * this.sizeOfTile + this.offset.x, posL.y * this.sizeOfTile + this.offset.y, "PowerUps", this.powerUps.l);
         powerUpL.type = this.powerUps.l;
@@ -506,7 +598,7 @@ class Level extends Phaser.Scene
         powerUpR.type = this.powerUps.r;
         Scaler.ScaleToGameW(powerUpR, 0.05);
         this.powerUpsGroup.add(powerUpR);
-
+        console.log(this.powerUpsGroup);
         if (this.hasSecretButton)
         {
             this.secretButton = this.physics.add.staticGroup();
@@ -1404,5 +1496,6 @@ class Level extends Phaser.Scene
         console.log("IDX: " + randomBounceSoundIdx + ", Name: " + this.bouncesSounds[randomBounceSoundIdx]);
         AudioManager.Instance.PlayOneShoot(this.bouncesSounds[randomBounceSoundIdx], "SFX");
     }
+
 }
 

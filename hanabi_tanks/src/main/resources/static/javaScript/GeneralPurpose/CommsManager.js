@@ -14,7 +14,7 @@ const Orders =
     MoveAngleD: 11,
     StopAngle: 12,
     TankShoot: 13,
-    ChangeLevel: 14,
+    ChangePowerUps: 14,
     EndGame: 15
 }
 
