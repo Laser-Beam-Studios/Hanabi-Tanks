@@ -165,7 +165,7 @@ class Victory extends Phaser.Scene
         let xPosition = [0.23144, 0.48546, 0.23144, 0.48546];
         let yPosition = [0.26345, 0.26345, 0.54949, 0.54949];
 
-        for (let i = 0; i < powerUps.lenght; i++)
+        for (let i in powerUps)
         {            
             let powerUp = this.add.sprite(WINDOW.WIDHT * xPosition[i], WINDOW.HEIGHT * yPosition[i], "PowerUps", powerUps[i]);
             Scaler.ScaleToGameH(powerUp, 0.12043*2.8);
