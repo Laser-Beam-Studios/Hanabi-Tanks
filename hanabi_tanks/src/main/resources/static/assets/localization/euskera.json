@@ -83,7 +83,11 @@
     },
     "Lobby":
     {
-        "LobbyText": "Atondoa"
+        "LobbyText": "Atondoa",        
+        "StartGame": "Hasi jokoa",
+        "BackButton": "Itzuli",
+        "CodeText": "Gelaren kodea: ",
+        "NumPlayers": "Gelan dauden jokalariak: "
     },
     "ChatChill":
     {
@@ -95,5 +99,14 @@
         "BackButton": "Itzuli",
         "Title": "Ranking",
         "playerTemplate": ""
+    },
+    "Login":
+    {
+        "LoginTile": "Saioa hasi",
+        "RegisterTile": "Erregistratu erabiltzailea",
+        "LoginButton": "Saioa hasi",
+        "RegisterButton": "Izena eman",
+        "ToLoginButton": "Joan saioa hasteko",
+        "ToRegisterButton": "Joan izena emateko"
     }
 }

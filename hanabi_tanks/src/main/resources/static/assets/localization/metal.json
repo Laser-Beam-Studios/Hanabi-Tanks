@@ -98,5 +98,14 @@
         "BackButton": "Unbonk",
         "Title": "Bonkyers",
         "playerTemplate": ""
+    },
+    "Login":
+    {
+        "LoginTile": "Bokin Bonkser",
+        "RegisterTile": "Bonkister Bonkser",
+        "LoginButton": "Bokin",
+        "RegisterButton": "Bonkister",
+        "ToLoginButton": "Bonk to Bokin",
+        "ToRegisterButton": "Bonk to Bonkister"
     }
 }

@@ -83,7 +83,11 @@
     },
     "Lobby":
     {
-        "LobbyText": "Sala"
+        "LobbyText": "Sala",        
+        "StartGame": "Empezar partida",
+        "BackButton": "Atras",
+        "CodeText": "Codigo de la sala: ",
+        "NumPlayers": "Jugadores en la sala: "
     },
     "ChatChill":
     {
@@ -95,5 +99,14 @@
         "BackButton": "Volver",
         "Title": "Ranking",
         "playerTemplate": ""
+    },
+    "Login":
+    {
+        "LoginTile": "Iniciar sesion",
+        "RegisterTile": "Registrar usuario",
+        "LoginButton": "Iniciar sesion",
+        "RegisterButton": "Registrar",
+        "ToLoginButton": "Ir a iniciar sesion",
+        "ToRegisterButton": "Ir a registrarse"
     }
 }
