@@ -184,6 +184,8 @@ class Victory extends Phaser.Scene
         // Increment the number of victories
         if (iWin)
         {
+            let THIS = this;
+            console.log("USERNAME       JAJAJAJAJJAJAJJA: " + THIS.scene.get("ChatChill").username);
             $.ajax(
                 {
                     type: "PUT",
