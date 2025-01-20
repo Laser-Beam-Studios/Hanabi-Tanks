@@ -7,7 +7,7 @@ class Login extends Phaser.Scene
         "LoginButton": 0.32,
         "RegisterButton": 0.32,
         "ToLoginButton": 0.32,
-        "ToRegisterButton": 0.32,
+        "ToRegisterButton": 0.32
     }
 
     state =
@@ -17,7 +17,7 @@ class Login extends Phaser.Scene
         "LoginButton": true,
         "RegisterButton": false,
         "ToLoginButton": false,
-        "ToRegisterButton": true,
+        "ToRegisterButton": true
     }
 
     texts = 
@@ -109,6 +109,16 @@ class Login extends Phaser.Scene
 
     preload() 
     {
+        this.load.script("webfont", "https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js");
+
+        if (!LanguageManager.getInstance().hasData())
+        {
+            this.load.pack("localization_en", "../assets/localization/english.json");
+            this.load.pack("localization_es", "../assets/localization/espanol.json");
+            this.load.pack("localization_eu", "../assets/localization/euskera.json");
+            this.load.pack("localization_metal", "../assets/localization/metal.json");
+        }
+
         this.load.image("TemplateBackground", "../assets/UI/Screens/template.png");
         this.load.image("RegisterButton", "../assets/UI/Buttons/back.png");
         this.load.image("ToLoginButton", "../assets/UI/Buttons/back.png");
@@ -124,8 +134,8 @@ class Login extends Phaser.Scene
         const Background = this.add.image(WINDOW.WIDHT/2, WINDOW.HEIGHT/2, "TemplateBackground");
         Scaler.ScaleToGameH(Background);
 
-        const usernameInput = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT * 4.5/10).createFromCache("InputUser");
-        const passwordInput = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT * 5.5/10).createFromCache("InputPass");
+        this.usernameInput = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT * 4.5/10).createFromCache("InputUser");
+        this.passwordInput = this.add.dom(WINDOW.WIDHT/2, WINDOW.HEIGHT * 5.5/10).createFromCache("InputPass");
 
         var scene = this.scene;
 
@@ -139,62 +149,65 @@ class Login extends Phaser.Scene
             },
             active: () => {
                 console.log("Font Loaded");
+                
+                const enData = this.cache.json.get("localization_en");      
+                const esData = this.cache.json.get("localization_es");
+                const euData = this.cache.json.get("localization_eu");
+                const metalData = this.cache.json.get("localization_metal");
+                
+                LanguageManager.getInstance().loadLanguage("english", enData);
+                LanguageManager.getInstance().loadLanguage("español", esData);
+                LanguageManager.getInstance().loadLanguage("euskera", euData);
+                LanguageManager.getInstance().loadLanguage("metal", metalData);
+
+                const loginButton = this.add.image(this.texts["LoginButton"].pos.x * WINDOW.WIDHT, this.texts["LoginButton"].pos.y * WINDOW.HEIGHT, "LoginButton");
+                Scaler.ScaleToGameW(loginButton, this.textsScale["LoginButton"]);
+                loginButton.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, loginButton));
+                this.login.push(loginButton);
+        
+                const toRegisterButton = this.add.image(this.texts["ToRegisterButton"].pos.x * WINDOW.WIDHT, this.texts["ToRegisterButton"].pos.y * WINDOW.HEIGHT, "ToRegisterButton");
+                Scaler.ScaleToGameW(toRegisterButton, this.textsScale["ToRegisterButton"]);
+                toRegisterButton.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, toRegisterButton));
+                this.login.push(toRegisterButton);
+        
+                const registerButton = this.add.image(this.texts["RegisterButton"].pos.x * WINDOW.WIDHT, this.texts["RegisterButton"].pos.y * WINDOW.HEIGHT, "RegisterButton");
+                Scaler.ScaleToGameW(registerButton, this.textsScale["RegisterButton"]);
+                registerButton.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, registerButton));     
+                this.register.push(registerButton);
+        
+                const toLoginButton = this.add.image(this.texts["ToLoginButton"].pos.x * WINDOW.WIDHT, this.texts["ToLoginButton"].pos.y * WINDOW.HEIGHT, "ToLoginButton");
+                Scaler.ScaleToGameW(toLoginButton, this.textsScale["ToLoginButton"]);
+                toLoginButton.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, toLoginButton));
+                this.register.push(toLoginButton);
+
                 this.textsGroup = {};
                 Object.keys(this.texts).forEach((key) =>
                 {
-                    this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Mode", key), this.texts[key].style);
+                    this.textsGroup[key] = this.add.text(this.texts[key].pos.x * WINDOW.WIDHT, this.texts[key].pos.y * WINDOW.HEIGHT, LanguageManager.getInstance().getText("Login", key), this.texts[key].style);
                     this.textsGroup[key].setOrigin(this.texts[key].center.x, this.texts[key].center.y);
                     this.textsGroup[key].rotation = this.texts[key].rotation;
-                    if (state[key])
+                    if (this.state[key])
                         this.login.push(this.textsGroup[key]);
                     else
                         this.register.push(this.textsGroup[key]);
                     //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
                 });
-                LanguageManager.getInstance().onLanguageChanged("Mode", () =>
+                LanguageManager.getInstance().onLanguageChanged("Login", () =>
                 {
                     Object.keys(this.textsGroup).forEach((key) =>
                     {
-                        this.textsGroup[key].text = LanguageManager.getInstance().getText("Mode", key);
+                        this.textsGroup[key].text = LanguageManager.getInstance().getText("Login", key);
                     });
                 });
     
                 this.events.once("shutdown", () =>
                 {
                     LanguageManager.getInstance().desubscribe("Mode");
-                });
+                });                
+
+                this.RegisterState();
             }
         });
-
-        this.loginButton = this.add.image(this.texts["LoginButton"].pos.x * WINDOW.WIDHT, this.texts["LoginButton"].pos.y * WINDOW.HEIGHT, "LoginButton");
-        Scaler.ScaleToGameW(this.loginButton, this.textsScale["LoginButton"]);
-        this.loginButton.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, this.loginButton));
-        this.loginButton.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
-        this.loginButton.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
-        this.login.push(this.loginButton);
-
-        this.toRegisterButton = this.add.image(this.texts["ToRegisterButton"].pos.x * WINDOW.WIDHT, this.texts["ToRegisterButton"].pos.y * WINDOW.HEIGHT, "ToRegisterButton");
-        Scaler.ScaleToGameW(this.toRegisterButton, this.textsScale["ToRegisterButton"]);
-        this.toRegisterButton.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, this.toRegisterButton));
-        this.toRegisterButton.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
-        this.toRegisterButton.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
-        this.login.push(this.toRegisterButton);
-
-        this.registerButton = this.add.image(this.texts["RegisterButton"].pos.x * WINDOW.WIDHT, this.texts["RegisterButton"].pos.y * WINDOW.HEIGHT, "RegisterButton");
-        Scaler.ScaleToGameW(this.registerButton, this.textsScale["RegisterButton"]);
-        this.registerButton.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, this.registerButton));
-        this.registerButton.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
-        this.registerButton.setInteractive().on("pointerout", this.OnPointerExit.bind(this));        
-        this.register.push(this.registerButton);
-
-        this.toLoginButton = this.add.image(this.texts["ToLoginButton"].pos.x * WINDOW.WIDHT, this.texts["ToLoginButton"].pos.y * WINDOW.HEIGHT, "ToLoginButton");
-        Scaler.ScaleToGameW(this.toLoginButton, this.textsScale["ToLoginButton"]);
-        this.toLoginButton.setInteractive().on("pointerdown", this.OnClickOnButton.bind(this, this.toLoginButton));
-        this.toLoginButton.setInteractive().on("pointerover", this.OnPointerEnter.bind(this));
-        this.toLoginButton.setInteractive().on("pointerout", this.OnPointerExit.bind(this));
-        this.register.push(this.toLoginButton);
-
-        this.RegisterState();
 
         CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
             {
@@ -288,27 +301,27 @@ class Login extends Phaser.Scene
     LogingState()
     {        
         for (let elem in this.register)
-            elem.setActive(false).setVisible(false);
+            this.register[elem].setActive(false).setVisible(false);
 
         for (let elem in this.login)
-            elem.setActive(true).setVisible(true);
+            this.login[elem].setActive(true).setVisible(true);
     }
 
     RegisterState()
-    {
-        for (let elem in this.register)
-            elem.setActive(true).setVisible(true);
-
+    {        
         for (let elem in this.login)
-            elem.setActive(false).setVisible(false);
+            this.login[elem].setActive(false).setVisible(false);
+
+        for (let elem in this.register)
+            this.register[elem].setActive(true).setVisible(true);
     }
 
     OnClickOnButton(button)
     {
         console.log("boton pulsado = " + button.texture.key);
         
-        const inputUsername = this.username.getChildByName("username").value;
-        const inputPassword = this.password.getChildByName("password").value;
+        const inputUsername = this.usernameInput.getChildByName("username").value;
+        const inputPassword = this.passwordInput.getChildByName("password").value;
         
         switch(button.texture.key)
         {
@@ -326,9 +339,9 @@ class Login extends Phaser.Scene
                             console.log(data + ", " + status);
                             if (status == "success")
                             {
-                                scene.stop("Login");
-                                scene.start("MainMenu");
-                                scene.launch("ChatChill", { username: inputUsername });
+                                this.scene.stop("Login");
+                                this.scene.start("MainMenu");
+                                this.scene.launch("ChatChill", { username: inputUsername });
                             }
                         },
                     });
@@ -355,9 +368,7 @@ class Login extends Phaser.Scene
                             if (status == "success")
                             {
                                 InterSceneDictionary.getInstance().add("nick", inputUsername);
-                                register.removeElement();
-                                login.visible = true; 
-                                login.active = true;
+                                this.LogingState();
                             }
                         },
                         dataType: "json"
