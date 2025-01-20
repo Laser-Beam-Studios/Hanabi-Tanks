@@ -132,16 +132,22 @@ class Victory extends Phaser.Scene
         
         let index = 0;
         let powerUps = [];
+        let iWin = false;
+        let imPlayer1 = InterSceneDictionary.getInstance().get("host");
         if (this.player1.score > this.player2.score)
         {
             index = 1;
             powerUps = this.player1.powerUps;
+            if (imPlayer1) iWin = true;
         }
         else
         {
             index = 2;
             powerUps = this.player2.powerUps;
+            if (!imPlayer1) iWin = true;
         }
+
+        console.log("SOY EL CLIENTE QUE HA GANADO: " + iWin);
 
         let winPlayer = this.add.sprite(WINDOW.WIDHT * 0.77617, WINDOW.HEIGHT * 0.36507, "Numbers", index);
         Scaler.ScaleToGameH(winPlayer, 0.09634);
@@ -168,17 +174,20 @@ class Victory extends Phaser.Scene
         Scaler.ScaleToGameH(powerUp4, 0.12043*2.8);
 
         // Increment the number of victories
-        var THIS = this;
-        $.ajax(
+        if (iWin)
         {
-            type: "PUT",
-            url: USERS_BASE_URL + "/" + THIS.scene.get("ChatChill").username,
-            data: { },
-            success: () => 
-            { 
-                console.log("Number Of Victories of user: " + THIS.scene.get("ChatChill").username + " Increment");
-            },
-        });
+            $.ajax(
+                {
+                    type: "PUT",
+                    url: USERS_BASE_URL + "/" + THIS.scene.get("ChatChill").username,
+                    data: { },
+                    success: () => 
+                    { 
+                        console.log("Number Of Victories of user: " + THIS.scene.get("ChatChill").username + " Increment");
+                    },
+                });
+        }
+        
 
         CommsManager.getInstance().addOrderCallback(Orders.Disconnect, true, () =>
             {
