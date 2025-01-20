@@ -192,18 +192,18 @@ class Login extends Phaser.Scene
                         this.register.push(this.textsGroup[key]);
                     //Scaler.ScaleToGameW(this.textsGroup[key], texts[key].scale / 7.0)
                 });
-                // LanguageManager.getInstance().onLanguageChanged("Login", () =>
-                // {
-                //     Object.keys(this.textsGroup).forEach((key) =>
-                //     {
-                //         this.textsGroup[key].text = LanguageManager.getInstance().getText("Login", key);
-                //     });
-                // });
+                LanguageManager.getInstance().onLanguageChanged("Login", () =>
+                {
+                    Object.keys(this.textsGroup).forEach((key) =>
+                    {
+                        this.textsGroup[key].text = LanguageManager.getInstance().getText("Login", key);
+                    });
+                });
     
-                // this.events.once("shutdown", () =>
-                // {
-                //     LanguageManager.getInstance().desubscribe("Login");
-                // });                
+                this.events.once("shutdown", () =>
+                {
+                    LanguageManager.getInstance().desubscribe("Login");
+                });                
 
                 this.RegisterState();
             }
