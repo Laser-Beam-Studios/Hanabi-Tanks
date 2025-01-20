@@ -82,17 +82,21 @@
     },
     "Lobby":
     {
-        "LobbyText": "Bonkbby"
+        "LobbyText": "Bonkbby",
+        "StartGame": "Bonktart bonkplay",
+        "BackButton": "Unbonk",
+        "CodeText": "Bonkbby bonke: ",
+        "NumPlayers": "Benkyers in bonkbby: "
     },
     "ChatChill":
     {
-        "NumberOfUsers": "Benkers bonketted: ",
+        "NumberOfUsers": "Benkyers bonketted: ",
         "NoConnected": "Bonker banklone"
     },
     "Ranking":
     {
         "BackButton": "Unbonk",
-        "Title": "Bonkers",
+        "Title": "Bonkyers",
         "playerTemplate": ""
     }
 }
