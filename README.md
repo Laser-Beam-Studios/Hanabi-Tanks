@@ -29,6 +29,7 @@ Grupo de desarrolladores universitarios con la intención de crear juegos simple
 - [Interfaces](#interfaces)  
 - [Estados](#estados)
 - [API REST](#api-rest)
+- [WebSockets](#websockets)
 - [Niveles](#niveles)  
 - [Logros](#logros)  
 - [Audio](#audio)  
@@ -185,6 +186,20 @@ UML de la API
 ![API][ver3-image9]
 
 Para la API Rest se ha añadido un handler de web sockets que funciona de manera independiente al resto de la API   
+
+### [**WebSockets**](#índice)
+
+## Versión 1.3  
+
+# Cliente
+
+Se ha creado una clase llamada CommsManager, la cual es un Singleton encargada de gestionar y encapsular toda la logica de la comunicacion entre jugadores. Al crearse crea un WebSocket abriendo conexion con el servidor, y crea internamente un diccionario que contiene funciones (o callbacks), asociados a una orden, como puede ser Orders.CreateLobby. Estos callbacks tambien estan asociados a si se debe ejecutar cuando se esta enviando la orden (por lo que el callback debe devolver la informacion necesaria para que los otros clientes la procesen) o si se esta recibiendo una orden (en cuyo caso debera tener un parametro de entrada consistente en un diccionario, si es que lo necesita). CommsManager cuenta con una funcion addOrderCallback(), la cual añade y/o reemplaza callbacks, y send(), la cual envia una orden al resto de clientes.
+
+Hay que añadir que, pese a que el juego es de 2 jugadores, la estructura de los WebSockets se ha creado de tal forma que permita varios jugadores.
+
+# Servidor
+
+Se ha creado una clase HTWebSocketHandler la cual gestiona la interaccion con WebSockets entre cliente y servidor. Debido a que el propio servidor no maneja JavaScript ni Phaser, el servidor se convierte en un mensajero. Guarda internamente los jugadores "conectados" entre si (en una sala) y cuando uno de estos manda una orden, el servidor lo reenvia a todos los juagdores conectados a su sala. La gestion de las salas la hace por completo el servidor, y sus codigos son los unicos que tienen otro codigo extra de confirmacion (crear una sala, unirse a una sala y abandonar una sala). Con esta gestion, son los propios clientes quienes ejecutan la logica del juego.
   
 ### [**Niveles**](#índice)    
 ## Versión 1.0 
