@@ -9,6 +9,7 @@ Respecto a la Fase 2 de nuestro videojuego, se han implementado las siguientes m
 - **Jugar de nuevo**: Se ha corregido un error que saltaba, bloqueando el juego por completo, a la hora de querer volver a jugar una partida, ya fuera tras salir por el menú de pausa o por terminar la partida con victoria.
 - **Fuente del juego**: Se ha creado una fuente de texto personalizada para el juego.
 - **Tutorial**: Se ha creado una escena de tutorial, en la que se explica el juego y lo que hace cada mejora de tanques (power-ups).
+- **Idiomas**: Se ha creado un sistema en el que se puede implementar cualquier idioma. En este juego se han incluido inglés, español, euskera y el idioma "Metal Pipe".
 
 ## FASE 3 ##
 Respecto a la Fase 3 de nuestro videojuego, se han implementado las siguientes mejoras:
