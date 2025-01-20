@@ -1,4 +1,4 @@
-# **GDD Hanabi Tanks** *Versión 1.2*
+# **GDD Hanabi Tanks** *Versión 1.3*
 ## Por Laser Beam Studios
 
 https://youtu.be/2NzTFyHraJE
