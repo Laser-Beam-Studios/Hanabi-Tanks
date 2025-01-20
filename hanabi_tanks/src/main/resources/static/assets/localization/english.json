@@ -98,5 +98,14 @@
         "BackButton": "Back",
         "Title": "Ranking",
         "playerTemplate": ""
+    },
+    "Login":
+    {
+        "LoginTile": "Login User",
+        "RegisterTile": "Register User",
+        "LoginButton": "Login",
+        "RegisterButton": "Register",
+        "ToLoginButton": "Go to Login",
+        "ToRegisterButton": "Go to Register"
     }
 }
