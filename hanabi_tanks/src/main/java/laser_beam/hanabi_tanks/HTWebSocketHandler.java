@@ -50,6 +50,7 @@ public class HTWebSocketHandler extends TextWebSocketHandler
     private int joinedLobbyCode = 3;
     private int abandonedLobbyCode = 5;
     private int host = 6;
+    private int abandoWinCode = 17;
 
     private int codeLenght = 7;
     private int codeVariance = 2;
@@ -92,6 +93,12 @@ public class HTWebSocketHandler extends TextWebSocketHandler
         
         String oldLobby = sessions.remove(session);
         lobbies.get(oldLobby).remove(session); 
+
+        if (lobbies.get(oldLobby).size() == 1)
+        {
+            ((WebSocketSession)lobbies.get(oldLobby).toArray()[0]).sendMessage(new TextMessage((new ObjectMapper()).createObjectNode().put("code", abandonedLobbyCode).toString()));
+            return; 
+        }
         if (hosts.get(oldLobby) == session)
             migrateHost(oldLobby, lobbies.get(oldLobby));
         }
@@ -162,6 +169,12 @@ public class HTWebSocketHandler extends TextWebSocketHandler
                 {
                     System.out.println("Lobby is empty. Delete.");
                     lobbies.remove(oldLobby);
+                    return;
+                }
+
+                if (lobbies.get(oldLobby).size() == 1)
+                {
+                    ((WebSocketSession)lobbies.get(oldLobby).toArray()[0]).sendMessage(new TextMessage((new ObjectMapper()).createObjectNode().put("code", abandonedLobbyCode).toString())); 
                     return;
                 }
                 
