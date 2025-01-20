@@ -160,18 +160,26 @@ class Victory extends Phaser.Scene
 
         // power ups
 
-        let powerUp1 = this.add.sprite(WINDOW.WIDHT * 0.23144, WINDOW.HEIGHT * 0.26345, "PowerUps", powerUps[0]);
-        Scaler.ScaleToGameH(powerUp1, 0.12043*2.8);
-        let powerUp2 = this.add.sprite(WINDOW.WIDHT * 0.48546, WINDOW.HEIGHT * 0.26345, "PowerUps", powerUps[1]);
-        Scaler.ScaleToGameH(powerUp2, 0.12043*2.8);
-        if (powerUps.lenght == 2)
-            return;
-        let powerUp3 = this.add.sprite(WINDOW.WIDHT * 0.23144, WINDOW.HEIGHT * 0.54949, "PowerUps", powerUps[2]);
-        Scaler.ScaleToGameH(powerUp3, 0.12043*2.8);
-        if (powerUps.lenght == 3)
-            return;
-        let powerUp4 = this.add.sprite(WINDOW.WIDHT * 0.48546, WINDOW.HEIGHT * 0.54949, "PowerUps", powerUps[3]);
-        Scaler.ScaleToGameH(powerUp4, 0.12043*2.8);
+        console.log(powerUps);
+
+        let xPosition = [0.23144, 0.48546, 0.23144, 0.48546];
+        let yPosition = [0.26345, 0.26345, 0.54949, 0.54949];
+
+        for (let i = 0; i < powerUps.lenght; i++)
+        {            
+            let powerUp = this.add.sprite(WINDOW.WIDHT * xPosition[i], WINDOW.HEIGHT * yPosition[i], "PowerUps", powerUps[i]);
+            Scaler.ScaleToGameH(powerUp, 0.12043*2.8);
+        }
+        // let powerUp2 = this.add.sprite(WINDOW.WIDHT * 0.48546, WINDOW.HEIGHT * 0.26345, "PowerUps", powerUps[1]);
+        // Scaler.ScaleToGameH(powerUp2, 0.12043*2.8);
+        // if (powerUps.lenght == 2)
+        //     return;
+        // let powerUp3 = this.add.sprite(WINDOW.WIDHT * 0.23144, WINDOW.HEIGHT * 0.54949, "PowerUps", powerUps[2]);
+        // Scaler.ScaleToGameH(powerUp3, 0.12043*2.8);
+        // if (powerUps.lenght == 3)
+        //     return;
+        // let powerUp4 = this.add.sprite(WINDOW.WIDHT * 0.48546, WINDOW.HEIGHT * 0.54949, "PowerUps", powerUps[3]);
+        // Scaler.ScaleToGameH(powerUp4, 0.12043*2.8);
 
         // Increment the number of victories
         if (iWin)

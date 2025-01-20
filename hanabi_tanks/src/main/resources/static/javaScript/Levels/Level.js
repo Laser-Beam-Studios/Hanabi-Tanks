@@ -821,6 +821,11 @@ class Level extends Phaser.Scene
             minutes++;
             secondsText = "00";
         }
+
+        if (seconds < 10)
+        {
+            secondsText = "0" + secondsText;
+        }
         //console.log(seconds + " seconds");
         this.gameTimerText.text = String(minutes) + ":" + secondsText;
         return false;
