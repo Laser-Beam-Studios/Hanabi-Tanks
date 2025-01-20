@@ -297,6 +297,7 @@ class Options extends Phaser.Scene
         let i = 0;
         LanguageManager.getInstance().getLanguages().forEach((language) =>
         {
+            console.log(language);
             let key = language + "Button";
             let pos = { x: 0.89 - (0.05 * i), y: 0.09 + (0.005 * i) };
             const button = this.add.image(pos.x * WINDOW.WIDHT, pos.y * WINDOW.HEIGHT, key);
