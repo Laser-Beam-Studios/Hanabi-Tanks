@@ -476,8 +476,10 @@ class Level extends Phaser.Scene
                     CommsManager.getInstance().addOrderCallback(Orders.AbandonWin, false, () =>
                     {
                         this.player.tank.score = 1000;
+                        console.log(super.key);
+                        this.scene.stop(this.scene.key);
                         this.scene.start("Victory", { player1: this.player1.tank, player2: this.player2.tank, nextLevel: "Victory"});
-                    })
+                    }, true)
     
             }
             // else
