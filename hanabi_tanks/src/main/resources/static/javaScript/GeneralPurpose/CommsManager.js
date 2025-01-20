@@ -35,6 +35,8 @@ class CommsManager
         this.connection.onopen = function () 
         {
             console.log("Connected");
+            THIS.orderActionPairs[Orders.Disconnected][false]();
+            this.connect();
         }
 
         this.connection.onerror = (e) =>
