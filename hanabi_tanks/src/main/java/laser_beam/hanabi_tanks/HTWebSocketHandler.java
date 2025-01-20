@@ -174,7 +174,7 @@ public class HTWebSocketHandler extends TextWebSocketHandler
 
                 if (lobbies.get(oldLobby).size() == 1)
                 {
-                    ((WebSocketSession)lobbies.get(oldLobby).toArray()[0]).sendMessage(new TextMessage((new ObjectMapper()).createObjectNode().put("code", abandonedLobbyCode).toString())); 
+                    ((WebSocketSession)lobbies.get(oldLobby).toArray()[0]).sendMessage(new TextMessage((new ObjectMapper()).createObjectNode().put("code", abandoWinCode).toString())); 
                     return;
                 }
                 
