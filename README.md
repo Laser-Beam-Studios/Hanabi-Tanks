@@ -1,6 +1,8 @@
 # **GDD Hanabi Tanks** *Versión 1.2*
 ## Por Laser Beam Studios
 
+https://youtu.be/2NzTFyHraJE
+
 ### Descripción
 
 Grupo de desarrolladores universitarios con la intención de crear juegos simples y divertidos para jugar con tus amigos, estén donde estén.
