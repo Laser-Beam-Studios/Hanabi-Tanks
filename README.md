@@ -171,14 +171,20 @@ Es importante destacar que el menú de opciones solo tiene un botón de back, y 
 
 ### [**API REST**](#índice) 
 
-## Versión 1.2
+## Versión 1.2   
 Para la realización de la API REST se ha utilizado SpringBoot, se han empleado al menos en una petición cada uno de los métodos principales de http (GET, PUT, POST, DELETE).
 	
 Por otro lado, las funcionalidades de red implementadas son una gestión de usuarios y un chat en línea.
 
-UML de la API
+UML de la API   
 
 ![API][ver2-image9]
+
+## Versión 1.3   
+
+![API][ver3-image9]
+
+Para la API Rest se ha añadido un handler de web sockets que funciona de manera independiente al resto de la API   
   
 ### [**Niveles**](#índice)    
 ## Versión 1.0 
@@ -455,3 +461,4 @@ Software de traducción: Traductor de Google
 [ver2-image17]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerTwo/menu.png
 
 [ver3-image6]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerThree/estados.png
+[ver3-image9]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerThree/umlApi.png
