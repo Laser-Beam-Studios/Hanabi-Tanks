@@ -202,7 +202,7 @@ class Login extends Phaser.Scene
     
                 // this.events.once("shutdown", () =>
                 // {
-                //     LanguageManager.getInstance().desubscribe("Mode");
+                //     LanguageManager.getInstance().desubscribe("Login");
                 // });                
 
                 this.RegisterState();
