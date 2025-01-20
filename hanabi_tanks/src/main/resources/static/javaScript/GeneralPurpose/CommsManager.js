@@ -16,7 +16,8 @@ const Orders =
     StopAngle: 13,
     TankShoot: 14,
     ChangePowerUps: 15,
-    EndGame: 16
+    EndGame: 16,
+    AbandonWin: 17
 }
 
 class CommsManager
@@ -54,6 +55,7 @@ class CommsManager
         {
             console.error("Disconneecting");
             THIS.orderActionPairs[Orders.Disconnected][false]();
+            this.connect();
         }
     } 
 
@@ -78,15 +80,8 @@ class CommsManager
 
     send(order)
     {
-        try{
-        console.log(order);
-        console.log(this.orderActionPairs);
-        let msg = { code: order, additionalInfo: this.orderActionPairs[order]?.[true]?.()};
-        console.log(msg);
-        this.connection.send(JSON.stringify(msg));
-        }
-        catch (e){
-            console.error(e);
-        }
+        // if (this.connection.readyState == WebSocket.CLOSED || this.connection.readyState == WebSocket.CLOSING)
+        //     this.connect();
+        this.connection.send(JSON.stringify({ code: order, additionalInfo: this.orderActionPairs[order]?.[true]?.()}));
     }
 }

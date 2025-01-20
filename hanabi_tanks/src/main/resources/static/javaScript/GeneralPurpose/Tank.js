@@ -16,6 +16,8 @@ class Tank{
         this.canRecivePowerUp = true;
         this.score = 0;
         this.inmune = true;
+        this.rotating = false;
+        this.rotate = 0;
 
         this.forward =
         {

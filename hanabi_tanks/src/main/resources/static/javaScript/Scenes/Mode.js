@@ -184,6 +184,7 @@ class Mode extends Phaser.Scene
             InterSceneDictionary.getInstance().update("lobbyCode", additionalInfo);
             InterSceneDictionary.getInstance().update("host", true);
             InterSceneDictionary.getInstance().update("numPlayers", 1);
+            InterSceneDictionary.getInstance().update("online", true);
             this.scene.stop("Mode");
             this.scene.start("Lobby");
         });
@@ -199,6 +200,7 @@ class Mode extends Phaser.Scene
             console.log(additionalInfo);
             InterSceneDictionary.getInstance().update("numPlayers", additionalInfo);
             InterSceneDictionary.getInstance().update("host", false);
+            InterSceneDictionary.getInstance().update("online", true);
             this.scene.stop("Mode");
             this.scene.start("Lobby");
         });
@@ -251,6 +253,7 @@ class Mode extends Phaser.Scene
                 break;
             case "LocalButton":
                 AudioManager.Instance.PlayOneShoot("ChangeMenu", "SFX");
+                InterSceneDictionary.getInstance().update("online", false);
                 this.scene.stop("Mode");
                 this.scene.start("Level1");
 
