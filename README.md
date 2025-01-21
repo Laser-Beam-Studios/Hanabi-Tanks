@@ -149,6 +149,8 @@ Interfaces del juego:
 ## Versión 1.3
 Interfaces del juego:
 **Register/Login Screen:**
+![register][ver3-image11]
+![login][ver3-image12]
 
 **User:**  
 ![User][ver2-image8] 
@@ -158,6 +160,13 @@ Interfaces del juego:
 
 **Ejemplo de interfaz en euskera:**  
 ![uiEus][ver2-image11] 
+
+**Ejemplo de interfaz en Metal:**   
+![metal][ver3-image13]   
+
+**Ranking**   
+Se ha creado un ranking con un máximo de 10 usuarios en el que sale su posición en el ranking y las victorias que llevan   
+![ranking][ver3-image14]   
 
 ### [**Estados**](#índice)  
 
@@ -385,6 +394,11 @@ Se ha creado una fuente de texto personalizada, por lo que los botones y las int
 ![Button][ver2-image16]
 ![Interface][ver2-image17]
 
+
+## Versión 1.3
+Se ha cambiado el color de los tanques según el jugador que se sea para tener una distinción   
+![TanksColor][ver3-image10]
+
 ### [**Herramientas utilizadas**](#índice)  
 
 Software de dibujo: Clip Studio Paint  
@@ -481,3 +495,8 @@ Software de traducción: Traductor de Google
 
 [ver3-image6]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerThree/estados.png
 [ver3-image9]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerThree/umlApi.png
+[ver3-image10]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerThree/tanksColor.png
+[ver3-image11]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerThree/register.png
+[ver3-image12]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerThree/login.png
+[ver3-image13]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerThree/metal.png
+[ver3-image14]: hanabi_tanks/src/main/resources/static/ImagenesJER/VerThree/ranking.png
