@@ -295,6 +295,11 @@ class Level extends Phaser.Scene
                         }
                     }
             }
+            else
+            {
+                this.player = this.player1;
+                this.rival = this.player2;
+            }
         
         if (this.name == "PowerUp"){
             this.InitPowerUps();}
@@ -651,13 +656,13 @@ class Level extends Phaser.Scene
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.A:
-                this.player1Rotating = true;
-                this.player1Rotate = -1;
+                this.player1.tank.rotating = true;
+                this.player1.tank.rotate = -1;
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.D:
-                this.player1Rotating = true;
-                this.player1Rotate = 1;
+                this.player1.tank.rotating = true;
+                this.player1.tank.rotate = 1;
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.I:
@@ -669,13 +674,13 @@ class Level extends Phaser.Scene
                 break;
     
             case Phaser.Input.Keyboard.KeyCodes.J:
-                this.player2Rotating = true;
-                this.player2Rotate = -1;
+                this.player2.tank.rotating = true;
+                this.player2.tank.rotate = -1;
                 break;
     
             case Phaser.Input.Keyboard.KeyCodes.L:
-                this.player2Rotating = true;
-                this.player2Rotate = 1;
+                this.player2.tank.rotating = true;
+                this.player2.tank.rotate = 1;
                 break;
 
             default:
@@ -738,14 +743,14 @@ class Level extends Phaser.Scene
 
             case Phaser.Input.Keyboard.KeyCodes.D:
             case Phaser.Input.Keyboard.KeyCodes.A:
-                this.player1Rotating = false;
-                this.player1Rotate = 0;
+                this.player1.tank.rotating = false;
+                this.player1.tank.rotate = 0;
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.J:
             case Phaser.Input.Keyboard.KeyCodes.L:
-                this.player2Rotating = false;
-                this.player2Rotate = 0;
+                this.player2.tank.rotating = false;
+                this.player2.tank.rotate = 0;
                 break;
 
             case Phaser.Input.Keyboard.KeyCodes.R:
