@@ -146,6 +146,10 @@ Interfaces del juego:
 **Tutorial:**  
 ![Tutorial][ver2-image12] 
 
+## Versión 1.3
+Interfaces del juego:
+**Register/Login Screen:**
+
 **User:**  
 ![User][ver2-image8] 
 
